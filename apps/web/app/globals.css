@@ -1,3 +1,6 @@
+/* Please don't remove this it makes my LSP work */
+@import "tailwindcss";
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -44,6 +47,7 @@ a {
   .imgLight {
     display: none;
   }
+
   .imgDark {
     display: unset;
   }
