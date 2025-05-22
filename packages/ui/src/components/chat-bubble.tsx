@@ -2,6 +2,7 @@ import * as React from 'react';
 import { cn } from '@repo/ui/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Avatar, AvatarFallback, AvatarImage } from './avatar';
+import { Loader2 } from 'lucide-react';
 
 const chatBubbleVariants = cva('rounded-lg p-4 max-w-[80%] text-sm', {
   variants: {
@@ -21,6 +22,7 @@ interface ChatBubbleProps
   message: string;
   userImage?: string;
   userName?: string;
+  isLoading?: boolean;
 }
 
 export function ChatBubble({
@@ -29,6 +31,7 @@ export function ChatBubble({
   message,
   userImage,
   userName,
+  isLoading,
   ...props
 }: ChatBubbleProps) {
   return (
@@ -42,10 +45,15 @@ export function ChatBubble({
         </div>
       )}
       <div
-        className={cn(chatBubbleVariants({ variant }), 'order-1', className)}
+        className={cn(
+          chatBubbleVariants({ variant }),
+          'order-1 flex items-center gap-2',
+          className
+        )}
         {...props}
       >
         {message}
+        {isLoading && <Loader2 className="h-4 w-4 animate-spin opacity-70" />}
       </div>
     </div>
   );
