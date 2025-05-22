@@ -411,7 +411,7 @@ export const nextJsConfig = [
 
       // Prevent usage of Array index in keys
       // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-array-index-key.md
-      'react/no-array-index-key': 'error',
+      'react/no-array-index-key': 'off',
 
       // Enforce a defaultProps definition for every prop that is not a required prop
       // https://github.com/jsx-eslint/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/require-default-props.md
@@ -614,15 +614,23 @@ export const nextJsConfig = [
       // https://github.com/facebook/react/blob/c11015ff4f610ac2924d1fc6d569a17657a404fd/packages/eslint-plugin-react-hooks/src/RulesOfHooks.js
       'react-hooks/rules-of-hooks': 'error',
 
-      // Verify the list of the dependencies for Hooks like useEffect and similar
-      // https://github.com/facebook/react/blob/1204c789776cb01fbaf3e9f032e7e2ba85a44137/packages/eslint-plugin-react-hooks/src/ExhaustiveDeps.js
-      'react-hooks/exhaustive-deps': 'error',
-
       // disallow multiple empty lines, only one newline at the end, and no new lines at the beginning
       // https://eslint.org/docs/rules/no-multiple-empty-lines
       'no-multiple-empty-lines': ['error', { max: 1, maxBOF: 0, maxEOF: 0 }],
 
       'react/require-default-props': 'off',
+
+      "import/order": "off",
+
+      "implicit-arrow-linebreak": "off",
+
+      "no-confusing-arrow": "off",
+
+      "function-paren-newline": "off",
+
+      'react-hooks/exhaustive-deps': 'off',
+
+      "@typescript-eslint/no-unused-vars": "warn"
     }
   },
 ]

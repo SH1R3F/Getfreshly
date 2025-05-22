@@ -7,8 +7,8 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@repo/ui/components/breadcrumb';
-import { useAppSelector } from '@/redux/hooks';
 import React from 'react';
+import { useAppSelector } from '@/redux/hooks';
 
 export function Breadcrumbs() {
   const breadcrumbs = useAppSelector((state) => state.config.breadcrumbs);

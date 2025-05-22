@@ -1,16 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+
+import { ChevronDownIcon, SendIcon } from 'lucide-react';
+
 import { Button } from '@repo/ui/components/button';
 import {
+  DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '@repo/ui/components/dropdown-menu';
-import { DropdownMenuTrigger } from '@repo/ui/components/dropdown-menu';
-import { DropdownMenu } from '@repo/ui/components/dropdown-menu';
-import { ChevronDownIcon, SendIcon } from 'lucide-react';
 
 interface ChatInputProps {
   onSendMessage: (message: string) => Promise<void>;
@@ -72,7 +74,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
         className="w-full h-24 resize-none outline-0 p-4"
         placeholder="Type your message here..."
         disabled={isSubmitting}
-      ></textarea>
+      />
       <div className="absolute bottom-0 right-0 p-4 flex gap-2 items-center">
         <ModelSelector isDisabled={isSubmitting} />
         <Button

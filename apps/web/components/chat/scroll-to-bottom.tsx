@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-export function ScrollToBottom({ deps = [] }: { deps?: any[] }) {
+export function ScrollToBottom<T>({ deps = [] }: { deps?: readonly T[] }) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

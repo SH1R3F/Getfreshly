@@ -1,7 +1,7 @@
-import { BreadcrumbsConsumer } from '@/consumers/breadcrumbsConsumer';
-import { Breadcrumb } from '@/types/breadcrumbs';
 import { currentUser as clerkCurrentUser } from '@clerk/nextjs/server';
 import ChatContainer from '@/components/chat/ChatContainer';
+import { BreadcrumbsConsumer } from '@/consumers/breadcrumbsConsumer';
+import { Breadcrumb } from '@/types/breadcrumbs';
 
 const breadCrumbs: Breadcrumb[] = [
   {

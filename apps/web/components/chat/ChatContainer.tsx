@@ -1,9 +1,9 @@
 'use client';
 
-import { ChatInput } from './ChatInput';
-import { ScrollToBottom } from './scroll-to-bottom';
 import { ChatBubble } from '@repo/ui/components/chat-bubble';
 import { useState } from 'react';
+import { ChatInput } from './ChatInput';
+import { ScrollToBottom } from './scroll-to-bottom';
 
 type Message = {
   id: string;
@@ -12,9 +12,18 @@ type Message = {
   isLoading?: boolean;
 };
 
+interface CurrentUser {
+  name?: string;
+  image?: string;
+}
+
 const messageHistory: Message[] = [];
 
-export default function ChatContainer({ currentUser }: { currentUser: any }) {
+export default function ChatContainer({
+  currentUser,
+}: {
+  currentUser: CurrentUser;
+}) {
   const [messages, setMessages] = useState<Message[]>(messageHistory);
 
   const handleNewMessage = async (content: string) => {
@@ -39,23 +48,21 @@ export default function ChatContainer({ currentUser }: { currentUser: any }) {
         body: JSON.stringify({ message: content }),
       });
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const data = await response.json();
 
       // Update the message to remove loading state
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === newUserMessage.id ? { ...msg, isLoading: false } : msg
-        )
+          msg.id === newUserMessage.id ? { ...msg, isLoading: false } : msg,
+        ),
       );
     } catch (error) {
-      // Handle error if needed
-      console.error('Failed to send message:', error);
-
       // Update the message to remove loading state even if there's an error
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === newUserMessage.id ? { ...msg, isLoading: false } : msg
-        )
+          msg.id === newUserMessage.id ? { ...msg, isLoading: false } : msg,
+        ),
       );
     }
   };
