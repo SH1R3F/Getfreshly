@@ -146,7 +146,7 @@ const messages: Message[] = [
 export function ModelSelector() {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex w-fit items-center justify-between gap-2 rounded-md bg-transparent px-3 py-1 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50">
+      <DropdownMenuTrigger className="flex w-fit items-center border justify-between gap-2 rounded-md bg-background px-3 py-1 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50">
         <span>Ad account: Mahmoud Shiref</span>
         <ChevronDownIcon className="size-4 opacity-50" />
       </DropdownMenuTrigger>
