@@ -13,6 +13,7 @@ import {
 import { ChevronDownIcon } from 'lucide-react';
 import { ChatBubble } from '@repo/ui/components/chat-bubble';
 import { currentUser as clerkCurrentUser } from '@clerk/nextjs/server';
+import { ScrollToBottom } from '@/components/chat/scroll-to-bottom';
 
 const breadCrumbs: Breadcrumb[] = [
   {
@@ -164,8 +165,8 @@ export function ModelSelector() {
 export default async function Page() {
   const user = await clerkCurrentUser();
   const currentUser = {
-    name: user?.firstName ?? '',
-    image: user?.imageUrl ?? '',
+    name: user?.firstName ?? undefined,
+    image: user?.imageUrl ?? undefined,
   };
 
   return (
@@ -183,6 +184,7 @@ export default async function Page() {
             }
           />
         ))}
+        <ScrollToBottom />
       </div>
       <div className="absolute inset-x-0 bottom-0 border-t overflow-hidden rounded-b-lg bg-background">
         <textarea
@@ -193,7 +195,6 @@ export default async function Page() {
         ></textarea>
         <div className="absolute bottom-0 right-0 p-4 flex gap-2 items-center">
           <ModelSelector />
-
           <Button variant="outline" size="sm">
             <SendIcon />
           </Button>
