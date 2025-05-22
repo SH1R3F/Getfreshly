@@ -20,11 +20,11 @@ export function Breadcrumbs() {
         {breadcrumbs.map((crumb, index) => (
           <>
             <BreadcrumbItem className="hidden md:block">
-              <BreadcrumbLink href={crumb.link}>
-                {crumb.label}
-              </BreadcrumbLink>
+              <BreadcrumbLink href={crumb.link}>{crumb.label}</BreadcrumbLink>
             </BreadcrumbItem>
-            {index + 1 < breadcrumbs.length && <BreadcrumbSeparator className="hidden md:block" /> }
+            {index + 1 < breadcrumbs.length && (
+              <BreadcrumbSeparator className="hidden md:block" />
+            )}
           </>
         ))}
       </BreadcrumbList>

@@ -1,7 +1,7 @@
-import { Button } from "@repo/ui/components/button";
-import Image from "next/image";
-import Link from "next/link";
-import NotFoundImage from "@/assets/not-found.jpg";
+import { Button } from '@repo/ui/components/button';
+import Image from 'next/image';
+import Link from 'next/link';
+import NotFoundImage from '@/assets/not-found.jpg';
 
 export default function NotFound() {
   return (

@@ -22,9 +22,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@repo/ui/components/sheet';
-import {
-  Menu,
-} from 'lucide-react';
+import { Menu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '@/assets/logo.png';
@@ -46,8 +44,7 @@ const navBarData = {
     title: 'Template',
     src: Logo.src,
   },
-  menu: [
-  ],
+  menu: [],
 };
 
 function SubMenuLink({ item }: { item: MenuItem }) {
@@ -133,7 +130,13 @@ export function Navbar() {
           <div className="flex items-center gap-6">
             {/* Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
-              <Image width={80} height={80} src={logo.src} className="max-h-12 object-cover" alt={logo.alt} />
+              <Image
+                width={80}
+                height={80}
+                src={logo.src}
+                className="max-h-12 object-cover"
+                alt={logo.alt}
+              />
             </Link>
             <div className="flex items-center">
               <NavigationMenu>
@@ -154,7 +157,13 @@ export function Navbar() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
-              <Image width={48} height={48} src={logo.src} className="max-h-12" alt={logo.alt} />
+              <Image
+                width={48}
+                height={48}
+                src={logo.src}
+                className="max-h-12"
+                alt={logo.alt}
+              />
             </Link>
             <Sheet>
               <SheetTrigger asChild>

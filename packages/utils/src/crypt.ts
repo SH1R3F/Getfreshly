@@ -10,8 +10,8 @@ export function hashString(
   word: string = '',
   hashCode: string = DEFAULT_HASH_CODE,
   digest: BinaryToTextEncoding = DEFAULT_DIGEST,
-  shouldHashEmptyWord = false,
-) :string {
+  shouldHashEmptyWord = false
+): string {
   if (!word && !shouldHashEmptyWord) {
     return '';
   }

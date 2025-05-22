@@ -5,9 +5,10 @@ export const store = configureStore({
   reducer: {
     config: configReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

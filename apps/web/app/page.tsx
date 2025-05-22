@@ -1,7 +1,4 @@
-import { Button } from "@repo/ui/components/button";
-import { ArrowDown } from "lucide-react";
-import Link from "next/link";
-import Hero from "@/assets/hero.png";
+import Hero from '@/assets/hero.png';
 
 export default function Home() {
   return (

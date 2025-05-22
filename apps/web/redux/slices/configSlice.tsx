@@ -34,10 +34,7 @@ export const configSlice = createSlice({
   },
 });
 
-export const {
-  setApplicationName,
-  setBreadcrumbs,
-  clearBreadcrumbs,
-} = configSlice.actions;
+export const { setApplicationName, setBreadcrumbs, clearBreadcrumbs } =
+  configSlice.actions;
 
 export default configSlice.reducer;

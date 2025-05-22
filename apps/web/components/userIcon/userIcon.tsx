@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { Button } from "@repo/ui/components/button";
-import { LayoutDashboard } from "lucide-react";
-import Link from "next/link";
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { Button } from '@repo/ui/components/button';
+import { LayoutDashboard } from 'lucide-react';
+import Link from 'next/link';
 
 export function UserIcon() {
   return (

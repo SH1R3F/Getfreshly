@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 
 type ReduxProviderType = {
-  children: ReactNode
+  children: ReactNode;
 };
 
 function ReduxProvider({ children }: ReduxProviderType) {

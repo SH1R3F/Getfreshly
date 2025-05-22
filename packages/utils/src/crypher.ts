@@ -5,7 +5,8 @@ const HEX = 'hex';
 const UTF8 = 'utf8';
 
 export function encryptData(input: string): string {
-  const { CRYPTO_SECRET_KEY, CRYPTO_SECRET_IV, CRYPTO_ECNRYPTION_METHOD } = process.env;
+  const { CRYPTO_SECRET_KEY, CRYPTO_SECRET_IV, CRYPTO_ECNRYPTION_METHOD } =
+    process.env;
 
   if (!(CRYPTO_SECRET_KEY && CRYPTO_SECRET_IV && CRYPTO_ECNRYPTION_METHOD)) {
     throw new Error('CRYPT KEYS are not defined');
@@ -25,7 +26,8 @@ export function encryptData(input: string): string {
 }
 
 export function decrytpData(input: string): string {
-  const { CRYPTO_SECRET_KEY, CRYPTO_SECRET_IV, CRYPTO_ECNRYPTION_METHOD } = process.env;
+  const { CRYPTO_SECRET_KEY, CRYPTO_SECRET_IV, CRYPTO_ECNRYPTION_METHOD } =
+    process.env;
 
   if (!(CRYPTO_SECRET_KEY && CRYPTO_SECRET_IV && CRYPTO_ECNRYPTION_METHOD)) {
     throw new Error('CRYPT KEYS are not defined');
@@ -45,7 +47,8 @@ export function decrytpData(input: string): string {
 }
 
 export function isUUID(uuid: string): boolean {
-  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  const uuidRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   return uuidRegex.test(uuid);
 }
 

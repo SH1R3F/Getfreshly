@@ -2,7 +2,7 @@
 export function runWithoutConsoleLog(fn: Function) {
   const originalConsoleLog = console.log;
 
-  console.log = () => { };
+  console.log = () => {};
 
   try {
     return fn();

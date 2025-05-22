@@ -38,14 +38,14 @@ import {
 } from './table';
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[],
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
   filter?: {
-    filterMessage: string,
-    filterColumn: string
-  },
-  hideColumnSwitch?: boolean,
-  onRowClick?: (row: Row<TData>) => void
+    filterMessage: string;
+    filterColumn: string;
+  };
+  hideColumnSwitch?: boolean;
+  onRowClick?: (row: Row<TData>) => void;
 }
 
 export function DataTable<TData, TValue>({
@@ -103,12 +103,17 @@ export function DataTable<TData, TValue>({
     return (
       <Input
         placeholder={filter.filterMessage}
-        value={(table.getColumn(filter.filterColumn)?.getFilterValue() as string) ?? ''}
-        onChange={(event) => table.getColumn(filter.filterColumn)
-          ?.setFilterValue(event.target.value)}
+        value={
+          (table.getColumn(filter.filterColumn)?.getFilterValue() as string) ??
+          ''
+        }
+        onChange={(event) =>
+          table
+            .getColumn(filter.filterColumn)
+            ?.setFilterValue(event.target.value)
+        }
         className="max-w-sm mb-4"
       />
-
     );
   };
 
@@ -120,16 +125,18 @@ export function DataTable<TData, TValue>({
     return (
       <DropdownMenu>
         <DropdownMenuTrigger className="mb-4" asChild>
-          <Button variant="secondary" type="button" className="h-auto min-h-[2.25rem] ml-auto">
+          <Button
+            variant="secondary"
+            type="button"
+            className="h-auto min-h-[2.25rem] ml-auto"
+          >
             Columns
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           {table
             .getAllColumns()
-            .filter(
-              (column: any) => column.getCanHide(),
-            )
+            .filter((column: any) => column.getCanHide())
             .map((column: any) => (
               <DropdownMenuCheckboxItem
                 key={column.id}
@@ -160,9 +167,9 @@ export function DataTable<TData, TValue>({
                   {header.isPlaceholder
                     ? null
                     : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                 </TableHead>
               ))}
             </TableRow>
@@ -175,7 +182,7 @@ export function DataTable<TData, TValue>({
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
                 onClick={() => onRowClick?.(row)}
-                className={onRowClick ? "cursor-pointer hover:bg-muted/50" : ""}
+                className={onRowClick ? 'cursor-pointer hover:bg-muted/50' : ''}
               >
                 {row.getVisibleCells().map((cell: any) => (
                   <TableCell key={cell.id}>
