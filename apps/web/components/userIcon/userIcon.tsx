@@ -1,23 +1,19 @@
-'use client';
+"use client";
 
-import {
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs';
-import { Button } from '@repo/ui/components/button';
-import { LayoutDashboard } from 'lucide-react';
-import Link from 'next/link';
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { Button } from "@repo/ui/components/button";
+import { LayoutDashboard } from "lucide-react";
+import Link from "next/link";
 
 export function UserIcon() {
   return (
-    <div className="h-8 pt-[2px]">
+    <div className="h-8 pt-[2px] flex items-center">
       <SignedIn>
         <UserButton>
           <UserButton.MenuItems>
             <UserButton.Link
               label="Projects"
-              labelIcon={(<LayoutDashboard size="16" className="stroke-2" />)}
+              labelIcon={<LayoutDashboard size="16" className="stroke-2" />}
               href="/projects"
             />
           </UserButton.MenuItems>
