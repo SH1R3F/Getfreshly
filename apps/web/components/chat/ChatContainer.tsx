@@ -1,7 +1,7 @@
 'use client';
 
 import { ChatBubble } from '@repo/ui/components/chat-bubble';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ChatInput } from './ChatInput';
 import { ScrollToBottom } from './scroll-to-bottom';
 
@@ -20,14 +20,34 @@ interface CurrentUser {
   image?: string;
 }
 
-const messageHistory: Message[] = [];
-
 export default function ChatContainer({
   currentUser,
 }: {
   currentUser: CurrentUser;
 }) {
-  const [messages, setMessages] = useState<Message[]>(messageHistory);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch('/api/chat');
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to fetch messages');
+        }
+
+        setMessages(data.messages);
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchMessages();
+  }, []);
 
   const handleNewMessage = async (content: string) => {
     // Add the user message with loading state
@@ -66,7 +86,7 @@ export default function ChatContainer({
         ),
       );
     } catch (error) {
-      // Handle error if needed
+      console.error('Error sending message:', error);
       // Update the message to show error state
       setMessages((prev) =>
         prev.map((msg) =>
@@ -81,6 +101,14 @@ export default function ChatContainer({
       );
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   return (
     <>
