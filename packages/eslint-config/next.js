@@ -630,7 +630,9 @@ export const nextJsConfig = [
 
       'react-hooks/exhaustive-deps': 'off',
 
-      "@typescript-eslint/no-unused-vars": "warn"
+      "@typescript-eslint/no-unused-vars": "warn",
+
+      "@stylistic/js/indent": "warn"
     }
   },
 ]

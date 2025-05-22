@@ -10,6 +10,9 @@ type Message = {
   content: string;
   variant: 'user' | 'assistant';
   isLoading?: boolean;
+  userId?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 interface CurrentUser {
@@ -28,7 +31,7 @@ export default function ChatContainer({
 
   const handleNewMessage = async (content: string) => {
     // Add the user message with loading state
-    const newUserMessage: Message = {
+    const tempMessage: Message = {
       id: Date.now().toString(),
       content,
       variant: 'user',
@@ -36,7 +39,7 @@ export default function ChatContainer({
     };
 
     // Add message immediately
-    setMessages((prev) => [...prev, newUserMessage]);
+    setMessages((prev) => [...prev, tempMessage]);
 
     try {
       // Make API call after showing the message
@@ -48,20 +51,32 @@ export default function ChatContainer({
         body: JSON.stringify({ message: content }),
       });
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const data = await response.json();
 
-      // Update the message to remove loading state
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      // Update the message with the saved version from the database
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === newUserMessage.id ? { ...msg, isLoading: false } : msg,
+          msg.id === tempMessage.id
+            ? { ...data.message, isLoading: false }
+            : msg,
         ),
       );
     } catch (error) {
-      // Update the message to remove loading state even if there's an error
+      // Handle error if needed
+      // Update the message to show error state
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === newUserMessage.id ? { ...msg, isLoading: false } : msg,
+          msg.id === tempMessage.id
+            ? {
+                ...msg,
+                isLoading: false,
+                content: `${msg.content} (Failed to send)`,
+              }
+            : msg,
         ),
       );
     }
