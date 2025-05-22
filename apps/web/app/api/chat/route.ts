@@ -1,6 +1,7 @@
 import { currentUser } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 import { prisma } from '@repo/database';
+import { claudeService } from '@/services/claude';
 
 export async function POST(request: Request) {
   try {
@@ -12,7 +13,7 @@ export async function POST(request: Request) {
     const { message } = await request.json();
 
     // Save the user's message
-    const savedMessage = await prisma.message.create({
+    const savedUserMessage = await prisma.message.create({
       data: {
         content: message,
         userId: user.id,
@@ -20,9 +21,26 @@ export async function POST(request: Request) {
       },
     });
 
+    const savedAssistantMessages = [];
+
+    // Get Claude's response
+    const claudeResponses = await claudeService.sendMessage(message);
+
+    // Save Claude's responses
+    for (const claudeResponse of claudeResponses) {
+      const savedAssistantMessage = await prisma.message.create({
+        data: {
+          content: claudeResponse,
+          userId: user.id,
+          variant: 'assistant',
+        },
+      });
+      savedAssistantMessages.push(savedAssistantMessage);
+    }
+
     return NextResponse.json({
       success: true,
-      message: savedMessage,
+      messages: [savedUserMessage, ...savedAssistantMessages],
     });
   } catch (error) {
     console.error('Error in chat API:', error);
