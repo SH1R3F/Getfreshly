@@ -23,27 +23,9 @@ const data = {
       url: '#',
       items: [
         {
-          title: 'Dashboard',
+          title: 'Chat',
           url: '/',
           isActive: true,
-        },
-      ],
-    },
-    {
-      title: 'Workspace',
-      url: '#',
-      items: [
-        {
-          title: 'Settings',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Admin',
-          url: '#',
         },
       ],
     },

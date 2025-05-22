@@ -12,9 +12,9 @@ export function UserIcon() {
         <UserButton>
           <UserButton.MenuItems>
             <UserButton.Link
-              label="Projects"
+              label="Chat"
               labelIcon={<LayoutDashboard size="16" className="stroke-2" />}
-              href="/projects"
+              href="/chat"
             />
           </UserButton.MenuItems>
         </UserButton>
