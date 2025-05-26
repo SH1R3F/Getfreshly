@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     const savedAssistantMessages = [];
 
     // Get Claude's response
-    const claudeResponses = await claudeService.sendMessage(message);
+    const claudeResponses = await claudeService.sendMessage(message, user.id);
 
     // Save Claude's responses
     for (const claudeResponse of claudeResponses) {

@@ -86,15 +86,18 @@ export default function ChatContainer({
 
       // Update both messages with the saved versions from the database
       setMessages((prev) =>
-        prev.map((msg) => {
-          if (msg.id === tempUserMessage.id) {
-            return { ...data.messages[0], isLoading: false };
-          }
-          if (msg.id === tempAssistantMessage.id) {
-            return { ...data.messages[1], isLoading: false };
-          }
-          return msg;
-        }),
+        prev
+          .filter(
+            (msg) =>
+              msg.id !== tempUserMessage.id &&
+              msg.id !== tempAssistantMessage.id,
+          )
+          .concat([
+            { ...data.messages[0], isLoading: false },
+            ...data.messages
+              .slice(1)
+              .map((msg: Message) => ({ ...msg, isLoading: false })),
+          ]),
       );
     } catch (error) {
       console.error('Error sending message:', error);
