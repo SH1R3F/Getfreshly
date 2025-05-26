@@ -88,6 +88,7 @@ export async function sendMessageToClaude(content: string, userId: string) {
       content: response.content,
     });
 
+    // TODO: Handle nested stop reason
     // Handle each tool use
     for (const message of response.content) {
       if (message.type === 'text') {
