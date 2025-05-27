@@ -48,11 +48,18 @@ export function ChatBubble({
         className={cn(
           chatBubbleVariants({ variant }),
           'order-1 flex items-center gap-2',
-          className
+          className,
         )}
         {...props}
       >
-        {message}
+        <div className="whitespace-pre-wrap">
+          {message.split('\n').map((line, i) => (
+            <React.Fragment key={i}>
+              {line}
+              {i < message.split('\n').length - 1 && <br />}
+            </React.Fragment>
+          ))}
+        </div>
         {isLoading && <Loader2 className="h-4 w-4 animate-spin opacity-70" />}
       </div>
     </div>
