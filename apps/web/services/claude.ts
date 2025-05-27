@@ -55,7 +55,3 @@ export default async function* sendMessageToClaude(
     }
   }
 }
-
-export const claudeService = {
-  sendMessage: sendMessageToClaude,
-};

@@ -20,10 +20,18 @@ interface CurrentUser {
   image?: string;
 }
 
+interface FacebookAdAccount {
+  id: string;
+  accountId: string;
+  name: string;
+}
+
 export default function ChatContainer({
   currentUser,
+  adAccounts,
 }: {
   currentUser: CurrentUser;
+  adAccounts: FacebookAdAccount[];
 }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -195,7 +203,7 @@ export default function ChatContainer({
         <ScrollToBottom deps={[messages]} />
       </div>
       <div className="absolute inset-x-0 bottom-0 border-t overflow-hidden rounded-b-lg bg-background">
-        <ChatInput onSendMessage={handleNewMessage} />
+        <ChatInput onSendMessage={handleNewMessage} adAccounts={adAccounts} />
       </div>
     </>
   );

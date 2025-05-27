@@ -130,6 +130,23 @@ exports.Prisma.MessageScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.FacebookAuthScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  accessToken: 'accessToken',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FacebookAdAccountScalarFieldEnum = {
+  id: 'id',
+  accountId: 'accountId',
+  name: 'name',
+  authId: 'authId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -142,7 +159,9 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  Message: 'Message'
+  Message: 'Message',
+  FacebookAuth: 'FacebookAuth',
+  FacebookAdAccount: 'FacebookAdAccount'
 };
 
 /**
