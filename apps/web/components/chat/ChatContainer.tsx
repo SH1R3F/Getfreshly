@@ -50,26 +50,17 @@ export default function ChatContainer({
   }, []);
 
   const handleNewMessage = async (content: string) => {
-    // Add the user message with loading state
+    // Add the user message
     const tempUserMessage: Message = {
       id: `temp-${Date.now()}`,
       content,
       variant: 'user',
-      isLoading: true,
     };
 
-    const tempAssistantMessage: Message = {
-      id: `temp-assistant-${Date.now()}`,
-      content: '...',
-      variant: 'assistant',
-      isLoading: true,
-    };
-
-    // Add both messages immediately
-    setMessages((prev) => [...prev, tempUserMessage, tempAssistantMessage]);
+    setMessages((prev) => [...prev, tempUserMessage]);
 
     try {
-      // Make API call after showing the message
+      // Make API call
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
@@ -78,48 +69,101 @@ export default function ChatContainer({
         body: JSON.stringify({ message: content }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to send message');
+        throw new Error('Failed to send message');
       }
 
-      // Update both messages with the saved versions from the database
-      setMessages((prev) =>
-        prev
-          .filter(
-            (msg) =>
-              msg.id !== tempUserMessage.id &&
-              msg.id !== tempAssistantMessage.id,
-          )
-          .concat([
-            { ...data.messages[0], isLoading: false },
-            ...data.messages
-              .slice(1)
-              .map((msg: Message) => ({ ...msg, isLoading: false })),
-          ]),
-      );
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error('No reader available');
+
+      // Create a text decoder
+      const decoder = new TextDecoder();
+
+      // Read the stream
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        // Decode the chunk and split into SSE messages
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = line.slice(6);
+            if (data === '[DONE]') break;
+
+            try {
+              const { chunk: textChunk, messageId } = JSON.parse(data) as {
+                chunk: string;
+                messageId: string;
+              };
+
+              setMessages((prev) => {
+                const messageIndex = prev.findIndex(
+                  (msg) => msg.id === messageId,
+                );
+                if (messageIndex === -1) {
+                  // Add new assistant message if it doesn't exist
+                  const newMessage: Message = {
+                    id: messageId,
+                    content: textChunk,
+                    variant: 'assistant',
+                    isLoading: true,
+                  };
+                  return [...prev, newMessage];
+                }
+
+                // Update existing message
+                const newMessages = [...prev];
+                const existingMessage = newMessages[messageIndex];
+                if (!existingMessage) return prev;
+
+                newMessages[messageIndex] = {
+                  ...existingMessage,
+                  content: existingMessage.content + textChunk,
+                };
+                return newMessages;
+              });
+            } catch (e) {
+              console.error('Error parsing SSE message:', e);
+            }
+          }
+        }
+      }
+
+      // Update the final message state to not loading
+      setMessages((prev) => {
+        const lastMessage = prev[prev.length - 1];
+        if (lastMessage?.variant === 'assistant') {
+          const newMessages = [...prev];
+          newMessages[prev.length - 1] = {
+            ...lastMessage,
+            isLoading: false,
+          };
+          return newMessages;
+        }
+        return prev;
+      });
     } catch (error) {
       console.error('Error sending message:', error);
-      // Update both messages to show error state
-      setMessages((prev) =>
-        prev.map((msg) => {
-          if (
-            msg.id === tempUserMessage.id ||
-            msg.id === tempAssistantMessage.id
-          ) {
-            return {
-              ...msg,
-              isLoading: false,
-              content:
-                msg.variant === 'user'
-                  ? `${msg.content} (Failed to send)`
-                  : 'Failed to get response',
-            };
-          }
-          return msg;
-        }),
-      );
+      // Update message to show error state
+      setMessages((prev) => {
+        const lastMessage = prev[prev.length - 1];
+        if (!lastMessage) return prev;
+
+        return [
+          ...prev.slice(0, -1),
+          {
+            ...lastMessage,
+            content:
+              lastMessage.variant === 'user'
+                ? `${lastMessage.content} (Failed to send)`
+                : 'Failed to get response',
+            isLoading: false,
+          },
+        ];
+      });
     }
   };
 

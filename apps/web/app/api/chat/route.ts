@@ -1,5 +1,4 @@
 import { currentUser } from '@clerk/nextjs/server';
-import { NextResponse } from 'next/server';
 import { prisma } from '@repo/database';
 import { claudeService } from '@/services/claude';
 
@@ -7,13 +6,13 @@ export async function POST(request: Request) {
   try {
     const user = await currentUser();
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return new Response('Unauthorized', { status: 401 });
     }
 
     const { message } = await request.json();
 
     // Save the user's message
-    const savedUserMessage = await prisma.message.create({
+    await prisma.message.create({
       data: {
         content: message,
         userId: user.id,
@@ -21,32 +20,66 @@ export async function POST(request: Request) {
       },
     });
 
-    // Get Claude's response
-    const claudeResponses = await claudeService.sendMessage(message, user.id);
+    // Create a new message for the assistant's response
+    const assistantMessage = await prisma.message.create({
+      data: {
+        content: '',
+        userId: user.id,
+        variant: 'assistant',
+        isLoading: true,
+      },
+    });
 
-    // Save Claude's responses
-    const savedAssistantMessages = await Promise.all(
-      claudeResponses.map((claudeResponse) =>
-        prisma.message.create({
+    // Create a new TransformStream for streaming the response
+    const stream = new TransformStream();
+    const writer = stream.writable.getWriter();
+    const encoder = new TextEncoder();
+
+    // Start streaming Claude's response in the background
+    (async () => {
+      try {
+        let fullResponse = '';
+        for await (const chunk of claudeService.sendMessage(message, user.id)) {
+          fullResponse += chunk;
+          await writer.write(
+            encoder.encode(
+              `data: ${JSON.stringify({ chunk, messageId: assistantMessage.id })}\n\n`,
+            ),
+          );
+        }
+
+        // Update the assistant message with the complete response
+        await prisma.message.update({
+          where: { id: assistantMessage.id },
           data: {
-            content: claudeResponse,
-            userId: user.id,
-            variant: 'assistant',
+            content: fullResponse,
+            isLoading: false,
           },
-        }),
-      ),
-    );
+        });
 
-    return NextResponse.json({
-      success: true,
-      messages: [savedUserMessage, ...savedAssistantMessages],
+        await writer.write(encoder.encode('data: [DONE]\n\n'));
+      } catch (error) {
+        console.error('Error in streaming response:', error);
+        await writer.write(
+          encoder.encode(
+            `data: ${JSON.stringify({ error: 'Error processing response' })}\n\n`,
+          ),
+        );
+      } finally {
+        await writer.close();
+      }
+    })();
+
+    return new Response(stream.readable, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        Connection: 'keep-alive',
+      },
     });
   } catch (error) {
     console.error('Error in chat API:', error);
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 },
-    );
+    return new Response('Internal Server Error', { status: 500 });
   }
 }
 
@@ -54,7 +87,7 @@ export async function GET() {
   try {
     const user = await currentUser();
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return new Response('Unauthorized', { status: 401 });
     }
 
     // Fetch messages for the current user
@@ -67,15 +100,12 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json({
+    return Response.json({
       success: true,
       messages,
     });
   } catch (error) {
     console.error('Error fetching messages:', error);
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 },
-    );
+    return new Response('Internal Server Error', { status: 500 });
   }
 }
