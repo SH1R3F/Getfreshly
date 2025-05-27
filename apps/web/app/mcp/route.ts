@@ -1,3 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
+/* eslint-disable operator-linebreak */
+/* eslint-disable object-curly-newline */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable turbo/no-undeclared-env-vars */
+
 import { createMcpHandler } from '@vercel/mcp-adapter';
 import { z } from 'zod';
 

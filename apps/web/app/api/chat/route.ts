@@ -21,22 +21,21 @@ export async function POST(request: Request) {
       },
     });
 
-    const savedAssistantMessages = [];
-
     // Get Claude's response
     const claudeResponses = await claudeService.sendMessage(message, user.id);
 
     // Save Claude's responses
-    for (const claudeResponse of claudeResponses) {
-      const savedAssistantMessage = await prisma.message.create({
-        data: {
-          content: claudeResponse,
-          userId: user.id,
-          variant: 'assistant',
-        },
-      });
-      savedAssistantMessages.push(savedAssistantMessage);
-    }
+    const savedAssistantMessages = await Promise.all(
+      claudeResponses.map((claudeResponse) =>
+        prisma.message.create({
+          data: {
+            content: claudeResponse,
+            userId: user.id,
+            variant: 'assistant',
+          },
+        }),
+      ),
+    );
 
     return NextResponse.json({
       success: true,

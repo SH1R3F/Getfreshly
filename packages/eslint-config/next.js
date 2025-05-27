@@ -632,7 +632,9 @@ export const nextJsConfig = [
 
       "@typescript-eslint/no-unused-vars": "warn",
 
-      "@stylistic/js/indent": "warn"
+      "@stylistic/js/indent": "warn",
+
+      "operator-linebreak": "off",
     }
   },
 ]

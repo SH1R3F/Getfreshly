@@ -128,7 +128,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/Mahmoud/Projects/my-turborepo/packages/database/generated/prisma",
+      "value": "/Users/Mahmoud/Projects/getfreshly/packages/database/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -142,7 +142,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/Mahmoud/Projects/my-turborepo/packages/database/prisma/schema.prisma",
+    "sourceFilePath": "/Users/Mahmoud/Projects/getfreshly/packages/database/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
