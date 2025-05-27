@@ -4,14 +4,6 @@ import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 import { prisma } from '@repo/database';
 
-if (!process.env.CLAUDE_API_KEY) {
-  throw new Error('CLAUDE_API_KEY is not set');
-}
-
-// Initialize Anthropic client
-const anthropic = new Anthropic({
-  apiKey: process.env.CLAUDE_API_KEY,
-});
 const client = new Client({
   name: 'example-client',
   version: '1.0.0',
@@ -36,6 +28,15 @@ export default async function* sendMessageToClaude(
   //   role: msg.variant,
   //   content: msg.content,
   // })) as MessageParam[];
+
+  if (!process.env.CLAUDE_API_KEY) {
+    throw new Error('CLAUDE_API_KEY is not set');
+  }
+
+  // Initialize Anthropic client
+  const anthropic = new Anthropic({
+    apiKey: process.env.CLAUDE_API_KEY,
+  });
 
   // Get streaming response from Claude
   const stream = await anthropic.messages.create({
