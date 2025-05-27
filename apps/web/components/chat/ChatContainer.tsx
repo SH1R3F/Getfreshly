@@ -81,6 +81,7 @@ export default function ChatContainer({
 
       // Read the stream
       while (true) {
+        // eslint-disable-next-line no-await-in-loop
         const { done, value } = await reader.read();
         if (done) break;
 
@@ -88,6 +89,7 @@ export default function ChatContainer({
         const chunk = decoder.decode(value);
         const lines = chunk.split('\n');
 
+        // eslint-disable-next-line no-restricted-syntax
         for (const line of lines) {
           if (line.startsWith('data: ')) {
             const data = line.slice(6);

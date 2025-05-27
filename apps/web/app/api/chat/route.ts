@@ -39,8 +39,10 @@ export async function POST(request: Request) {
     (async () => {
       try {
         let fullResponse = '';
+        // eslint-disable-next-line no-restricted-syntax
         for await (const chunk of sendMessageToClaude(message, user.id)) {
           fullResponse += chunk;
+          // eslint-disable-next-line no-await-in-loop
           await writer.write(
             encoder.encode(
               `data: ${JSON.stringify({ chunk, messageId: assistantMessage.id })}\n\n`,
