@@ -17,7 +17,10 @@ const client = new Client({
   version: '1.0.0',
 });
 
-export async function* sendMessageToClaude(content: string, userId: string) {
+export default async function* sendMessageToClaude(
+  content: string,
+  userId: string,
+) {
   const messages = [
     {
       role: 'user',

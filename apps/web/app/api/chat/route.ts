@@ -1,6 +1,6 @@
 import { currentUser } from '@clerk/nextjs/server';
 import { prisma } from '@repo/database';
-import { claudeService } from '@/services/claude';
+import sendMessageToClaude from '@/services/claude';
 
 export async function POST(request: Request) {
   try {
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     (async () => {
       try {
         let fullResponse = '';
-        for await (const chunk of claudeService.sendMessage(message, user.id)) {
+        for await (const chunk of sendMessageToClaude(message, user.id)) {
           fullResponse += chunk;
           await writer.write(
             encoder.encode(
