@@ -1,6 +1,6 @@
 export default function getFacebookOAuthUrl(): string {
   const params = new URLSearchParams({
-    client_id: process.env.FACEBOOK_APP_ID!,
+    client_id: process.env.NEXT_PUBLIC_FACEBOOK_APP_ID!,
     redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/facebook/callback`,
     scope: 'ads_management,ads_read,read_insights',
   });

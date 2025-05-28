@@ -17,7 +17,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const appId = process.env.FACEBOOK_APP_ID;
+    const appId = process.env.NEXT_PUBLIC_FACEBOOK_APP_ID;
     const appSecret = process.env.FACEBOOK_APP_SECRET;
     const redirectUri = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/facebook/callback`;
 
