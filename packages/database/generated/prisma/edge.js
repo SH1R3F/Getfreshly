@@ -174,6 +174,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -184,7 +185,7 @@ const config = {
   },
   "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Message {\n  id        String   @id @default(cuid())\n  content   String\n  userId    String\n  variant   String   @default(\"user\") // \"user\" | \"assistant\"\n  isLoading Boolean  @default(false)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([userId])\n}\n\nmodel FacebookAuth {\n  id          String              @id @default(cuid())\n  userId      String              @unique\n  accessToken String\n  createdAt   DateTime            @default(now())\n  updatedAt   DateTime            @updatedAt\n  adAccounts  FacebookAdAccount[]\n\n  @@index([userId])\n}\n\nmodel FacebookAdAccount {\n  id           String       @id @default(cuid())\n  accountId    String // The Facebook ad account ID (act_123456789)\n  name         String\n  facebookAuth FacebookAuth @relation(fields: [authId], references: [id], onDelete: Cascade)\n  authId       String\n  createdAt    DateTime     @default(now())\n  updatedAt    DateTime     @updatedAt\n\n  @@unique([accountId, authId])\n  @@index([authId])\n}\n",
   "inlineSchemaHash": "0582d8fafa31d999d0033cc12ccc7e9082cc1b3ca52436a677796944ed8494ec",
-  "copyEngine": false
+  "copyEngine": true
 }
 config.dirname = '/'
 
