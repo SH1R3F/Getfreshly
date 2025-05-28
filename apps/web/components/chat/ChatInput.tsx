@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@repo/ui/components/dropdown-menu';
 import getFacebookOAuthUrl from '@/services/meta';
+import { toast } from 'sonner';
 
 interface FacebookAdAccount {
   id: string;
@@ -32,6 +33,38 @@ interface ModelSelectorProps {
 export function ModelSelector({ isDisabled, adAccounts }: ModelSelectorProps) {
   const [selectedAccount, setSelectedAccount] =
     useState<FacebookAdAccount | null>(adAccounts[0] ?? null);
+
+  const handleDisconnectFacebook = async () => {
+    try {
+      // Remove Facebook auth data
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to disconnect Facebook account');
+      }
+
+      // Refresh the page to update the UI
+      window.location.reload();
+    } catch (error) {
+      toast.error('Failed to disconnect Facebook account. Please try again.');
+    }
+  };
+
+  if (adAccounts.length === 0) {
+    return (
+      <Button
+        variant="outline"
+        size="sm"
+        className="whitespace-nowrap"
+        asChild
+        disabled={isDisabled}
+      >
+        <a href={getFacebookOAuthUrl()}>Connect Facebook</a>
+      </Button>
+    );
+  }
 
   return (
     <DropdownMenu>
@@ -57,10 +90,9 @@ export function ModelSelector({ isDisabled, adAccounts }: ModelSelectorProps) {
             </DropdownMenuItem>
           ))}
         </DropdownMenuGroup>
-        {adAccounts.length !== 0 && <DropdownMenuSeparator />}
-
-        <DropdownMenuItem>
-          <a href={getFacebookOAuthUrl()}>Connect an account</a>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onSelect={handleDisconnectFacebook}>
+          Disconnect Facebook
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
