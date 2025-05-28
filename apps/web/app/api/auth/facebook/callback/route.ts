@@ -34,16 +34,12 @@ export async function GET(request: Request) {
       throw new Error(tokenData.error?.message || 'Failed to get access token');
     }
 
-    // 1. fetch ad accounts information, only care about name and account id
-    // 2. Store the access token with current user id, and ad accounts information in db
-
-    // 1. Exchange code for access token
     const accessToken = tokenData.access_token;
 
-    // 2. Fetch ad accounts information
+    // Fetch ad accounts information
     const adAccounts = await getAdAccounts(accessToken);
 
-    // 3. Store the access token and ad accounts in the database
+    // Store the access token and ad accounts in the database
     await prisma.facebookAuth.upsert({
       where: {
         userId: user.id,
