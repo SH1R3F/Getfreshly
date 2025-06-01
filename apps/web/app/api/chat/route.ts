@@ -1,6 +1,7 @@
 import { currentUser } from '@clerk/nextjs/server';
 import { prisma } from '@repo/database';
-import sendMessageToClaude from '@/services/claude';
+import chatWithClaude from '@/services/claude';
+import type { MessageParam } from '@anthropic-ai/sdk/resources/messages.mjs';
 
 export async function POST(request: Request) {
   try {
@@ -19,6 +20,23 @@ export async function POST(request: Request) {
         variant: 'user',
       },
     });
+
+    const chatHistory = (
+      await prisma.message.findMany({
+        where: {
+          userId: user.id,
+          content: { not: '' }, // Filter at DB level
+        },
+        orderBy: { createdAt: 'asc' },
+        select: {
+          variant: true,
+          content: true,
+        },
+      })
+    ).map((msg) => ({
+      role: msg.variant,
+      content: msg.content,
+    })) as MessageParam[];
 
     // Create a new message for the assistant's response
     const assistantMessage = await prisma.message.create({
@@ -40,7 +58,7 @@ export async function POST(request: Request) {
       try {
         let fullResponse = '';
         // eslint-disable-next-line no-restricted-syntax
-        for await (const chunk of sendMessageToClaude(message, user.id)) {
+        for await (const chunk of chatWithClaude(chatHistory)) {
           fullResponse += chunk;
           // eslint-disable-next-line no-await-in-loop
           await writer.write(
