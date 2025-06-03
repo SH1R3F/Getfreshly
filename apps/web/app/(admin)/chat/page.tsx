@@ -1,8 +1,8 @@
-import { currentUser as clerkCurrentUser } from '@clerk/nextjs/server';
 import ChatContainer from '@/components/chat/ChatContainer';
 import { BreadcrumbsConsumer } from '@/consumers/breadcrumbsConsumer';
 import { Breadcrumb } from '@/types/breadcrumbs';
-import { prisma } from '@repo/database';
+import { UserService } from '@/services/server/user.service';
+import { redirect } from 'next/navigation';
 
 const breadCrumbs: Breadcrumb[] = [
   {
@@ -12,29 +12,18 @@ const breadCrumbs: Breadcrumb[] = [
 ];
 
 export default async function Page() {
-  const user = await clerkCurrentUser();
-  const currentUser = {
-    name: user?.firstName ?? undefined,
-    image: user?.imageUrl ?? undefined,
-  };
+  const user = await UserService.getCurrentUser();
 
-  // Fetch Facebook ad accounts for the current user
-  const facebookAuth = user
-    ? await prisma.facebookAuth.findFirst({
-        where: { userId: user.id },
-        include: {
-          adAccounts: true,
-        },
-      })
-    : null;
+  if (!user) {
+    redirect('/sign-in');
+  }
+
+  const adAccounts = await UserService.getAdAccountsForUser(user.id);
 
   return (
     <div className="pb-6 h-[calc(100vh-156px)]">
       <BreadcrumbsConsumer breadcrumbs={breadCrumbs} />
-      <ChatContainer
-        currentUser={currentUser}
-        adAccounts={facebookAuth?.adAccounts ?? []}
-      />
+      <ChatContainer currentUser={user} adAccounts={adAccounts} />
     </div>
   );
 }

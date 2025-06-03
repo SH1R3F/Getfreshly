@@ -1,11 +1,6 @@
 import { ChatBubble } from '@repo/ui/components/chat-bubble';
 import { ScrollToBottom } from './scroll-to-bottom';
-import { Message, CurrentUser } from '@/types/chat';
-
-interface MessagesListProps {
-  messages: Message[];
-  currentUser: CurrentUser;
-}
+import { MessagesListProps } from '@/types/chat';
 
 export function MessagesList({ messages, currentUser }: MessagesListProps) {
   return (
@@ -13,7 +8,7 @@ export function MessagesList({ messages, currentUser }: MessagesListProps) {
       {messages.map((message) => (
         <ChatBubble
           key={message.id}
-          role={message.role}
+          variant={message.role}
           message={message.content}
           userName={message.role === 'user' ? currentUser.name : undefined}
           userImage={message.role === 'user' ? currentUser.image : undefined}

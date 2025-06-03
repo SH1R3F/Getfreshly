@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { Message } from '@/types/chat';
-import { ChatService } from '@/services/chat.service';
+import { ChatService } from '@/services/client/chat.service';
 import { MessageFactory } from '@/factories/message.factory';
 
 export function useMessages() {

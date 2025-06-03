@@ -6,10 +6,9 @@ import { ChatInput } from './ChatInput';
 import { LoadingSpinner } from './LoadingSpinner';
 import { MessagesList } from './MessagesList';
 import { useMessages } from '@/hooks/useMessages';
-import { ChatService } from '@/services/chat.service';
+import { ChatService } from '@/services/client/chat.service';
 import { MessageFactory } from '@/factories/message.factory';
-import { CurrentUser } from '@/types/chat';
-import { FacebookAdAccount } from '@repo/database';
+import { CurrentUser, FacebookAdAccount } from '@/types/chat';
 
 export default function ChatContainer({
   currentUser,

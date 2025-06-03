@@ -10,6 +10,11 @@ export type Message = {
   updatedAt?: Date;
 };
 
+export interface MessagesListProps {
+  messages: Message[];
+  currentUser: CurrentUser;
+}
+
 export interface CurrentUser {
   name?: string;
   image?: string;
