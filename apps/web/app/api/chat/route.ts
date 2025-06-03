@@ -5,27 +5,26 @@ import { MessageService } from '@/services/server/message.service';
 import { ChatValidator } from '@/validators/chat.validator';
 import { ChatService } from '@/services/server/chat.service';
 import { StreamingService } from '@/services/server/streaming.service';
+import { ChatCompletionMessageParam } from 'openai/resources/index.mjs';
 
 export async function POST(request: Request) {
   try {
     const userId = await UserService.requireAuth();
     const { message } = ChatValidator.validateMessage(await request.json());
 
-    // Process user message and create assistant placeholder
-    const assistantMessage = await ChatService.processUserMessage(
-      userId,
-      message,
-    );
+    const chatHistory = await MessageService.getUserChatHistory(userId);
+    const messages = [
+      ...chatHistory,
+      { role: 'user', content: message },
+    ] as ChatCompletionMessageParam[];
 
     // Set up streaming
     const { stream, writer } = StreamingService.createStream();
     const streamingService = new StreamingService(writer);
 
-    ChatService.streamChatResponse(
-      userId,
-      assistantMessage.id,
-      streamingService,
-    ).finally(() => streamingService.close());
+    ChatService.streamChatResponse(streamingService, messages, userId).finally(
+      () => streamingService.close(),
+    );
 
     return new Response(stream.readable, {
       headers: {

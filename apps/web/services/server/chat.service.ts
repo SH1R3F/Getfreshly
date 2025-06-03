@@ -1,3 +1,4 @@
+import { ChatCompletionMessageParam } from 'openai/resources/index.mjs';
 import { chatWithOpenAI } from './AI/openai.service';
 import { MessageService } from './message.service';
 import { StreamingService } from './streaming.service';
@@ -23,24 +24,28 @@ export class ChatService {
   }
 
   static async streamChatResponse(
-    userId: string,
-    messageId: string,
     streamingService: StreamingService,
+    messages: ChatCompletionMessageParam[],
+    userId: string,
   ): Promise<void> {
     try {
-      const chatHistory = await MessageService.getUserChatHistory(userId);
       let fullResponse = '';
 
       for await (const chunk of chatWithOpenAI(
         'FACEBOOK_ACCESS_TOKEN',
-        chatHistory,
+        messages,
       )) {
         fullResponse += chunk;
         await streamingService.writeChunk(chunk);
       }
 
-      // Finalize the message in database
-      await MessageService.finalizeAssistantMessage(messageId, fullResponse);
+      // Store messages in database
+      const newMessages = [
+        messages[messages.length - 1],
+        { role: 'assistant', content: fullResponse },
+      ] as ChatCompletionMessageParam[];
+
+      await MessageService.storeMessages(userId, newMessages);
       await streamingService.writeDone();
     } catch (error) {
       console.error('Error in streaming response:', error);

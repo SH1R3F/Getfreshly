@@ -50,10 +50,15 @@ export class MessageService {
     });
   }
 
-  static async finalizeAssistantMessage(messageId: string, content: string) {
-    return await this.updateMessage(messageId, {
-      content,
-      isLoading: false,
-    });
+  static async storeMessages(
+    userId: string,
+    messages: ChatCompletionMessageParam[],
+  ) {
+    for (const message of messages) {
+      await this.createMessage({
+        ...message,
+        userId,
+      } as CreateMessageData);
+    }
   }
 }
