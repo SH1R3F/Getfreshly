@@ -8,12 +8,12 @@ import { StreamingService } from '@/services/server/streaming.service';
 
 export async function POST(request: Request) {
   try {
-    const user = await UserService.requireAuth();
+    const userId = await UserService.requireAuth();
     const { message } = ChatValidator.validateMessage(await request.json());
 
     // Process user message and create assistant placeholder
     const assistantMessage = await ChatService.processUserMessage(
-      user.id,
+      userId,
       message,
     );
 
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     const streamingService = new StreamingService(writer);
 
     ChatService.streamChatResponse(
-      user.id,
+      userId,
       assistantMessage.id,
       streamingService,
     ).finally(() => streamingService.close());
@@ -41,8 +41,8 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    const user = await UserService.requireAuth();
-    const messages = await MessageService.getUserMessages(user.id);
+    const userId = await UserService.requireAuth();
+    const messages = await MessageService.getUserMessages(userId);
 
     return ApiUtils.createResponse({ messages });
   } catch (error) {

@@ -1,19 +1,19 @@
 import { FacebookAdAccount } from '@/types/chat';
 import { AppUser, UserWithFacebookAuth } from '@/types/user';
-import { currentUser as clerkCurrentUser } from '@clerk/nextjs/server';
+import { auth, currentUser } from '@clerk/nextjs/server';
 import { prisma } from '@repo/database';
 
 export class UserService {
   static async requireAuth() {
-    const user = await this.getCurrentUser();
-    if (!user) {
+    const { userId } = await auth();
+    if (!userId) {
       throw new Error('Unauthorized');
     }
-    return user;
+    return userId;
   }
 
   static async getCurrentUser(): Promise<AppUser | null> {
-    const clerkUser = await clerkCurrentUser();
+    const clerkUser = await currentUser();
 
     if (!clerkUser) {
       return null;
