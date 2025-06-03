@@ -1,4 +1,5 @@
 import { ChatCompletionMessageParam } from 'openai/resources/index.mjs';
+import { OpenAIChatService } from './AI/openai.service';
 import { chatWithOpenAI } from './AI/openai.service';
 import { MessageService } from './message.service';
 import { StreamingService } from './streaming.service';
@@ -30,11 +31,9 @@ export class ChatService {
   ): Promise<void> {
     try {
       let fullResponse = '';
+      const openAIChatService = new OpenAIChatService();
 
-      for await (const chunk of chatWithOpenAI(
-        'FACEBOOK_ACCESS_TOKEN',
-        messages,
-      )) {
+      for await (const chunk of openAIChatService.streamChat(messages)) {
         fullResponse += chunk;
         await streamingService.writeChunk(chunk);
       }
