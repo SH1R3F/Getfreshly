@@ -1,4 +1,4 @@
-import chatWithOpenAI from '../openai';
+import { chatWithOpenAI } from './AI/openai.service';
 import { MessageService } from './message.service';
 import { StreamingService } from './streaming.service';
 
