@@ -1,5 +1,27 @@
+export type MessageRole = 'user' | 'assistant';
+
 export type Message = {
   id: string;
   content: string;
-  variant: 'user' | 'assistant';
+  role: MessageRole;
+  isLoading?: boolean;
+  userId?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
+
+export interface CurrentUser {
+  name?: string;
+  image?: string;
+}
+
+export interface FacebookAdAccount {
+  id: string;
+  accountId: string;
+  name: string;
+}
+
+export interface StreamChunkData {
+  chunk: string;
+  messageId: string;
+}

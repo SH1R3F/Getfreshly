@@ -4,7 +4,6 @@ import chatWithClaude from '@/services/claude';
 import chatWithOpenAI from '@/services/openai';
 import type { MessageParam } from '@anthropic-ai/sdk/resources/messages.mjs';
 import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
-import { executeToolCall } from '@/services/mcp-client';
 
 export async function POST(request: Request) {
   try {
@@ -13,54 +12,25 @@ export async function POST(request: Request) {
       return new Response('Unauthorized', { status: 401 });
     }
 
-    const { message, provider = 'openai' } = await request.json();
-
-    // Get the Facebook access token from the database
-    const facebookAuth = await prisma.facebookAuth.findUnique({
-      where: { userId: user.id },
-      select: { accessToken: true },
-    });
-
-    // if (!facebookAuth) {
-    //   return new Response(
-    //     'Facebook authentication not found. Please connect your Facebook account.',
-    //     { status: 400 },
-    //   );
-    // }
-
-    // Save the user's message
+    const { message } = await request.json();
     await prisma.message.create({
       data: {
         content: message,
         userId: user.id,
-        variant: 'user',
+        role: 'user',
       },
     });
 
-    const messages = await prisma.message.findMany({
+    const chatHistory = await prisma.message.findMany({
       where: {
         userId: user.id,
-        content: { not: '' }, // Filter at DB level
+        content: { not: '' },
       },
       orderBy: { createdAt: 'asc' },
       select: {
-        variant: true,
+        role: true,
         content: true,
       },
-    });
-
-    // Convert messages to the appropriate format based on the provider
-    const chatHistory = messages.map((msg) => {
-      if (provider === 'claude') {
-        return {
-          role: msg.variant,
-          content: msg.content,
-        } as MessageParam;
-      }
-      return {
-        role: msg.variant === 'assistant' ? 'assistant' : 'user',
-        content: msg.content,
-      } as ChatCompletionMessageParam;
     });
 
     // Create a new message for the assistant's response
@@ -68,42 +38,25 @@ export async function POST(request: Request) {
       data: {
         content: '',
         userId: user.id,
-        variant: 'assistant',
+        role: 'assistant',
         isLoading: true,
       },
     });
-
-    if (!facebookAuth) {
-      return new Response(
-        'Facebook authentication not found. Please connect your Facebook account.',
-        { status: 400 },
-      );
-    }
 
     // Create a new TransformStream for streaming the response
     const stream = new TransformStream();
     const writer = stream.writable.getWriter();
     const encoder = new TextEncoder();
 
-    // Start streaming the response in the background
     (async () => {
       try {
         let fullResponse = '';
-        const chatService =
-          provider === 'claude'
-            ? () =>
-                chatWithClaude(
-                  facebookAuth.accessToken,
-                  chatHistory as MessageParam[],
-                )
-            : () =>
-                chatWithOpenAI(
-                  facebookAuth.accessToken,
-                  chatHistory as ChatCompletionMessageParam[],
-                );
 
         // eslint-disable-next-line no-restricted-syntax
-        for await (const chunk of chatService()) {
+        for await (const chunk of chatWithOpenAI(
+          'FACEBOOK_ACCESS_TOKEN',
+          chatHistory as ChatCompletionMessageParam[],
+        )) {
           fullResponse += chunk;
           // eslint-disable-next-line no-await-in-loop
           await writer.write(
@@ -170,7 +123,7 @@ export async function GET() {
       messages,
     });
   } catch (error) {
-    console.error('Error fetching messages:', error);
+    console.error('Error in chat API:', error);
     return new Response('Internal Server Error', { status: 500 });
   }
 }
