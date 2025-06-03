@@ -28,15 +28,6 @@ const DEFAULT_AD_ACCOUNT_FIELDS = [
   'id',
 ];
 
-// Helper Functions
-const getFbAccessToken = (): string => {
-  const token = process.env.FB_ACCESS_TOKEN;
-  if (!token) {
-    throw new Error('FB_ACCESS_TOKEN environment variable is required');
-  }
-  return token;
-};
-
 const makeGraphApiCall = async (
   url: string,
   params: Record<string, any>,
@@ -105,10 +96,10 @@ const prepareParams = (
 };
 
 const fetchNode = async (
+  accessToken: string,
   nodeId: string,
   kwargs: Record<string, any> = {},
 ): Promise<any> => {
-  const accessToken = getFbAccessToken();
   const url = `${FB_GRAPH_URL}/${nodeId}`;
   const params = prepareParams({ access_token: accessToken }, kwargs);
   return makeGraphApiCall(url, params);
@@ -119,7 +110,7 @@ const fetchEdge = async (
   edgeName: string,
   kwargs: Record<string, any> = {},
 ): Promise<any> => {
-  const accessToken = getFbAccessToken();
+  const accessToken = kwargs.accessToken;
   const url = `${FB_GRAPH_URL}/${parentId}/${edgeName}`;
 
   // Handle time parameters specifically for activities edge
@@ -243,9 +234,10 @@ const handler = createMcpHandler(
     server.tool(
       'list_ad_accounts',
       'List down the ad accounts and their names associated with your Facebook account',
-      {},
-      async () => {
-        const accessToken = getFbAccessToken();
+      {
+        accessToken: z.string().describe('The Facebook access token to use'),
+      },
+      async ({ accessToken }) => {
         const url = `${FB_GRAPH_URL}/me`;
         const params = {
           access_token: accessToken,
@@ -262,6 +254,7 @@ const handler = createMcpHandler(
       'get_details_of_ad_account',
       'Get details of a specific ad account as per the fields provided',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         act_id: z
           .string()
           .describe('The act ID of the ad account, example: act_1234567890'),
@@ -269,9 +262,11 @@ const handler = createMcpHandler(
           'The fields to get from the ad account. If None, defaults are used.',
         ),
       },
-      async ({ act_id, fields }) => {
+      async ({ accessToken, act_id, fields }) => {
         const effectiveFields = fields || DEFAULT_AD_ACCOUNT_FIELDS;
-        const result = await fetchNode(act_id, { fields: effectiveFields });
+        const result = await fetchNode(accessToken, act_id, {
+          fields: effectiveFields,
+        });
         return {
           content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
         };
@@ -283,6 +278,7 @@ const handler = createMcpHandler(
       'get_adaccount_insights',
       'Retrieves performance insights for a specified Facebook ad account',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         act_id: z
           .string()
           .describe('The target ad account ID, prefixed with "act_"'),
@@ -310,7 +306,7 @@ const handler = createMcpHandler(
         locale: z.string().optional(),
       },
       async (options) => {
-        const accessToken = getFbAccessToken();
+        const accessToken = options.accessToken;
         const url = `${FB_GRAPH_URL}/${options.act_id}/insights`;
         let params: Record<string, any> = { access_token: accessToken };
 
@@ -327,6 +323,7 @@ const handler = createMcpHandler(
       'get_campaign_insights',
       'Retrieves performance insights for a specific Facebook ad campaign',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         campaign_id: z
           .string()
           .describe('The ID of the target Facebook ad campaign'),
@@ -354,7 +351,7 @@ const handler = createMcpHandler(
         locale: z.string().optional(),
       },
       async (options) => {
-        const accessToken = getFbAccessToken();
+        const accessToken = options.accessToken;
         const url = `${FB_GRAPH_URL}/${options.campaign_id}/insights`;
         let params: Record<string, any> = { access_token: accessToken };
 
@@ -375,6 +372,7 @@ const handler = createMcpHandler(
       'get_adset_insights',
       'Retrieves performance insights for a specific Facebook ad set',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         adset_id: z.string().describe('The ID of the target ad set'),
         fields: fieldsSchema,
         date_preset: z.string().default('last_30d'),
@@ -400,7 +398,7 @@ const handler = createMcpHandler(
         locale: z.string().optional(),
       },
       async (options) => {
-        const accessToken = getFbAccessToken();
+        const accessToken = options.accessToken;
         const url = `${FB_GRAPH_URL}/${options.adset_id}/insights`;
         let params: Record<string, any> = { access_token: accessToken };
 
@@ -421,6 +419,7 @@ const handler = createMcpHandler(
       'get_ad_insights',
       'Retrieves detailed performance insights for a specific Facebook ad',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         ad_id: z.string().describe('The ID of the target ad'),
         fields: fieldsSchema,
         date_preset: z.string().default('last_30d'),
@@ -446,7 +445,7 @@ const handler = createMcpHandler(
         locale: z.string().optional(),
       },
       async (options) => {
-        const accessToken = getFbAccessToken();
+        const accessToken = options.accessToken;
         const url = `${FB_GRAPH_URL}/${options.ad_id}/insights`;
         let params: Record<string, any> = { access_token: accessToken };
 
@@ -491,6 +490,7 @@ const handler = createMcpHandler(
       'get_ad_creative_by_id',
       'Retrieves detailed information about a specific Facebook ad creative',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         creative_id: z
           .string()
           .describe('The ID of the ad creative to retrieve'),
@@ -498,8 +498,13 @@ const handler = createMcpHandler(
         thumbnail_width: z.number().optional(),
         thumbnail_height: z.number().optional(),
       },
-      async ({ creative_id, fields, thumbnail_width, thumbnail_height }) => {
-        const accessToken = getFbAccessToken();
+      async ({
+        accessToken,
+        creative_id,
+        fields,
+        thumbnail_width,
+        thumbnail_height,
+      }) => {
         const url = `${FB_GRAPH_URL}/${creative_id}`;
         const params: Record<string, any> = { access_token: accessToken };
 
@@ -524,6 +529,7 @@ const handler = createMcpHandler(
       'get_ad_creatives_by_ad_id',
       'Retrieves the ad creatives associated with a specific Facebook ad',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         ad_id: z
           .string()
           .describe('The ID of the ad to retrieve creatives for'),
@@ -533,8 +539,15 @@ const handler = createMcpHandler(
         before: z.string().optional(),
         date_format: z.string().optional(),
       },
-      async ({ ad_id, fields, limit, after, before, date_format }) => {
-        const accessToken = getFbAccessToken();
+      async ({
+        accessToken,
+        ad_id,
+        fields,
+        limit,
+        after,
+        before,
+        date_format,
+      }) => {
         const url = `${FB_GRAPH_URL}/${ad_id}/adcreatives`;
         const params: Record<string, any> = { access_token: accessToken };
 
@@ -566,11 +579,12 @@ const handler = createMcpHandler(
       'get_ad_by_id',
       'Retrieves detailed information about a specific Facebook ad by its ID',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         ad_id: z.string().describe('The ID of the ad to retrieve'),
         fields: fieldsSchema,
       },
-      async ({ ad_id, fields }) => {
-        const result = await fetchNode(ad_id, { fields });
+      async ({ accessToken, ad_id, fields }) => {
+        const result = await fetchNode(accessToken, ad_id, { fields });
         return {
           content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
         };
@@ -581,6 +595,7 @@ const handler = createMcpHandler(
       'get_ads_by_adaccount',
       'Retrieves ads from a specific Facebook ad account',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         act_id: z
           .string()
           .describe('The ID of the ad account, prefixed with "act_"'),
@@ -606,6 +621,7 @@ const handler = createMcpHandler(
       'get_ads_by_campaign',
       'Retrieves ads associated with a specific Facebook campaign',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         campaign_id: z.string().describe('The ID of the campaign'),
         fields: fieldsSchema,
         filtering: filteringSchema,
@@ -626,6 +642,7 @@ const handler = createMcpHandler(
       'get_ads_by_adset',
       'Retrieves ads associated with a specific Facebook ad set',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         adset_id: z.string().describe('The ID of the ad set'),
         fields: fieldsSchema,
         filtering: filteringSchema,
@@ -648,11 +665,12 @@ const handler = createMcpHandler(
       'get_adset_by_id',
       'Retrieves detailed information about a specific Facebook ad set by its ID',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         adset_id: z.string().describe('The ID of the ad set'),
         fields: fieldsSchema,
       },
-      async ({ adset_id, fields }) => {
-        const result = await fetchNode(adset_id, { fields });
+      async ({ accessToken, adset_id, fields }) => {
+        const result = await fetchNode(accessToken, adset_id, { fields });
         return {
           content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
         };
@@ -663,12 +681,12 @@ const handler = createMcpHandler(
       'get_adsets_by_ids',
       'Retrieves detailed information about multiple Facebook ad sets by their IDs',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         adset_ids: z.array(z.string()).describe('A list of ad set IDs'),
         fields: fieldsSchema,
         date_format: z.string().optional(),
       },
-      async ({ adset_ids, fields, date_format }) => {
-        const accessToken = getFbAccessToken();
+      async ({ accessToken, adset_ids, fields, date_format }) => {
         const url = `${FB_GRAPH_URL}/`;
         const params: Record<string, any> = {
           access_token: accessToken,
@@ -693,6 +711,7 @@ const handler = createMcpHandler(
       'get_adsets_by_adaccount',
       'Retrieves ad sets from a specific Facebook ad account',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         act_id: z
           .string()
           .describe('The ID of the ad account, prefixed with "act_"'),
@@ -719,6 +738,7 @@ const handler = createMcpHandler(
       'get_adsets_by_campaign',
       'Retrieves ad sets associated with a specific Facebook campaign',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         campaign_id: z.string().describe('The ID of the campaign'),
         fields: fieldsSchema,
         filtering: filteringSchema,
@@ -741,12 +761,16 @@ const handler = createMcpHandler(
       'get_campaign_by_id',
       'Retrieves detailed information about a specific Facebook ad campaign by its ID',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         campaign_id: z.string().describe('The ID of the campaign'),
         fields: fieldsSchema,
         date_format: z.string().optional(),
       },
-      async ({ campaign_id, fields, date_format }) => {
-        const result = await fetchNode(campaign_id, { fields, date_format });
+      async ({ accessToken, campaign_id, fields, date_format }) => {
+        const result = await fetchNode(accessToken, campaign_id, {
+          fields,
+          date_format,
+        });
         return {
           content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
         };
@@ -757,6 +781,7 @@ const handler = createMcpHandler(
       'get_campaigns_by_adaccount',
       'Retrieves campaigns from a specific Facebook ad account',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         act_id: z
           .string()
           .describe('The ID of the ad account, prefixed with "act_"'),
@@ -789,6 +814,7 @@ const handler = createMcpHandler(
       'get_activities_by_adaccount',
       'Retrieves activities for a Facebook ad account',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         act_id: z
           .string()
           .describe('The ID of the ad account, prefixed with "act_"'),
@@ -812,6 +838,7 @@ const handler = createMcpHandler(
       'get_activities_by_adset',
       'Retrieves activities for a Facebook ad set',
       {
+        accessToken: z.string().describe('The Facebook access token to use'),
         adset_id: z.string().describe('The ID of the ad set'),
         fields: fieldsSchema,
         limit: z.number().optional(),

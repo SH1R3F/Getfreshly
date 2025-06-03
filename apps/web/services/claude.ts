@@ -3,7 +3,10 @@ import type { MessageParam } from '@anthropic-ai/sdk/resources/messages.mjs';
 import { prisma } from '@repo/database';
 import { executeToolCall, getTools } from './mcp-client';
 
-export default async function* chatWithClaude(messages: MessageParam[]): any {
+export default async function* chatWithClaude(
+  accessToken: string,
+  messages: MessageParam[],
+): any {
   if (!process.env.CLAUDE_API_KEY) {
     throw new Error('CLAUDE_API_KEY is not set');
   }
@@ -65,7 +68,6 @@ export default async function* chatWithClaude(messages: MessageParam[]): any {
             currentToolCall.input = JSON.parse(
               currentToolCall.input === '' ? '{}' : currentToolCall.input,
             );
-            currentToolCall.input.account_id = 'act_282520622926541';
             toolCalls.push(currentToolCall);
             currentToolCall = null;
           } catch (e) {
@@ -81,7 +83,7 @@ export default async function* chatWithClaude(messages: MessageParam[]): any {
           yield '\n\n🔧 Using tools...\n';
 
           for (const toolCall of toolCalls) {
-            const result = await executeToolCall(toolCall);
+            const result = await executeToolCall(toolCall, accessToken);
 
             // Add tool result to messages
             messages.push({
@@ -110,7 +112,7 @@ export default async function* chatWithClaude(messages: MessageParam[]): any {
           }
 
           // Call Claude again with tool results
-          yield* chatWithClaude(messages); // Recursive call
+          yield* chatWithClaude(accessToken, messages); // Recursive call
           return;
         }
       }

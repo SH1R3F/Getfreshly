@@ -39,9 +39,13 @@ export async function getTools() {
   return tools;
 }
 
-export async function executeToolCall(toolCall: any) {
+export async function executeToolCall(toolCall: any, accessToken: string) {
+  console.log('Executing tool call:', toolCall);
   return await client.callTool({
     name: toolCall.name,
-    arguments: toolCall.input,
+    arguments: {
+      ...toolCall.input,
+      accessToken: accessToken,
+    },
   });
 }
