@@ -28,5 +28,4 @@ export interface FacebookAdAccount {
 
 export interface StreamChunkData {
   chunk: string;
-  messageId: string;
 }

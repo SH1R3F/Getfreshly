@@ -36,7 +36,7 @@ export class ChatService {
         chatHistory,
       )) {
         fullResponse += chunk;
-        await streamingService.writeChunk(chunk, messageId);
+        await streamingService.writeChunk(chunk);
       }
 
       // Finalize the message in database

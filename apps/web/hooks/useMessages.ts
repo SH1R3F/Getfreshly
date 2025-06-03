@@ -51,6 +51,28 @@ export function useMessages() {
     });
   };
 
+  const updateLastAssistantMessage = (textChunk: string) => {
+    setMessages((prev) => {
+      const lastMessage = prev[prev.length - 1];
+      if (lastMessage?.role !== 'assistant') {
+        // Create new assistant message if last message is not from assistant
+        const newMessage = MessageFactory.createAssistantMessage(
+          crypto.randomUUID(),
+          textChunk,
+        );
+        return [...prev, newMessage];
+      }
+
+      // Update the last message
+      const updatedMessages = [...prev];
+      updatedMessages[prev.length - 1] = {
+        ...lastMessage,
+        content: lastMessage.content + textChunk,
+      };
+      return updatedMessages;
+    });
+  };
+
   const markLastAssistantMessageAsComplete = () => {
     setMessages((prev) => {
       const lastMessage = prev[prev.length - 1];
@@ -72,6 +94,7 @@ export function useMessages() {
     fetchMessages,
     addMessage,
     updateOrCreateAssistantMessage,
+    updateLastAssistantMessage,
     markLastAssistantMessageAsComplete,
   };
 }

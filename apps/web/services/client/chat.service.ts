@@ -14,7 +14,7 @@ export class ChatService {
 
   static async sendMessage(
     content: string,
-    onChunk: (messageId: string, chunk: string) => void,
+    onChunk: (chunk: string) => void,
   ): Promise<void> {
     const response = await fetch('/api/chat', {
       method: 'POST',
@@ -33,7 +33,7 @@ export class ChatService {
 
   private static async processStreamingResponse(
     response: Response,
-    onChunk: (messageId: string, chunk: string) => void,
+    onChunk: (chunk: string) => void,
   ): Promise<void> {
     const reader = response.body?.getReader();
     if (!reader) throw new Error('No reader available');
@@ -56,7 +56,7 @@ export class ChatService {
             const { chunk: textChunk, messageId } = JSON.parse(
               data,
             ) as StreamChunkData;
-            onChunk(messageId, textChunk);
+            onChunk(textChunk);
           } catch (error) {
             console.error('Error parsing SSE message:', error);
           }

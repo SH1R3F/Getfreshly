@@ -22,7 +22,7 @@ export default function ChatContainer({
     isLoading,
     fetchMessages,
     addMessage,
-    updateOrCreateAssistantMessage,
+    updateLastAssistantMessage,
     markLastAssistantMessageAsComplete,
   } = useMessages();
 
@@ -35,8 +35,8 @@ export default function ChatContainer({
     addMessage(userMessage);
 
     try {
-      await ChatService.sendMessage(content, (messageId, chunk) => {
-        updateOrCreateAssistantMessage(messageId, chunk);
+      await ChatService.sendMessage(content, (chunk) => {
+        updateLastAssistantMessage(chunk);
       });
       markLastAssistantMessageAsComplete();
     } catch (error) {

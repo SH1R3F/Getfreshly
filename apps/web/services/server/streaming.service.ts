@@ -9,8 +9,8 @@ export class StreamingService {
     this.encoder = new TextEncoder();
   }
 
-  async writeChunk(chunk: string, messageId: string): Promise<void> {
-    const data: StreamChunkData = { chunk, messageId };
+  async writeChunk(chunk: string): Promise<void> {
+    const data: StreamChunkData = { chunk };
     const formattedData = `data: ${JSON.stringify(data)}\n\n`;
     await this.writer.write(this.encoder.encode(formattedData));
   }
