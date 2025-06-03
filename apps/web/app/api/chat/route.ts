@@ -21,12 +21,12 @@ export async function POST(request: Request) {
       select: { accessToken: true },
     });
 
-    if (!facebookAuth) {
-      return new Response(
-        'Facebook authentication not found. Please connect your Facebook account.',
-        { status: 400 },
-      );
-    }
+    // if (!facebookAuth) {
+    //   return new Response(
+    //     'Facebook authentication not found. Please connect your Facebook account.',
+    //     { status: 400 },
+    //   );
+    // }
 
     // Save the user's message
     await prisma.message.create({
@@ -72,6 +72,13 @@ export async function POST(request: Request) {
         isLoading: true,
       },
     });
+
+    if (!facebookAuth) {
+      return new Response(
+        'Facebook authentication not found. Please connect your Facebook account.',
+        { status: 400 },
+      );
+    }
 
     // Create a new TransformStream for streaming the response
     const stream = new TransformStream();

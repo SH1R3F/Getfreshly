@@ -68,6 +68,10 @@ export default async function* chatWithClaude(
             currentToolCall.input = JSON.parse(
               currentToolCall.input === '' ? '{}' : currentToolCall.input,
             );
+            currentToolCall.input = {
+              ...currentToolCall.input,
+              accessToken,
+            };
             toolCalls.push(currentToolCall);
             currentToolCall = null;
           } catch (e) {

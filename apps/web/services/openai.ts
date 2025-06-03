@@ -24,14 +24,24 @@ export default async function* chatWithOpenAI(
       messages,
       stream: true,
       temperature: 0.7,
-      tools: tools.map((tool) => ({
-        type: 'function',
-        function: {
-          name: tool.name,
-          description: tool.description,
-          parameters: tool.input_schema,
-        },
-      })),
+      tools: tools.map((tool) => {
+        // Create a modified schema that doesn't require accessToken
+        const modifiedSchema = {
+          ...tool.input_schema,
+          required: (tool.input_schema.required || []).filter(
+            (field) => field !== 'accessToken',
+          ),
+        };
+
+        return {
+          type: 'function',
+          function: {
+            name: tool.name,
+            description: tool.description,
+            parameters: modifiedSchema,
+          },
+        };
+      }),
     });
 
     for await (const chunk of stream) {
@@ -75,6 +85,11 @@ export default async function* chatWithOpenAI(
             currentToolCall.input = JSON.parse(
               currentToolCall.arguments || '{}',
             );
+            currentToolCall.input = {
+              ...currentToolCall.input,
+              accessToken,
+            };
+
             delete currentToolCall.arguments; // Clean up the temporary field
             toolCalls.push(currentToolCall);
             currentToolCall = null;
