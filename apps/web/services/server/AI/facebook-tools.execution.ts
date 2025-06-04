@@ -249,6 +249,7 @@ export const facebookToolsExecution = (accessToken?: string) => ({
     let params: Record<string, any> = { access_token: accessToken };
 
     params = buildInsightsParams(params, options);
+    console.log('~~~~xxx get_adaccount_insights', url, params);
     const result = await makeGraphApiCall(url, params);
     return result;
   },

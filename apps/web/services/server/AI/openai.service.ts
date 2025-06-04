@@ -5,6 +5,9 @@ import {
 } from 'openai/resources/chat/completions.mjs';
 import { facebookToolDefinition } from './facebook-tools.definition';
 import { facebookToolsExecution } from './facebook-tools.execution';
+import { Tool } from 'openai/resources/responses/responses.mjs';
+import { FunctionTool } from 'openai/resources/beta/assistants.mjs';
+import { ToolCall } from 'openai/resources/beta/threads/runs/steps.mjs';
 
 export class OpenAIChatService {
   private client: OpenAI;
@@ -43,57 +46,70 @@ export class OpenAIChatService {
       let toolCallId: string | undefined;
       let toolName: string | undefined;
       let toolArguments: string | undefined = '';
+      let currentTool: any = null;
 
       for await (const chunk of stream) {
         const content = chunk.choices[0]?.delta?.content;
-        const toolCalls = chunk.choices[0]?.delta?.tool_calls?.[0];
+        const toolCall = chunk.choices[0]?.delta?.tool_calls?.[0];
 
         if (content) {
           yield content;
         }
 
-        // Collect tool call information
-        if (toolCalls) {
-          if (toolCalls.id) toolCallId = toolCalls.id;
-          if (toolCalls.function?.name) toolName = toolCalls.function.name;
-          if (toolCalls.function?.arguments) {
-            toolArguments += toolCalls.function.arguments;
-          }
+        // First tool call chunk
+        if (toolCall && toolCall.index === 0 && toolCall.id) {
+          currentTool = {
+            id: toolCall.id,
+            name: toolCall.function?.name || '',
+            arguments: toolCall.function?.arguments || '',
+          };
+        } else if (toolCall && currentTool && toolCall.function?.arguments) {
+          // Accumulate tool arguments
+          currentTool.arguments += toolCall.function.arguments;
         }
-      }
 
-      // If we collected a complete tool call, handle it
-      if (toolCallId && toolName) {
-        yield `\n\n🔧 **Using Tool: ${toolName}**\n`;
+        // Message finished
+        if (
+          (chunk.choices[0]?.finish_reason === 'stop' ||
+            chunk.choices[0]?.finish_reason === 'tool_calls') &&
+          currentTool
+        ) {
+          yield '\n\n🔧 Using tools...\n';
+          yield `\n Calling tool: ${currentTool.name} With arguments: ${currentTool.arguments}\n`;
 
-        const toolCall = this.tools[toolName];
-        const result = await toolCall?.(JSON.parse(toolArguments || '{}'));
+          const toolCall = this.tools[currentTool.name];
+          const result = await toolCall?.(
+            JSON.parse(currentTool.arguments || '{}'),
+          );
 
-        // Create a new message array with the tool response
-        const updatedMessages: ChatCompletionMessageParam[] = [
-          ...messages,
-          {
-            role: 'assistant',
-            content: null,
-            tool_calls: [
-              {
-                id: toolCallId,
-                type: 'function',
-                function: {
-                  name: toolName,
-                  arguments: toolArguments || '{}',
+          // yield `\n Result: ${JSON.stringify(result)}\n`;
+
+          // Create a new message array with the tool response
+          const updatedMessages: ChatCompletionMessageParam[] = [
+            ...messages,
+            {
+              role: 'assistant',
+              content: null,
+              tool_calls: [
+                {
+                  id: currentTool.id,
+                  type: 'function',
+                  function: {
+                    name: currentTool.name,
+                    arguments: currentTool.arguments || '{}',
+                  },
                 },
-              },
-            ],
-          },
-          {
-            role: 'tool',
-            content: JSON.stringify(result),
-            tool_call_id: toolCallId,
-          },
-        ];
+              ],
+            },
+            {
+              role: 'tool',
+              content: JSON.stringify(result),
+              tool_call_id: currentTool.id,
+            },
+          ];
 
-        yield* this.streamChat(updatedMessages);
+          yield* this.streamChat(updatedMessages);
+        }
       }
     } catch (error) {
       yield this.getErrorMessage(error);

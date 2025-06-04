@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ChevronDownIcon, SendIcon } from 'lucide-react';
 import { Button } from '@repo/ui/components/button';
 import {
@@ -101,6 +101,7 @@ export function ModelSelector({ isDisabled, adAccounts }: ModelSelectorProps) {
 
 export function ChatInput({ onSendMessage, adAccounts }: ChatInputProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -116,6 +117,8 @@ export function ChatInput({ onSendMessage, adAccounts }: ChatInputProps) {
       (e.target as HTMLFormElement).reset();
 
       await onSendMessage(message);
+      // Focus the textarea after sending
+      textareaRef.current?.focus();
     } finally {
       setIsSubmitting(false);
     }
@@ -133,6 +136,8 @@ export function ChatInput({ onSendMessage, adAccounts }: ChatInputProps) {
         // Clear the textarea
         e.currentTarget.value = '';
         await onSendMessage(message);
+        // Focus the textarea after sending
+        textareaRef.current?.focus();
       } finally {
         setIsSubmitting(false);
       }
@@ -142,6 +147,7 @@ export function ChatInput({ onSendMessage, adAccounts }: ChatInputProps) {
   return (
     <form onSubmit={handleSubmit}>
       <textarea
+        ref={textareaRef}
         name="message"
         id="message"
         className="w-full h-24 resize-none outline-0 p-4"
