@@ -43,9 +43,6 @@ export class OpenAIChatService {
         presence_penalty: 0,
       });
 
-      let toolCallId: string | undefined;
-      let toolName: string | undefined;
-      let toolArguments: string | undefined = '';
       let currentTool: any = null;
 
       for await (const chunk of stream) {
@@ -63,7 +60,12 @@ export class OpenAIChatService {
             name: toolCall.function?.name || '',
             arguments: toolCall.function?.arguments || '',
           };
-        } else if (toolCall && currentTool && toolCall.function?.arguments) {
+        } else if (
+          toolCall &&
+          toolCall.index === 0 &&
+          currentTool &&
+          toolCall.function?.arguments
+        ) {
           // Accumulate tool arguments
           currentTool.arguments += toolCall.function.arguments;
         }
