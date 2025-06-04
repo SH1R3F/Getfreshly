@@ -121,6 +121,24 @@ export function ChatInput({ onSendMessage, adAccounts }: ChatInputProps) {
     }
   };
 
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+
+      const message = e.currentTarget.value.trim();
+      if (!message || isSubmitting) return;
+
+      setIsSubmitting(true);
+      try {
+        // Clear the textarea
+        e.currentTarget.value = '';
+        await onSendMessage(message);
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <textarea
@@ -129,6 +147,7 @@ export function ChatInput({ onSendMessage, adAccounts }: ChatInputProps) {
         className="w-full h-24 resize-none outline-0 p-4"
         placeholder="Type your message here..."
         disabled={isSubmitting}
+        onKeyDown={handleKeyDown}
       />
       <div className="absolute bottom-0 right-0 p-4 flex gap-2 items-center">
         <ModelSelector isDisabled={isSubmitting} adAccounts={adAccounts} />
