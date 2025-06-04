@@ -11,6 +11,7 @@ export async function POST(request: Request) {
   try {
     const userId = await UserService.requireAuth();
     const { message } = ChatValidator.validateMessage(await request.json());
+    const accessToken = await UserService.getFacebookAccessToken(userId);
 
     const chatHistory = await MessageService.getUserChatHistory(userId);
     const messages = [
@@ -22,9 +23,12 @@ export async function POST(request: Request) {
     const { stream, writer } = StreamingService.createStream();
     const streamingService = new StreamingService(writer);
 
-    ChatService.streamChatResponse(streamingService, messages, userId).finally(
-      () => streamingService.close(),
-    );
+    ChatService.streamChatResponse(
+      streamingService,
+      messages,
+      userId,
+      accessToken,
+    ).finally(() => streamingService.close());
 
     return new Response(stream.readable, {
       headers: {

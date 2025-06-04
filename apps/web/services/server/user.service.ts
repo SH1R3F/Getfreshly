@@ -57,4 +57,15 @@ export class UserService {
 
     return facebookAuth?.adAccounts ?? [];
   }
+
+  static async getFacebookAccessToken(
+    userId: string,
+  ): Promise<string | undefined> {
+    const facebookAuth = await prisma.facebookAuth.findUnique({
+      where: { userId },
+      select: { accessToken: true },
+    });
+
+    return facebookAuth?.accessToken ?? undefined;
+  }
 }
