@@ -5,9 +5,6 @@ import {
 } from 'openai/resources/chat/completions.mjs';
 import { facebookToolDefinition } from './facebook-tools.definition';
 import { facebookToolsExecution } from './facebook-tools.execution';
-import { Tool } from 'openai/resources/responses/responses.mjs';
-import { FunctionTool } from 'openai/resources/beta/assistants.mjs';
-import { ToolCall } from 'openai/resources/beta/threads/runs/steps.mjs';
 
 export class OpenAIChatService {
   private client: OpenAI;
@@ -80,9 +77,8 @@ export class OpenAIChatService {
           yield `\n Calling tool: ${currentTool.name} With arguments: ${currentTool.arguments}\n`;
 
           const toolCall = this.tools[currentTool.name];
-          const result = await toolCall?.(
-            JSON.parse(currentTool.arguments || '{}'),
-          );
+          const args = JSON.parse(currentTool.arguments || '{}');
+          const result = await toolCall?.(args);
 
           // yield `\n Result: ${JSON.stringify(result)}\n`;
 

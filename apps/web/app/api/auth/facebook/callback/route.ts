@@ -1,4 +1,4 @@
-import { getAdAccounts } from '@/services/meta';
+import { getAccountInfo } from '@/services/meta';
 import { NextResponse } from 'next/server';
 import { currentUser } from '@clerk/nextjs/server';
 import { prisma } from '@repo/database';
@@ -37,9 +37,9 @@ export async function GET(request: Request) {
     const accessToken = tokenData.access_token;
 
     // Fetch ad accounts information
-    const adAccounts = await getAdAccounts(accessToken);
+    const accountInfo = await getAccountInfo(accessToken);
 
-    // Store the access token and ad accounts in the database
+    // Store the access token and account info in the database
     await prisma.facebookAuth.upsert({
       where: {
         userId: user.id,
@@ -47,22 +47,13 @@ export async function GET(request: Request) {
       create: {
         userId: user.id,
         accessToken,
-        adAccounts: {
-          create: adAccounts.map((account: Record<string, string>) => ({
-            accountId: account.id,
-            name: account.name,
-          })),
-        },
+        account_id: accountInfo.id,
+        account_name: accountInfo.name,
       },
       update: {
         accessToken,
-        adAccounts: {
-          deleteMany: {},
-          create: adAccounts.map((account: Record<string, string>) => ({
-            accountId: account.id,
-            name: account.name,
-          })),
-        },
+        account_id: accountInfo.id,
+        account_name: accountInfo.name,
       },
     });
 

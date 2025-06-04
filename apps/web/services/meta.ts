@@ -8,21 +8,17 @@ export default function getFacebookOAuthUrl(): string {
   return `https://www.facebook.com/v22.0/dialog/oauth?${params.toString()}`;
 }
 
-export async function getAdAccounts(accessToken: string) {
-  const url = `https://graph.facebook.com/v22.0/me/adaccounts`;
+export async function getAccountInfo(accessToken: string) {
+  const url = `https://graph.facebook.com/v22.0/me`;
   const params = new URLSearchParams({
     access_token: accessToken,
-    fields: 'name,account_id',
+    fields: 'id,name',
   });
 
   const response = await fetch(`${url}?${params.toString()}`);
   if (!response.ok) {
-    throw new Error('Failed to fetch ad accounts');
+    throw new Error('Failed to fetch account info');
   }
 
-  const data = await response.json();
-  return data.data.map((account: any) => ({
-    id: account.account_id,
-    name: account.name,
-  }));
+  return await response.json();
 }

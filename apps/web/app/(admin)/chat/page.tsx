@@ -18,12 +18,12 @@ export default async function Page() {
     redirect('/sign-in');
   }
 
-  const adAccounts = await UserService.getAdAccountsForUser(user.id);
+  const accountInfo = await UserService.getAccountInfo(user.id);
 
   return (
     <div className="pb-6 h-[calc(100vh-156px)]">
       <BreadcrumbsConsumer breadcrumbs={breadCrumbs} />
-      <ChatContainer currentUser={user} adAccounts={adAccounts} />
+      <ChatContainer currentUser={user} accountInfo={accountInfo} />
     </div>
   );
 }

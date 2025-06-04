@@ -8,14 +8,14 @@ import { MessagesList } from './MessagesList';
 import { useMessages } from '@/hooks/useMessages';
 import { ChatService } from '@/services/client/chat.service';
 import { MessageFactory } from '@/factories/message.factory';
-import { CurrentUser, FacebookAdAccount } from '@/types/chat';
+import { CurrentUser } from '@/types/chat';
 
 export default function ChatContainer({
   currentUser,
-  adAccounts,
+  accountInfo,
 }: {
   currentUser: CurrentUser;
-  adAccounts: FacebookAdAccount[];
+  accountInfo: Record<string, string> | {};
 }) {
   const {
     messages,
@@ -53,7 +53,7 @@ export default function ChatContainer({
     <>
       <MessagesList messages={messages} currentUser={currentUser} />
       <div className="absolute inset-x-0 bottom-0 border-t overflow-hidden rounded-b-lg bg-background">
-        <ChatInput onSendMessage={handleNewMessage} adAccounts={adAccounts} />
+        <ChatInput onSendMessage={handleNewMessage} accountInfo={accountInfo} />
       </div>
     </>
   );

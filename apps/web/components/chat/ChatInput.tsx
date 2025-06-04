@@ -13,16 +13,9 @@ import {
 } from '@repo/ui/components/dropdown-menu';
 import getFacebookOAuthUrl from '@/services/meta';
 import { toast } from 'sonner';
-import {
-  ChatInputProps,
-  FacebookAdAccount,
-  ModelSelectorProps,
-} from '@/types/chat';
+import { ChatInputProps, ModelSelectorProps } from '@/types/chat';
 
-export function ModelSelector({ isDisabled, adAccounts }: ModelSelectorProps) {
-  const [selectedAccount, setSelectedAccount] =
-    useState<FacebookAdAccount | null>(adAccounts[0] ?? null);
-
+export function ModelSelector({ isDisabled, accountInfo }: ModelSelectorProps) {
   const handleDisconnectFacebook = async () => {
     try {
       // Remove Facebook auth data
@@ -41,7 +34,7 @@ export function ModelSelector({ isDisabled, adAccounts }: ModelSelectorProps) {
     }
   };
 
-  if (adAccounts.length === 0) {
+  if (!accountInfo.account_id) {
     return (
       <Button
         variant="outline"
@@ -62,22 +55,19 @@ export function ModelSelector({ isDisabled, adAccounts }: ModelSelectorProps) {
         disabled={isDisabled}
       >
         <span>
-          {selectedAccount
-            ? `Ad account: ${selectedAccount.name}`
-            : 'Select ad account'}
+          {accountInfo
+            ? `Account: ${accountInfo.account_name}`
+            : 'Connect Facebook'}
         </span>
         <ChevronDownIcon className="size-4 opacity-50" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuGroup>
-          {adAccounts.map((account) => (
-            <DropdownMenuItem
-              key={account.id}
-              onClick={() => setSelectedAccount(account)}
-            >
-              Account: {account.name}
+          {accountInfo && (
+            <DropdownMenuItem>
+              Account: {accountInfo.account_name}
             </DropdownMenuItem>
-          ))}
+          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={handleDisconnectFacebook}>
@@ -88,7 +78,7 @@ export function ModelSelector({ isDisabled, adAccounts }: ModelSelectorProps) {
   );
 }
 
-export function ChatInput({ onSendMessage, adAccounts }: ChatInputProps) {
+export function ChatInput({ onSendMessage, accountInfo }: ChatInputProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -144,7 +134,7 @@ export function ChatInput({ onSendMessage, adAccounts }: ChatInputProps) {
         onKeyDown={handleKeyDown}
       />
       <div className="absolute bottom-0 right-0 p-4 flex gap-2 items-center">
-        <ModelSelector isDisabled={isSubmitting} adAccounts={adAccounts} />
+        <ModelSelector isDisabled={isSubmitting} accountInfo={accountInfo} />
         <Button
           variant="outline"
           size="sm"

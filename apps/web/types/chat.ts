@@ -20,10 +20,9 @@ export interface CurrentUser {
   image?: string;
 }
 
-export interface FacebookAdAccount {
-  id: string;
-  accountId: string;
-  name: string;
+export interface FacebookAccount {
+  account_id: string;
+  account_name: string;
 }
 
 export interface StreamChunkData {
@@ -32,10 +31,10 @@ export interface StreamChunkData {
 
 export interface ChatInputProps {
   onSendMessage: (message: string) => Promise<void>;
-  adAccounts: FacebookAdAccount[];
+  accountInfo: FacebookAccount;
 }
 
 export interface ModelSelectorProps {
   isDisabled?: boolean;
-  adAccounts: FacebookAdAccount[];
+  accountInfo: FacebookAccount;
 }

@@ -23,11 +23,6 @@ export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
  * 
  */
 export type FacebookAuth = $Result.DefaultSelection<Prisma.$FacebookAuthPayload>
-/**
- * Model FacebookAdAccount
- * 
- */
-export type FacebookAdAccount = $Result.DefaultSelection<Prisma.$FacebookAdAccountPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -173,16 +168,6 @@ export class PrismaClient<
     * ```
     */
   get facebookAuth(): Prisma.FacebookAuthDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.facebookAdAccount`: Exposes CRUD operations for the **FacebookAdAccount** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more FacebookAdAccounts
-    * const facebookAdAccounts = await prisma.facebookAdAccount.findMany()
-    * ```
-    */
-  get facebookAdAccount(): Prisma.FacebookAdAccountDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -624,8 +609,7 @@ export namespace Prisma {
 
   export const ModelName: {
     Message: 'Message',
-    FacebookAuth: 'FacebookAuth',
-    FacebookAdAccount: 'FacebookAdAccount'
+    FacebookAuth: 'FacebookAuth'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -644,7 +628,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "message" | "facebookAuth" | "facebookAdAccount"
+      modelProps: "message" | "facebookAuth"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -796,80 +780,6 @@ export namespace Prisma {
           }
         }
       }
-      FacebookAdAccount: {
-        payload: Prisma.$FacebookAdAccountPayload<ExtArgs>
-        fields: Prisma.FacebookAdAccountFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.FacebookAdAccountFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAdAccountPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.FacebookAdAccountFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAdAccountPayload>
-          }
-          findFirst: {
-            args: Prisma.FacebookAdAccountFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAdAccountPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.FacebookAdAccountFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAdAccountPayload>
-          }
-          findMany: {
-            args: Prisma.FacebookAdAccountFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAdAccountPayload>[]
-          }
-          create: {
-            args: Prisma.FacebookAdAccountCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAdAccountPayload>
-          }
-          createMany: {
-            args: Prisma.FacebookAdAccountCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.FacebookAdAccountCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAdAccountPayload>[]
-          }
-          delete: {
-            args: Prisma.FacebookAdAccountDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAdAccountPayload>
-          }
-          update: {
-            args: Prisma.FacebookAdAccountUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAdAccountPayload>
-          }
-          deleteMany: {
-            args: Prisma.FacebookAdAccountDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.FacebookAdAccountUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.FacebookAdAccountUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAdAccountPayload>[]
-          }
-          upsert: {
-            args: Prisma.FacebookAdAccountUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAdAccountPayload>
-          }
-          aggregate: {
-            args: Prisma.FacebookAdAccountAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateFacebookAdAccount>
-          }
-          groupBy: {
-            args: Prisma.FacebookAdAccountGroupByArgs<ExtArgs>
-            result: $Utils.Optional<FacebookAdAccountGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.FacebookAdAccountCountArgs<ExtArgs>
-            result: $Utils.Optional<FacebookAdAccountCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -956,7 +866,6 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     message?: MessageOmit
     facebookAuth?: FacebookAuthOmit
-    facebookAdAccount?: FacebookAdAccountOmit
   }
 
   /* Types for Logging */
@@ -1045,36 +954,6 @@ export namespace Prisma {
    * Count Types
    */
 
-
-  /**
-   * Count Type FacebookAuthCountOutputType
-   */
-
-  export type FacebookAuthCountOutputType = {
-    adAccounts: number
-  }
-
-  export type FacebookAuthCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    adAccounts?: boolean | FacebookAuthCountOutputTypeCountAdAccountsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * FacebookAuthCountOutputType without action
-   */
-  export type FacebookAuthCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAuthCountOutputType
-     */
-    select?: FacebookAuthCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * FacebookAuthCountOutputType without action
-   */
-  export type FacebookAuthCountOutputTypeCountAdAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FacebookAdAccountWhereInput
-  }
 
 
   /**
@@ -2116,6 +1995,8 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     accessToken: string | null
+    account_id: string | null
+    account_name: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2124,6 +2005,8 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     accessToken: string | null
+    account_id: string | null
+    account_name: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2132,6 +2015,8 @@ export namespace Prisma {
     id: number
     userId: number
     accessToken: number
+    account_id: number
+    account_name: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2142,6 +2027,8 @@ export namespace Prisma {
     id?: true
     userId?: true
     accessToken?: true
+    account_id?: true
+    account_name?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2150,6 +2037,8 @@ export namespace Prisma {
     id?: true
     userId?: true
     accessToken?: true
+    account_id?: true
+    account_name?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2158,6 +2047,8 @@ export namespace Prisma {
     id?: true
     userId?: true
     accessToken?: true
+    account_id?: true
+    account_name?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2239,6 +2130,8 @@ export namespace Prisma {
     id: string
     userId: string
     accessToken: string
+    account_id: string | null
+    account_name: string | null
     createdAt: Date
     updatedAt: Date
     _count: FacebookAuthCountAggregateOutputType | null
@@ -2264,16 +2157,18 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     accessToken?: boolean
+    account_id?: boolean
+    account_name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    adAccounts?: boolean | FacebookAuth$adAccountsArgs<ExtArgs>
-    _count?: boolean | FacebookAuthCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["facebookAuth"]>
 
   export type FacebookAuthSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     accessToken?: boolean
+    account_id?: boolean
+    account_name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["facebookAuth"]>
@@ -2282,6 +2177,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     accessToken?: boolean
+    account_id?: boolean
+    account_name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["facebookAuth"]>
@@ -2290,27 +2187,23 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     accessToken?: boolean
+    account_id?: boolean
+    account_name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FacebookAuthOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "accessToken" | "createdAt" | "updatedAt", ExtArgs["result"]["facebookAuth"]>
-  export type FacebookAuthInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    adAccounts?: boolean | FacebookAuth$adAccountsArgs<ExtArgs>
-    _count?: boolean | FacebookAuthCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type FacebookAuthIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type FacebookAuthIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type FacebookAuthOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "accessToken" | "account_id" | "account_name" | "createdAt" | "updatedAt", ExtArgs["result"]["facebookAuth"]>
 
   export type $FacebookAuthPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "FacebookAuth"
-    objects: {
-      adAccounts: Prisma.$FacebookAdAccountPayload<ExtArgs>[]
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
       accessToken: string
+      account_id: string | null
+      account_name: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["facebookAuth"]>
@@ -2707,7 +2600,6 @@ export namespace Prisma {
    */
   export interface Prisma__FacebookAuthClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    adAccounts<T extends FacebookAuth$adAccountsArgs<ExtArgs> = {}>(args?: Subset<T, FacebookAuth$adAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacebookAdAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2740,6 +2632,8 @@ export namespace Prisma {
     readonly id: FieldRef<"FacebookAuth", 'String'>
     readonly userId: FieldRef<"FacebookAuth", 'String'>
     readonly accessToken: FieldRef<"FacebookAuth", 'String'>
+    readonly account_id: FieldRef<"FacebookAuth", 'String'>
+    readonly account_name: FieldRef<"FacebookAuth", 'String'>
     readonly createdAt: FieldRef<"FacebookAuth", 'DateTime'>
     readonly updatedAt: FieldRef<"FacebookAuth", 'DateTime'>
   }
@@ -2759,10 +2653,6 @@ export namespace Prisma {
      */
     omit?: FacebookAuthOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAuthInclude<ExtArgs> | null
-    /**
      * Filter, which FacebookAuth to fetch.
      */
     where: FacebookAuthWhereUniqueInput
@@ -2781,10 +2671,6 @@ export namespace Prisma {
      */
     omit?: FacebookAuthOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAuthInclude<ExtArgs> | null
-    /**
      * Filter, which FacebookAuth to fetch.
      */
     where: FacebookAuthWhereUniqueInput
@@ -2802,10 +2688,6 @@ export namespace Prisma {
      * Omit specific fields from the FacebookAuth
      */
     omit?: FacebookAuthOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAuthInclude<ExtArgs> | null
     /**
      * Filter, which FacebookAuth to fetch.
      */
@@ -2855,10 +2737,6 @@ export namespace Prisma {
      */
     omit?: FacebookAuthOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAuthInclude<ExtArgs> | null
-    /**
      * Filter, which FacebookAuth to fetch.
      */
     where?: FacebookAuthWhereInput
@@ -2907,10 +2785,6 @@ export namespace Prisma {
      */
     omit?: FacebookAuthOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAuthInclude<ExtArgs> | null
-    /**
      * Filter, which FacebookAuths to fetch.
      */
     where?: FacebookAuthWhereInput
@@ -2953,10 +2827,6 @@ export namespace Prisma {
      * Omit specific fields from the FacebookAuth
      */
     omit?: FacebookAuthOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAuthInclude<ExtArgs> | null
     /**
      * The data needed to create a FacebookAuth.
      */
@@ -3005,10 +2875,6 @@ export namespace Prisma {
      * Omit specific fields from the FacebookAuth
      */
     omit?: FacebookAuthOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAuthInclude<ExtArgs> | null
     /**
      * The data needed to update a FacebookAuth.
      */
@@ -3076,10 +2942,6 @@ export namespace Prisma {
      */
     omit?: FacebookAuthOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAuthInclude<ExtArgs> | null
-    /**
      * The filter to search for the FacebookAuth to update in case it exists.
      */
     where: FacebookAuthWhereUniqueInput
@@ -3106,10 +2968,6 @@ export namespace Prisma {
      */
     omit?: FacebookAuthOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAuthInclude<ExtArgs> | null
-    /**
      * Filter which FacebookAuth to delete.
      */
     where: FacebookAuthWhereUniqueInput
@@ -3130,30 +2988,6 @@ export namespace Prisma {
   }
 
   /**
-   * FacebookAuth.adAccounts
-   */
-  export type FacebookAuth$adAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountInclude<ExtArgs> | null
-    where?: FacebookAdAccountWhereInput
-    orderBy?: FacebookAdAccountOrderByWithRelationInput | FacebookAdAccountOrderByWithRelationInput[]
-    cursor?: FacebookAdAccountWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: FacebookAdAccountScalarFieldEnum | FacebookAdAccountScalarFieldEnum[]
-  }
-
-  /**
    * FacebookAuth without action
    */
   export type FacebookAuthDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3165,1081 +2999,6 @@ export namespace Prisma {
      * Omit specific fields from the FacebookAuth
      */
     omit?: FacebookAuthOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAuthInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model FacebookAdAccount
-   */
-
-  export type AggregateFacebookAdAccount = {
-    _count: FacebookAdAccountCountAggregateOutputType | null
-    _min: FacebookAdAccountMinAggregateOutputType | null
-    _max: FacebookAdAccountMaxAggregateOutputType | null
-  }
-
-  export type FacebookAdAccountMinAggregateOutputType = {
-    id: string | null
-    accountId: string | null
-    name: string | null
-    authId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type FacebookAdAccountMaxAggregateOutputType = {
-    id: string | null
-    accountId: string | null
-    name: string | null
-    authId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type FacebookAdAccountCountAggregateOutputType = {
-    id: number
-    accountId: number
-    name: number
-    authId: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type FacebookAdAccountMinAggregateInputType = {
-    id?: true
-    accountId?: true
-    name?: true
-    authId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type FacebookAdAccountMaxAggregateInputType = {
-    id?: true
-    accountId?: true
-    name?: true
-    authId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type FacebookAdAccountCountAggregateInputType = {
-    id?: true
-    accountId?: true
-    name?: true
-    authId?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type FacebookAdAccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which FacebookAdAccount to aggregate.
-     */
-    where?: FacebookAdAccountWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FacebookAdAccounts to fetch.
-     */
-    orderBy?: FacebookAdAccountOrderByWithRelationInput | FacebookAdAccountOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: FacebookAdAccountWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FacebookAdAccounts from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FacebookAdAccounts.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned FacebookAdAccounts
-    **/
-    _count?: true | FacebookAdAccountCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: FacebookAdAccountMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: FacebookAdAccountMaxAggregateInputType
-  }
-
-  export type GetFacebookAdAccountAggregateType<T extends FacebookAdAccountAggregateArgs> = {
-        [P in keyof T & keyof AggregateFacebookAdAccount]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateFacebookAdAccount[P]>
-      : GetScalarType<T[P], AggregateFacebookAdAccount[P]>
-  }
-
-
-
-
-  export type FacebookAdAccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FacebookAdAccountWhereInput
-    orderBy?: FacebookAdAccountOrderByWithAggregationInput | FacebookAdAccountOrderByWithAggregationInput[]
-    by: FacebookAdAccountScalarFieldEnum[] | FacebookAdAccountScalarFieldEnum
-    having?: FacebookAdAccountScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: FacebookAdAccountCountAggregateInputType | true
-    _min?: FacebookAdAccountMinAggregateInputType
-    _max?: FacebookAdAccountMaxAggregateInputType
-  }
-
-  export type FacebookAdAccountGroupByOutputType = {
-    id: string
-    accountId: string
-    name: string
-    authId: string
-    createdAt: Date
-    updatedAt: Date
-    _count: FacebookAdAccountCountAggregateOutputType | null
-    _min: FacebookAdAccountMinAggregateOutputType | null
-    _max: FacebookAdAccountMaxAggregateOutputType | null
-  }
-
-  type GetFacebookAdAccountGroupByPayload<T extends FacebookAdAccountGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<FacebookAdAccountGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof FacebookAdAccountGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], FacebookAdAccountGroupByOutputType[P]>
-            : GetScalarType<T[P], FacebookAdAccountGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type FacebookAdAccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    accountId?: boolean
-    name?: boolean
-    authId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    facebookAuth?: boolean | FacebookAuthDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["facebookAdAccount"]>
-
-  export type FacebookAdAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    accountId?: boolean
-    name?: boolean
-    authId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    facebookAuth?: boolean | FacebookAuthDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["facebookAdAccount"]>
-
-  export type FacebookAdAccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    accountId?: boolean
-    name?: boolean
-    authId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    facebookAuth?: boolean | FacebookAuthDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["facebookAdAccount"]>
-
-  export type FacebookAdAccountSelectScalar = {
-    id?: boolean
-    accountId?: boolean
-    name?: boolean
-    authId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type FacebookAdAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "accountId" | "name" | "authId" | "createdAt" | "updatedAt", ExtArgs["result"]["facebookAdAccount"]>
-  export type FacebookAdAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    facebookAuth?: boolean | FacebookAuthDefaultArgs<ExtArgs>
-  }
-  export type FacebookAdAccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    facebookAuth?: boolean | FacebookAuthDefaultArgs<ExtArgs>
-  }
-  export type FacebookAdAccountIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    facebookAuth?: boolean | FacebookAuthDefaultArgs<ExtArgs>
-  }
-
-  export type $FacebookAdAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "FacebookAdAccount"
-    objects: {
-      facebookAuth: Prisma.$FacebookAuthPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      accountId: string
-      name: string
-      authId: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["facebookAdAccount"]>
-    composites: {}
-  }
-
-  type FacebookAdAccountGetPayload<S extends boolean | null | undefined | FacebookAdAccountDefaultArgs> = $Result.GetResult<Prisma.$FacebookAdAccountPayload, S>
-
-  type FacebookAdAccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FacebookAdAccountFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: FacebookAdAccountCountAggregateInputType | true
-    }
-
-  export interface FacebookAdAccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FacebookAdAccount'], meta: { name: 'FacebookAdAccount' } }
-    /**
-     * Find zero or one FacebookAdAccount that matches the filter.
-     * @param {FacebookAdAccountFindUniqueArgs} args - Arguments to find a FacebookAdAccount
-     * @example
-     * // Get one FacebookAdAccount
-     * const facebookAdAccount = await prisma.facebookAdAccount.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends FacebookAdAccountFindUniqueArgs>(args: SelectSubset<T, FacebookAdAccountFindUniqueArgs<ExtArgs>>): Prisma__FacebookAdAccountClient<$Result.GetResult<Prisma.$FacebookAdAccountPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one FacebookAdAccount that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {FacebookAdAccountFindUniqueOrThrowArgs} args - Arguments to find a FacebookAdAccount
-     * @example
-     * // Get one FacebookAdAccount
-     * const facebookAdAccount = await prisma.facebookAdAccount.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends FacebookAdAccountFindUniqueOrThrowArgs>(args: SelectSubset<T, FacebookAdAccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FacebookAdAccountClient<$Result.GetResult<Prisma.$FacebookAdAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first FacebookAdAccount that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAdAccountFindFirstArgs} args - Arguments to find a FacebookAdAccount
-     * @example
-     * // Get one FacebookAdAccount
-     * const facebookAdAccount = await prisma.facebookAdAccount.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends FacebookAdAccountFindFirstArgs>(args?: SelectSubset<T, FacebookAdAccountFindFirstArgs<ExtArgs>>): Prisma__FacebookAdAccountClient<$Result.GetResult<Prisma.$FacebookAdAccountPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first FacebookAdAccount that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAdAccountFindFirstOrThrowArgs} args - Arguments to find a FacebookAdAccount
-     * @example
-     * // Get one FacebookAdAccount
-     * const facebookAdAccount = await prisma.facebookAdAccount.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends FacebookAdAccountFindFirstOrThrowArgs>(args?: SelectSubset<T, FacebookAdAccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__FacebookAdAccountClient<$Result.GetResult<Prisma.$FacebookAdAccountPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more FacebookAdAccounts that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAdAccountFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all FacebookAdAccounts
-     * const facebookAdAccounts = await prisma.facebookAdAccount.findMany()
-     * 
-     * // Get first 10 FacebookAdAccounts
-     * const facebookAdAccounts = await prisma.facebookAdAccount.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const facebookAdAccountWithIdOnly = await prisma.facebookAdAccount.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends FacebookAdAccountFindManyArgs>(args?: SelectSubset<T, FacebookAdAccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacebookAdAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a FacebookAdAccount.
-     * @param {FacebookAdAccountCreateArgs} args - Arguments to create a FacebookAdAccount.
-     * @example
-     * // Create one FacebookAdAccount
-     * const FacebookAdAccount = await prisma.facebookAdAccount.create({
-     *   data: {
-     *     // ... data to create a FacebookAdAccount
-     *   }
-     * })
-     * 
-     */
-    create<T extends FacebookAdAccountCreateArgs>(args: SelectSubset<T, FacebookAdAccountCreateArgs<ExtArgs>>): Prisma__FacebookAdAccountClient<$Result.GetResult<Prisma.$FacebookAdAccountPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many FacebookAdAccounts.
-     * @param {FacebookAdAccountCreateManyArgs} args - Arguments to create many FacebookAdAccounts.
-     * @example
-     * // Create many FacebookAdAccounts
-     * const facebookAdAccount = await prisma.facebookAdAccount.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends FacebookAdAccountCreateManyArgs>(args?: SelectSubset<T, FacebookAdAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many FacebookAdAccounts and returns the data saved in the database.
-     * @param {FacebookAdAccountCreateManyAndReturnArgs} args - Arguments to create many FacebookAdAccounts.
-     * @example
-     * // Create many FacebookAdAccounts
-     * const facebookAdAccount = await prisma.facebookAdAccount.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many FacebookAdAccounts and only return the `id`
-     * const facebookAdAccountWithIdOnly = await prisma.facebookAdAccount.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends FacebookAdAccountCreateManyAndReturnArgs>(args?: SelectSubset<T, FacebookAdAccountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacebookAdAccountPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a FacebookAdAccount.
-     * @param {FacebookAdAccountDeleteArgs} args - Arguments to delete one FacebookAdAccount.
-     * @example
-     * // Delete one FacebookAdAccount
-     * const FacebookAdAccount = await prisma.facebookAdAccount.delete({
-     *   where: {
-     *     // ... filter to delete one FacebookAdAccount
-     *   }
-     * })
-     * 
-     */
-    delete<T extends FacebookAdAccountDeleteArgs>(args: SelectSubset<T, FacebookAdAccountDeleteArgs<ExtArgs>>): Prisma__FacebookAdAccountClient<$Result.GetResult<Prisma.$FacebookAdAccountPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one FacebookAdAccount.
-     * @param {FacebookAdAccountUpdateArgs} args - Arguments to update one FacebookAdAccount.
-     * @example
-     * // Update one FacebookAdAccount
-     * const facebookAdAccount = await prisma.facebookAdAccount.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends FacebookAdAccountUpdateArgs>(args: SelectSubset<T, FacebookAdAccountUpdateArgs<ExtArgs>>): Prisma__FacebookAdAccountClient<$Result.GetResult<Prisma.$FacebookAdAccountPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more FacebookAdAccounts.
-     * @param {FacebookAdAccountDeleteManyArgs} args - Arguments to filter FacebookAdAccounts to delete.
-     * @example
-     * // Delete a few FacebookAdAccounts
-     * const { count } = await prisma.facebookAdAccount.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends FacebookAdAccountDeleteManyArgs>(args?: SelectSubset<T, FacebookAdAccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more FacebookAdAccounts.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAdAccountUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many FacebookAdAccounts
-     * const facebookAdAccount = await prisma.facebookAdAccount.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends FacebookAdAccountUpdateManyArgs>(args: SelectSubset<T, FacebookAdAccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more FacebookAdAccounts and returns the data updated in the database.
-     * @param {FacebookAdAccountUpdateManyAndReturnArgs} args - Arguments to update many FacebookAdAccounts.
-     * @example
-     * // Update many FacebookAdAccounts
-     * const facebookAdAccount = await prisma.facebookAdAccount.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more FacebookAdAccounts and only return the `id`
-     * const facebookAdAccountWithIdOnly = await prisma.facebookAdAccount.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends FacebookAdAccountUpdateManyAndReturnArgs>(args: SelectSubset<T, FacebookAdAccountUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacebookAdAccountPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one FacebookAdAccount.
-     * @param {FacebookAdAccountUpsertArgs} args - Arguments to update or create a FacebookAdAccount.
-     * @example
-     * // Update or create a FacebookAdAccount
-     * const facebookAdAccount = await prisma.facebookAdAccount.upsert({
-     *   create: {
-     *     // ... data to create a FacebookAdAccount
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the FacebookAdAccount we want to update
-     *   }
-     * })
-     */
-    upsert<T extends FacebookAdAccountUpsertArgs>(args: SelectSubset<T, FacebookAdAccountUpsertArgs<ExtArgs>>): Prisma__FacebookAdAccountClient<$Result.GetResult<Prisma.$FacebookAdAccountPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of FacebookAdAccounts.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAdAccountCountArgs} args - Arguments to filter FacebookAdAccounts to count.
-     * @example
-     * // Count the number of FacebookAdAccounts
-     * const count = await prisma.facebookAdAccount.count({
-     *   where: {
-     *     // ... the filter for the FacebookAdAccounts we want to count
-     *   }
-     * })
-    **/
-    count<T extends FacebookAdAccountCountArgs>(
-      args?: Subset<T, FacebookAdAccountCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], FacebookAdAccountCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a FacebookAdAccount.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAdAccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends FacebookAdAccountAggregateArgs>(args: Subset<T, FacebookAdAccountAggregateArgs>): Prisma.PrismaPromise<GetFacebookAdAccountAggregateType<T>>
-
-    /**
-     * Group by FacebookAdAccount.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAdAccountGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends FacebookAdAccountGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: FacebookAdAccountGroupByArgs['orderBy'] }
-        : { orderBy?: FacebookAdAccountGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, FacebookAdAccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFacebookAdAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the FacebookAdAccount model
-   */
-  readonly fields: FacebookAdAccountFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for FacebookAdAccount.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__FacebookAdAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    facebookAuth<T extends FacebookAuthDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FacebookAuthDefaultArgs<ExtArgs>>): Prisma__FacebookAuthClient<$Result.GetResult<Prisma.$FacebookAuthPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the FacebookAdAccount model
-   */
-  interface FacebookAdAccountFieldRefs {
-    readonly id: FieldRef<"FacebookAdAccount", 'String'>
-    readonly accountId: FieldRef<"FacebookAdAccount", 'String'>
-    readonly name: FieldRef<"FacebookAdAccount", 'String'>
-    readonly authId: FieldRef<"FacebookAdAccount", 'String'>
-    readonly createdAt: FieldRef<"FacebookAdAccount", 'DateTime'>
-    readonly updatedAt: FieldRef<"FacebookAdAccount", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * FacebookAdAccount findUnique
-   */
-  export type FacebookAdAccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountInclude<ExtArgs> | null
-    /**
-     * Filter, which FacebookAdAccount to fetch.
-     */
-    where: FacebookAdAccountWhereUniqueInput
-  }
-
-  /**
-   * FacebookAdAccount findUniqueOrThrow
-   */
-  export type FacebookAdAccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountInclude<ExtArgs> | null
-    /**
-     * Filter, which FacebookAdAccount to fetch.
-     */
-    where: FacebookAdAccountWhereUniqueInput
-  }
-
-  /**
-   * FacebookAdAccount findFirst
-   */
-  export type FacebookAdAccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountInclude<ExtArgs> | null
-    /**
-     * Filter, which FacebookAdAccount to fetch.
-     */
-    where?: FacebookAdAccountWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FacebookAdAccounts to fetch.
-     */
-    orderBy?: FacebookAdAccountOrderByWithRelationInput | FacebookAdAccountOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for FacebookAdAccounts.
-     */
-    cursor?: FacebookAdAccountWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FacebookAdAccounts from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FacebookAdAccounts.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of FacebookAdAccounts.
-     */
-    distinct?: FacebookAdAccountScalarFieldEnum | FacebookAdAccountScalarFieldEnum[]
-  }
-
-  /**
-   * FacebookAdAccount findFirstOrThrow
-   */
-  export type FacebookAdAccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountInclude<ExtArgs> | null
-    /**
-     * Filter, which FacebookAdAccount to fetch.
-     */
-    where?: FacebookAdAccountWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FacebookAdAccounts to fetch.
-     */
-    orderBy?: FacebookAdAccountOrderByWithRelationInput | FacebookAdAccountOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for FacebookAdAccounts.
-     */
-    cursor?: FacebookAdAccountWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FacebookAdAccounts from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FacebookAdAccounts.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of FacebookAdAccounts.
-     */
-    distinct?: FacebookAdAccountScalarFieldEnum | FacebookAdAccountScalarFieldEnum[]
-  }
-
-  /**
-   * FacebookAdAccount findMany
-   */
-  export type FacebookAdAccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountInclude<ExtArgs> | null
-    /**
-     * Filter, which FacebookAdAccounts to fetch.
-     */
-    where?: FacebookAdAccountWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FacebookAdAccounts to fetch.
-     */
-    orderBy?: FacebookAdAccountOrderByWithRelationInput | FacebookAdAccountOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing FacebookAdAccounts.
-     */
-    cursor?: FacebookAdAccountWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FacebookAdAccounts from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FacebookAdAccounts.
-     */
-    skip?: number
-    distinct?: FacebookAdAccountScalarFieldEnum | FacebookAdAccountScalarFieldEnum[]
-  }
-
-  /**
-   * FacebookAdAccount create
-   */
-  export type FacebookAdAccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountInclude<ExtArgs> | null
-    /**
-     * The data needed to create a FacebookAdAccount.
-     */
-    data: XOR<FacebookAdAccountCreateInput, FacebookAdAccountUncheckedCreateInput>
-  }
-
-  /**
-   * FacebookAdAccount createMany
-   */
-  export type FacebookAdAccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many FacebookAdAccounts.
-     */
-    data: FacebookAdAccountCreateManyInput | FacebookAdAccountCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * FacebookAdAccount createManyAndReturn
-   */
-  export type FacebookAdAccountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * The data used to create many FacebookAdAccounts.
-     */
-    data: FacebookAdAccountCreateManyInput | FacebookAdAccountCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * FacebookAdAccount update
-   */
-  export type FacebookAdAccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountInclude<ExtArgs> | null
-    /**
-     * The data needed to update a FacebookAdAccount.
-     */
-    data: XOR<FacebookAdAccountUpdateInput, FacebookAdAccountUncheckedUpdateInput>
-    /**
-     * Choose, which FacebookAdAccount to update.
-     */
-    where: FacebookAdAccountWhereUniqueInput
-  }
-
-  /**
-   * FacebookAdAccount updateMany
-   */
-  export type FacebookAdAccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update FacebookAdAccounts.
-     */
-    data: XOR<FacebookAdAccountUpdateManyMutationInput, FacebookAdAccountUncheckedUpdateManyInput>
-    /**
-     * Filter which FacebookAdAccounts to update
-     */
-    where?: FacebookAdAccountWhereInput
-    /**
-     * Limit how many FacebookAdAccounts to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * FacebookAdAccount updateManyAndReturn
-   */
-  export type FacebookAdAccountUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * The data used to update FacebookAdAccounts.
-     */
-    data: XOR<FacebookAdAccountUpdateManyMutationInput, FacebookAdAccountUncheckedUpdateManyInput>
-    /**
-     * Filter which FacebookAdAccounts to update
-     */
-    where?: FacebookAdAccountWhereInput
-    /**
-     * Limit how many FacebookAdAccounts to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * FacebookAdAccount upsert
-   */
-  export type FacebookAdAccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountInclude<ExtArgs> | null
-    /**
-     * The filter to search for the FacebookAdAccount to update in case it exists.
-     */
-    where: FacebookAdAccountWhereUniqueInput
-    /**
-     * In case the FacebookAdAccount found by the `where` argument doesn't exist, create a new FacebookAdAccount with this data.
-     */
-    create: XOR<FacebookAdAccountCreateInput, FacebookAdAccountUncheckedCreateInput>
-    /**
-     * In case the FacebookAdAccount was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<FacebookAdAccountUpdateInput, FacebookAdAccountUncheckedUpdateInput>
-  }
-
-  /**
-   * FacebookAdAccount delete
-   */
-  export type FacebookAdAccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountInclude<ExtArgs> | null
-    /**
-     * Filter which FacebookAdAccount to delete.
-     */
-    where: FacebookAdAccountWhereUniqueInput
-  }
-
-  /**
-   * FacebookAdAccount deleteMany
-   */
-  export type FacebookAdAccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which FacebookAdAccounts to delete
-     */
-    where?: FacebookAdAccountWhereInput
-    /**
-     * Limit how many FacebookAdAccounts to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * FacebookAdAccount without action
-   */
-  export type FacebookAdAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FacebookAdAccount
-     */
-    select?: FacebookAdAccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FacebookAdAccount
-     */
-    omit?: FacebookAdAccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FacebookAdAccountInclude<ExtArgs> | null
   }
 
 
@@ -4274,23 +3033,13 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     accessToken: 'accessToken',
+    account_id: 'account_id',
+    account_name: 'account_name',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type FacebookAuthScalarFieldEnum = (typeof FacebookAuthScalarFieldEnum)[keyof typeof FacebookAuthScalarFieldEnum]
-
-
-  export const FacebookAdAccountScalarFieldEnum: {
-    id: 'id',
-    accountId: 'accountId',
-    name: 'name',
-    authId: 'authId',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type FacebookAdAccountScalarFieldEnum = (typeof FacebookAdAccountScalarFieldEnum)[keyof typeof FacebookAdAccountScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4307,6 +3056,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -4435,18 +3192,20 @@ export namespace Prisma {
     id?: StringFilter<"FacebookAuth"> | string
     userId?: StringFilter<"FacebookAuth"> | string
     accessToken?: StringFilter<"FacebookAuth"> | string
+    account_id?: StringNullableFilter<"FacebookAuth"> | string | null
+    account_name?: StringNullableFilter<"FacebookAuth"> | string | null
     createdAt?: DateTimeFilter<"FacebookAuth"> | Date | string
     updatedAt?: DateTimeFilter<"FacebookAuth"> | Date | string
-    adAccounts?: FacebookAdAccountListRelationFilter
   }
 
   export type FacebookAuthOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     accessToken?: SortOrder
+    account_id?: SortOrderInput | SortOrder
+    account_name?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    adAccounts?: FacebookAdAccountOrderByRelationAggregateInput
   }
 
   export type FacebookAuthWhereUniqueInput = Prisma.AtLeast<{
@@ -4456,15 +3215,18 @@ export namespace Prisma {
     OR?: FacebookAuthWhereInput[]
     NOT?: FacebookAuthWhereInput | FacebookAuthWhereInput[]
     accessToken?: StringFilter<"FacebookAuth"> | string
+    account_id?: StringNullableFilter<"FacebookAuth"> | string | null
+    account_name?: StringNullableFilter<"FacebookAuth"> | string | null
     createdAt?: DateTimeFilter<"FacebookAuth"> | Date | string
     updatedAt?: DateTimeFilter<"FacebookAuth"> | Date | string
-    adAccounts?: FacebookAdAccountListRelationFilter
   }, "id" | "userId">
 
   export type FacebookAuthOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     accessToken?: SortOrder
+    account_id?: SortOrderInput | SortOrder
+    account_name?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: FacebookAuthCountOrderByAggregateInput
@@ -4479,69 +3241,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"FacebookAuth"> | string
     userId?: StringWithAggregatesFilter<"FacebookAuth"> | string
     accessToken?: StringWithAggregatesFilter<"FacebookAuth"> | string
+    account_id?: StringNullableWithAggregatesFilter<"FacebookAuth"> | string | null
+    account_name?: StringNullableWithAggregatesFilter<"FacebookAuth"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"FacebookAuth"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"FacebookAuth"> | Date | string
-  }
-
-  export type FacebookAdAccountWhereInput = {
-    AND?: FacebookAdAccountWhereInput | FacebookAdAccountWhereInput[]
-    OR?: FacebookAdAccountWhereInput[]
-    NOT?: FacebookAdAccountWhereInput | FacebookAdAccountWhereInput[]
-    id?: StringFilter<"FacebookAdAccount"> | string
-    accountId?: StringFilter<"FacebookAdAccount"> | string
-    name?: StringFilter<"FacebookAdAccount"> | string
-    authId?: StringFilter<"FacebookAdAccount"> | string
-    createdAt?: DateTimeFilter<"FacebookAdAccount"> | Date | string
-    updatedAt?: DateTimeFilter<"FacebookAdAccount"> | Date | string
-    facebookAuth?: XOR<FacebookAuthScalarRelationFilter, FacebookAuthWhereInput>
-  }
-
-  export type FacebookAdAccountOrderByWithRelationInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    name?: SortOrder
-    authId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    facebookAuth?: FacebookAuthOrderByWithRelationInput
-  }
-
-  export type FacebookAdAccountWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    accountId_authId?: FacebookAdAccountAccountIdAuthIdCompoundUniqueInput
-    AND?: FacebookAdAccountWhereInput | FacebookAdAccountWhereInput[]
-    OR?: FacebookAdAccountWhereInput[]
-    NOT?: FacebookAdAccountWhereInput | FacebookAdAccountWhereInput[]
-    accountId?: StringFilter<"FacebookAdAccount"> | string
-    name?: StringFilter<"FacebookAdAccount"> | string
-    authId?: StringFilter<"FacebookAdAccount"> | string
-    createdAt?: DateTimeFilter<"FacebookAdAccount"> | Date | string
-    updatedAt?: DateTimeFilter<"FacebookAdAccount"> | Date | string
-    facebookAuth?: XOR<FacebookAuthScalarRelationFilter, FacebookAuthWhereInput>
-  }, "id" | "accountId_authId">
-
-  export type FacebookAdAccountOrderByWithAggregationInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    name?: SortOrder
-    authId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: FacebookAdAccountCountOrderByAggregateInput
-    _max?: FacebookAdAccountMaxOrderByAggregateInput
-    _min?: FacebookAdAccountMinOrderByAggregateInput
-  }
-
-  export type FacebookAdAccountScalarWhereWithAggregatesInput = {
-    AND?: FacebookAdAccountScalarWhereWithAggregatesInput | FacebookAdAccountScalarWhereWithAggregatesInput[]
-    OR?: FacebookAdAccountScalarWhereWithAggregatesInput[]
-    NOT?: FacebookAdAccountScalarWhereWithAggregatesInput | FacebookAdAccountScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"FacebookAdAccount"> | string
-    accountId?: StringWithAggregatesFilter<"FacebookAdAccount"> | string
-    name?: StringWithAggregatesFilter<"FacebookAdAccount"> | string
-    authId?: StringWithAggregatesFilter<"FacebookAdAccount"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"FacebookAdAccount"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"FacebookAdAccount"> | Date | string
   }
 
   export type MessageCreateInput = {
@@ -4618,42 +3321,48 @@ export namespace Prisma {
     id?: string
     userId: string
     accessToken: string
+    account_id?: string | null
+    account_name?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    adAccounts?: FacebookAdAccountCreateNestedManyWithoutFacebookAuthInput
   }
 
   export type FacebookAuthUncheckedCreateInput = {
     id?: string
     userId: string
     accessToken: string
+    account_id?: string | null
+    account_name?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    adAccounts?: FacebookAdAccountUncheckedCreateNestedManyWithoutFacebookAuthInput
   }
 
   export type FacebookAuthUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     accessToken?: StringFieldUpdateOperationsInput | string
+    account_id?: NullableStringFieldUpdateOperationsInput | string | null
+    account_name?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    adAccounts?: FacebookAdAccountUpdateManyWithoutFacebookAuthNestedInput
   }
 
   export type FacebookAuthUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     accessToken?: StringFieldUpdateOperationsInput | string
+    account_id?: NullableStringFieldUpdateOperationsInput | string | null
+    account_name?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    adAccounts?: FacebookAdAccountUncheckedUpdateManyWithoutFacebookAuthNestedInput
   }
 
   export type FacebookAuthCreateManyInput = {
     id?: string
     userId: string
     accessToken: string
+    account_id?: string | null
+    account_name?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4662,6 +3371,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     accessToken?: StringFieldUpdateOperationsInput | string
+    account_id?: NullableStringFieldUpdateOperationsInput | string | null
+    account_name?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4670,68 +3381,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     accessToken?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FacebookAdAccountCreateInput = {
-    id?: string
-    accountId: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    facebookAuth: FacebookAuthCreateNestedOneWithoutAdAccountsInput
-  }
-
-  export type FacebookAdAccountUncheckedCreateInput = {
-    id?: string
-    accountId: string
-    name: string
-    authId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type FacebookAdAccountUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    facebookAuth?: FacebookAuthUpdateOneRequiredWithoutAdAccountsNestedInput
-  }
-
-  export type FacebookAdAccountUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    authId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FacebookAdAccountCreateManyInput = {
-    id?: string
-    accountId: string
-    name: string
-    authId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type FacebookAdAccountUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FacebookAdAccountUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    authId?: StringFieldUpdateOperationsInput | string
+    account_id?: NullableStringFieldUpdateOperationsInput | string | null
+    account_name?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4837,20 +3488,32 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type FacebookAdAccountListRelationFilter = {
-    every?: FacebookAdAccountWhereInput
-    some?: FacebookAdAccountWhereInput
-    none?: FacebookAdAccountWhereInput
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type FacebookAdAccountOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type FacebookAuthCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     accessToken?: SortOrder
+    account_id?: SortOrder
+    account_name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -4859,6 +3522,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     accessToken?: SortOrder
+    account_id?: SortOrder
+    account_name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -4867,45 +3532,28 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     accessToken?: SortOrder
+    account_id?: SortOrder
+    account_name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type FacebookAuthScalarRelationFilter = {
-    is?: FacebookAuthWhereInput
-    isNot?: FacebookAuthWhereInput
-  }
-
-  export type FacebookAdAccountAccountIdAuthIdCompoundUniqueInput = {
-    accountId: string
-    authId: string
-  }
-
-  export type FacebookAdAccountCountOrderByAggregateInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    name?: SortOrder
-    authId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type FacebookAdAccountMaxOrderByAggregateInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    name?: SortOrder
-    authId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type FacebookAdAccountMinOrderByAggregateInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    name?: SortOrder
-    authId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -4920,60 +3568,8 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type FacebookAdAccountCreateNestedManyWithoutFacebookAuthInput = {
-    create?: XOR<FacebookAdAccountCreateWithoutFacebookAuthInput, FacebookAdAccountUncheckedCreateWithoutFacebookAuthInput> | FacebookAdAccountCreateWithoutFacebookAuthInput[] | FacebookAdAccountUncheckedCreateWithoutFacebookAuthInput[]
-    connectOrCreate?: FacebookAdAccountCreateOrConnectWithoutFacebookAuthInput | FacebookAdAccountCreateOrConnectWithoutFacebookAuthInput[]
-    createMany?: FacebookAdAccountCreateManyFacebookAuthInputEnvelope
-    connect?: FacebookAdAccountWhereUniqueInput | FacebookAdAccountWhereUniqueInput[]
-  }
-
-  export type FacebookAdAccountUncheckedCreateNestedManyWithoutFacebookAuthInput = {
-    create?: XOR<FacebookAdAccountCreateWithoutFacebookAuthInput, FacebookAdAccountUncheckedCreateWithoutFacebookAuthInput> | FacebookAdAccountCreateWithoutFacebookAuthInput[] | FacebookAdAccountUncheckedCreateWithoutFacebookAuthInput[]
-    connectOrCreate?: FacebookAdAccountCreateOrConnectWithoutFacebookAuthInput | FacebookAdAccountCreateOrConnectWithoutFacebookAuthInput[]
-    createMany?: FacebookAdAccountCreateManyFacebookAuthInputEnvelope
-    connect?: FacebookAdAccountWhereUniqueInput | FacebookAdAccountWhereUniqueInput[]
-  }
-
-  export type FacebookAdAccountUpdateManyWithoutFacebookAuthNestedInput = {
-    create?: XOR<FacebookAdAccountCreateWithoutFacebookAuthInput, FacebookAdAccountUncheckedCreateWithoutFacebookAuthInput> | FacebookAdAccountCreateWithoutFacebookAuthInput[] | FacebookAdAccountUncheckedCreateWithoutFacebookAuthInput[]
-    connectOrCreate?: FacebookAdAccountCreateOrConnectWithoutFacebookAuthInput | FacebookAdAccountCreateOrConnectWithoutFacebookAuthInput[]
-    upsert?: FacebookAdAccountUpsertWithWhereUniqueWithoutFacebookAuthInput | FacebookAdAccountUpsertWithWhereUniqueWithoutFacebookAuthInput[]
-    createMany?: FacebookAdAccountCreateManyFacebookAuthInputEnvelope
-    set?: FacebookAdAccountWhereUniqueInput | FacebookAdAccountWhereUniqueInput[]
-    disconnect?: FacebookAdAccountWhereUniqueInput | FacebookAdAccountWhereUniqueInput[]
-    delete?: FacebookAdAccountWhereUniqueInput | FacebookAdAccountWhereUniqueInput[]
-    connect?: FacebookAdAccountWhereUniqueInput | FacebookAdAccountWhereUniqueInput[]
-    update?: FacebookAdAccountUpdateWithWhereUniqueWithoutFacebookAuthInput | FacebookAdAccountUpdateWithWhereUniqueWithoutFacebookAuthInput[]
-    updateMany?: FacebookAdAccountUpdateManyWithWhereWithoutFacebookAuthInput | FacebookAdAccountUpdateManyWithWhereWithoutFacebookAuthInput[]
-    deleteMany?: FacebookAdAccountScalarWhereInput | FacebookAdAccountScalarWhereInput[]
-  }
-
-  export type FacebookAdAccountUncheckedUpdateManyWithoutFacebookAuthNestedInput = {
-    create?: XOR<FacebookAdAccountCreateWithoutFacebookAuthInput, FacebookAdAccountUncheckedCreateWithoutFacebookAuthInput> | FacebookAdAccountCreateWithoutFacebookAuthInput[] | FacebookAdAccountUncheckedCreateWithoutFacebookAuthInput[]
-    connectOrCreate?: FacebookAdAccountCreateOrConnectWithoutFacebookAuthInput | FacebookAdAccountCreateOrConnectWithoutFacebookAuthInput[]
-    upsert?: FacebookAdAccountUpsertWithWhereUniqueWithoutFacebookAuthInput | FacebookAdAccountUpsertWithWhereUniqueWithoutFacebookAuthInput[]
-    createMany?: FacebookAdAccountCreateManyFacebookAuthInputEnvelope
-    set?: FacebookAdAccountWhereUniqueInput | FacebookAdAccountWhereUniqueInput[]
-    disconnect?: FacebookAdAccountWhereUniqueInput | FacebookAdAccountWhereUniqueInput[]
-    delete?: FacebookAdAccountWhereUniqueInput | FacebookAdAccountWhereUniqueInput[]
-    connect?: FacebookAdAccountWhereUniqueInput | FacebookAdAccountWhereUniqueInput[]
-    update?: FacebookAdAccountUpdateWithWhereUniqueWithoutFacebookAuthInput | FacebookAdAccountUpdateWithWhereUniqueWithoutFacebookAuthInput[]
-    updateMany?: FacebookAdAccountUpdateManyWithWhereWithoutFacebookAuthInput | FacebookAdAccountUpdateManyWithWhereWithoutFacebookAuthInput[]
-    deleteMany?: FacebookAdAccountScalarWhereInput | FacebookAdAccountScalarWhereInput[]
-  }
-
-  export type FacebookAuthCreateNestedOneWithoutAdAccountsInput = {
-    create?: XOR<FacebookAuthCreateWithoutAdAccountsInput, FacebookAuthUncheckedCreateWithoutAdAccountsInput>
-    connectOrCreate?: FacebookAuthCreateOrConnectWithoutAdAccountsInput
-    connect?: FacebookAuthWhereUniqueInput
-  }
-
-  export type FacebookAuthUpdateOneRequiredWithoutAdAccountsNestedInput = {
-    create?: XOR<FacebookAuthCreateWithoutAdAccountsInput, FacebookAuthUncheckedCreateWithoutAdAccountsInput>
-    connectOrCreate?: FacebookAuthCreateOrConnectWithoutAdAccountsInput
-    upsert?: FacebookAuthUpsertWithoutAdAccountsInput
-    connect?: FacebookAuthWhereUniqueInput
-    update?: XOR<XOR<FacebookAuthUpdateToOneWithWhereWithoutAdAccountsInput, FacebookAuthUpdateWithoutAdAccountsInput>, FacebookAuthUncheckedUpdateWithoutAdAccountsInput>
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -5056,138 +3652,46 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type FacebookAdAccountCreateWithoutFacebookAuthInput = {
-    id?: string
-    accountId: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type FacebookAdAccountUncheckedCreateWithoutFacebookAuthInput = {
-    id?: string
-    accountId: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type FacebookAdAccountCreateOrConnectWithoutFacebookAuthInput = {
-    where: FacebookAdAccountWhereUniqueInput
-    create: XOR<FacebookAdAccountCreateWithoutFacebookAuthInput, FacebookAdAccountUncheckedCreateWithoutFacebookAuthInput>
-  }
-
-  export type FacebookAdAccountCreateManyFacebookAuthInputEnvelope = {
-    data: FacebookAdAccountCreateManyFacebookAuthInput | FacebookAdAccountCreateManyFacebookAuthInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type FacebookAdAccountUpsertWithWhereUniqueWithoutFacebookAuthInput = {
-    where: FacebookAdAccountWhereUniqueInput
-    update: XOR<FacebookAdAccountUpdateWithoutFacebookAuthInput, FacebookAdAccountUncheckedUpdateWithoutFacebookAuthInput>
-    create: XOR<FacebookAdAccountCreateWithoutFacebookAuthInput, FacebookAdAccountUncheckedCreateWithoutFacebookAuthInput>
-  }
-
-  export type FacebookAdAccountUpdateWithWhereUniqueWithoutFacebookAuthInput = {
-    where: FacebookAdAccountWhereUniqueInput
-    data: XOR<FacebookAdAccountUpdateWithoutFacebookAuthInput, FacebookAdAccountUncheckedUpdateWithoutFacebookAuthInput>
-  }
-
-  export type FacebookAdAccountUpdateManyWithWhereWithoutFacebookAuthInput = {
-    where: FacebookAdAccountScalarWhereInput
-    data: XOR<FacebookAdAccountUpdateManyMutationInput, FacebookAdAccountUncheckedUpdateManyWithoutFacebookAuthInput>
-  }
-
-  export type FacebookAdAccountScalarWhereInput = {
-    AND?: FacebookAdAccountScalarWhereInput | FacebookAdAccountScalarWhereInput[]
-    OR?: FacebookAdAccountScalarWhereInput[]
-    NOT?: FacebookAdAccountScalarWhereInput | FacebookAdAccountScalarWhereInput[]
-    id?: StringFilter<"FacebookAdAccount"> | string
-    accountId?: StringFilter<"FacebookAdAccount"> | string
-    name?: StringFilter<"FacebookAdAccount"> | string
-    authId?: StringFilter<"FacebookAdAccount"> | string
-    createdAt?: DateTimeFilter<"FacebookAdAccount"> | Date | string
-    updatedAt?: DateTimeFilter<"FacebookAdAccount"> | Date | string
-  }
-
-  export type FacebookAuthCreateWithoutAdAccountsInput = {
-    id?: string
-    userId: string
-    accessToken: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type FacebookAuthUncheckedCreateWithoutAdAccountsInput = {
-    id?: string
-    userId: string
-    accessToken: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type FacebookAuthCreateOrConnectWithoutAdAccountsInput = {
-    where: FacebookAuthWhereUniqueInput
-    create: XOR<FacebookAuthCreateWithoutAdAccountsInput, FacebookAuthUncheckedCreateWithoutAdAccountsInput>
-  }
-
-  export type FacebookAuthUpsertWithoutAdAccountsInput = {
-    update: XOR<FacebookAuthUpdateWithoutAdAccountsInput, FacebookAuthUncheckedUpdateWithoutAdAccountsInput>
-    create: XOR<FacebookAuthCreateWithoutAdAccountsInput, FacebookAuthUncheckedCreateWithoutAdAccountsInput>
-    where?: FacebookAuthWhereInput
-  }
-
-  export type FacebookAuthUpdateToOneWithWhereWithoutAdAccountsInput = {
-    where?: FacebookAuthWhereInput
-    data: XOR<FacebookAuthUpdateWithoutAdAccountsInput, FacebookAuthUncheckedUpdateWithoutAdAccountsInput>
-  }
-
-  export type FacebookAuthUpdateWithoutAdAccountsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    accessToken?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FacebookAuthUncheckedUpdateWithoutAdAccountsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    accessToken?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FacebookAdAccountCreateManyFacebookAuthInput = {
-    id?: string
-    accountId: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type FacebookAdAccountUpdateWithoutFacebookAuthInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FacebookAdAccountUncheckedUpdateWithoutFacebookAuthInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FacebookAdAccountUncheckedUpdateManyWithoutFacebookAuthInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
 
