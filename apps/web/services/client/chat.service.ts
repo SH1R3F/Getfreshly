@@ -53,9 +53,7 @@ export class ChatService {
           if (data === '[DONE]') return;
 
           try {
-            const { chunk: textChunk, messageId } = JSON.parse(
-              data,
-            ) as StreamChunkData;
+            const { chunk: textChunk } = JSON.parse(data) as StreamChunkData;
             onChunk(textChunk);
           } catch (error) {
             console.error('Error parsing SSE message:', error);

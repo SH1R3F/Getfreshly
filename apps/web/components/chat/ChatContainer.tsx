@@ -8,14 +8,14 @@ import { MessagesList } from './MessagesList';
 import { useMessages } from '@/hooks/useMessages';
 import { ChatService } from '@/services/client/chat.service';
 import { MessageFactory } from '@/factories/message.factory';
-import { CurrentUser } from '@/types/chat';
+import { CurrentUser, FacebookAccount } from '@/types/chat';
 
 export default function ChatContainer({
   currentUser,
   accountInfo,
 }: {
   currentUser: CurrentUser;
-  accountInfo: Record<string, string> | {};
+  accountInfo: FacebookAccount;
 }) {
   const {
     messages,

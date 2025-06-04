@@ -5,7 +5,7 @@ import { MessageService } from '@/services/server/message.service';
 import { ChatValidator } from '@/validators/chat.validator';
 import { ChatService } from '@/services/server/chat.service';
 import { StreamingService } from '@/services/server/streaming.service';
-import { ChatCompletionMessageParam } from 'openai/resources/index.mjs';
+import { type ChatCompletionMessageParam } from 'openai/resources/index.mjs';
 
 export async function POST(request: Request) {
   try {
