@@ -35,7 +35,6 @@ export async function GET(request: Request) {
     }
 
     const accessToken = tokenData.access_token;
-    console.log('xxx accessToken', accessToken);
 
     // Fetch ad accounts information
     const adAccounts = await getAdAccounts(accessToken);

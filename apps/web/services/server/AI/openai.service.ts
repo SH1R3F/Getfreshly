@@ -42,7 +42,7 @@ export class OpenAIChatService {
 
       let toolCallId: string | undefined;
       let toolName: string | undefined;
-      let toolArguments: string | undefined;
+      let toolArguments: string | undefined = '';
 
       for await (const chunk of stream) {
         const content = chunk.choices[0]?.delta?.content;
@@ -56,15 +56,18 @@ export class OpenAIChatService {
         if (toolCalls) {
           if (toolCalls.id) toolCallId = toolCalls.id;
           if (toolCalls.function?.name) toolName = toolCalls.function.name;
-          if (toolCalls.function?.arguments)
-            toolArguments = toolCalls.function.arguments;
+          if (toolCalls.function?.arguments) {
+            toolArguments += toolCalls.function.arguments;
+          }
         }
       }
 
       // If we collected a complete tool call, handle it
       if (toolCallId && toolName) {
+        yield `\n\n🔧 **Using Tool: ${toolName}**\n`;
+
         const toolCall = this.tools[toolName];
-        const result = await toolCall?.(toolArguments);
+        const result = await toolCall?.(JSON.parse(toolArguments || '{}'));
 
         // Create a new message array with the tool response
         const updatedMessages: ChatCompletionMessageParam[] = [
