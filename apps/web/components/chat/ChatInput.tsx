@@ -13,22 +13,11 @@ import {
 } from '@repo/ui/components/dropdown-menu';
 import getFacebookOAuthUrl from '@/services/meta';
 import { toast } from 'sonner';
-
-interface FacebookAdAccount {
-  id: string;
-  accountId: string;
-  name: string;
-}
-
-interface ChatInputProps {
-  onSendMessage: (message: string) => Promise<void>;
-  adAccounts: FacebookAdAccount[];
-}
-
-interface ModelSelectorProps {
-  isDisabled?: boolean;
-  adAccounts: FacebookAdAccount[];
-}
+import {
+  ChatInputProps,
+  FacebookAdAccount,
+  ModelSelectorProps,
+} from '@/types/chat';
 
 export function ModelSelector({ isDisabled, adAccounts }: ModelSelectorProps) {
   const [selectedAccount, setSelectedAccount] =
@@ -152,7 +141,6 @@ export function ChatInput({ onSendMessage, adAccounts }: ChatInputProps) {
         id="message"
         className="w-full h-24 resize-none outline-0 p-4"
         placeholder="Type your message here..."
-        disabled={isSubmitting}
         onKeyDown={handleKeyDown}
       />
       <div className="absolute bottom-0 right-0 p-4 flex gap-2 items-center">

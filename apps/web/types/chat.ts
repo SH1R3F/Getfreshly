@@ -29,3 +29,13 @@ export interface FacebookAdAccount {
 export interface StreamChunkData {
   chunk: string;
 }
+
+export interface ChatInputProps {
+  onSendMessage: (message: string) => Promise<void>;
+  adAccounts: FacebookAdAccount[];
+}
+
+export interface ModelSelectorProps {
+  isDisabled?: boolean;
+  adAccounts: FacebookAdAccount[];
+}
