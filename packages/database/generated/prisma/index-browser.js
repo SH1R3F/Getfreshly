@@ -130,12 +130,14 @@ exports.Prisma.MessageScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.FacebookAuthScalarFieldEnum = {
+exports.Prisma.LinkedAccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  accountType: 'accountType',
   accessToken: 'accessToken',
-  account_id: 'account_id',
-  account_name: 'account_name',
+  accountId: 'accountId',
+  accountName: 'accountName',
+  expiresAt: 'expiresAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -150,15 +152,10 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-
 
 exports.Prisma.ModelName = {
   Message: 'Message',
-  FacebookAuth: 'FacebookAuth'
+  LinkedAccount: 'LinkedAccount'
 };
 
 /**

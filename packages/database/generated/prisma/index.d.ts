@@ -19,10 +19,10 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
 /**
- * Model FacebookAuth
+ * Model LinkedAccount
  * 
  */
-export type FacebookAuth = $Result.DefaultSelection<Prisma.$FacebookAuthPayload>
+export type LinkedAccount = $Result.DefaultSelection<Prisma.$LinkedAccountPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -160,14 +160,14 @@ export class PrismaClient<
   get message(): Prisma.MessageDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.facebookAuth`: Exposes CRUD operations for the **FacebookAuth** model.
+   * `prisma.linkedAccount`: Exposes CRUD operations for the **LinkedAccount** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more FacebookAuths
-    * const facebookAuths = await prisma.facebookAuth.findMany()
+    * // Fetch zero or more LinkedAccounts
+    * const linkedAccounts = await prisma.linkedAccount.findMany()
     * ```
     */
-  get facebookAuth(): Prisma.FacebookAuthDelegate<ExtArgs, ClientOptions>;
+  get linkedAccount(): Prisma.LinkedAccountDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -609,7 +609,7 @@ export namespace Prisma {
 
   export const ModelName: {
     Message: 'Message',
-    FacebookAuth: 'FacebookAuth'
+    LinkedAccount: 'LinkedAccount'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,7 +628,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "message" | "facebookAuth"
+      modelProps: "message" | "linkedAccount"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -706,77 +706,77 @@ export namespace Prisma {
           }
         }
       }
-      FacebookAuth: {
-        payload: Prisma.$FacebookAuthPayload<ExtArgs>
-        fields: Prisma.FacebookAuthFieldRefs
+      LinkedAccount: {
+        payload: Prisma.$LinkedAccountPayload<ExtArgs>
+        fields: Prisma.LinkedAccountFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.FacebookAuthFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAuthPayload> | null
+            args: Prisma.LinkedAccountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkedAccountPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.FacebookAuthFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAuthPayload>
+            args: Prisma.LinkedAccountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkedAccountPayload>
           }
           findFirst: {
-            args: Prisma.FacebookAuthFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAuthPayload> | null
+            args: Prisma.LinkedAccountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkedAccountPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.FacebookAuthFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAuthPayload>
+            args: Prisma.LinkedAccountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkedAccountPayload>
           }
           findMany: {
-            args: Prisma.FacebookAuthFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAuthPayload>[]
+            args: Prisma.LinkedAccountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkedAccountPayload>[]
           }
           create: {
-            args: Prisma.FacebookAuthCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAuthPayload>
+            args: Prisma.LinkedAccountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkedAccountPayload>
           }
           createMany: {
-            args: Prisma.FacebookAuthCreateManyArgs<ExtArgs>
+            args: Prisma.LinkedAccountCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.FacebookAuthCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAuthPayload>[]
+            args: Prisma.LinkedAccountCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkedAccountPayload>[]
           }
           delete: {
-            args: Prisma.FacebookAuthDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAuthPayload>
+            args: Prisma.LinkedAccountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkedAccountPayload>
           }
           update: {
-            args: Prisma.FacebookAuthUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAuthPayload>
+            args: Prisma.LinkedAccountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkedAccountPayload>
           }
           deleteMany: {
-            args: Prisma.FacebookAuthDeleteManyArgs<ExtArgs>
+            args: Prisma.LinkedAccountDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.FacebookAuthUpdateManyArgs<ExtArgs>
+            args: Prisma.LinkedAccountUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.FacebookAuthUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAuthPayload>[]
+            args: Prisma.LinkedAccountUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkedAccountPayload>[]
           }
           upsert: {
-            args: Prisma.FacebookAuthUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FacebookAuthPayload>
+            args: Prisma.LinkedAccountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinkedAccountPayload>
           }
           aggregate: {
-            args: Prisma.FacebookAuthAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateFacebookAuth>
+            args: Prisma.LinkedAccountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLinkedAccount>
           }
           groupBy: {
-            args: Prisma.FacebookAuthGroupByArgs<ExtArgs>
-            result: $Utils.Optional<FacebookAuthGroupByOutputType>[]
+            args: Prisma.LinkedAccountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LinkedAccountGroupByOutputType>[]
           }
           count: {
-            args: Prisma.FacebookAuthCountArgs<ExtArgs>
-            result: $Utils.Optional<FacebookAuthCountAggregateOutputType> | number
+            args: Prisma.LinkedAccountCountArgs<ExtArgs>
+            result: $Utils.Optional<LinkedAccountCountAggregateOutputType> | number
           }
         }
       }
@@ -865,7 +865,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     message?: MessageOmit
-    facebookAuth?: FacebookAuthOmit
+    linkedAccount?: LinkedAccountOmit
   }
 
   /* Types for Logging */
@@ -1982,360 +1982,384 @@ export namespace Prisma {
 
 
   /**
-   * Model FacebookAuth
+   * Model LinkedAccount
    */
 
-  export type AggregateFacebookAuth = {
-    _count: FacebookAuthCountAggregateOutputType | null
-    _min: FacebookAuthMinAggregateOutputType | null
-    _max: FacebookAuthMaxAggregateOutputType | null
+  export type AggregateLinkedAccount = {
+    _count: LinkedAccountCountAggregateOutputType | null
+    _min: LinkedAccountMinAggregateOutputType | null
+    _max: LinkedAccountMaxAggregateOutputType | null
   }
 
-  export type FacebookAuthMinAggregateOutputType = {
+  export type LinkedAccountMinAggregateOutputType = {
     id: string | null
     userId: string | null
+    accountType: string | null
     accessToken: string | null
-    account_id: string | null
-    account_name: string | null
+    accountId: string | null
+    accountName: string | null
+    expiresAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type FacebookAuthMaxAggregateOutputType = {
+  export type LinkedAccountMaxAggregateOutputType = {
     id: string | null
     userId: string | null
+    accountType: string | null
     accessToken: string | null
-    account_id: string | null
-    account_name: string | null
+    accountId: string | null
+    accountName: string | null
+    expiresAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type FacebookAuthCountAggregateOutputType = {
+  export type LinkedAccountCountAggregateOutputType = {
     id: number
     userId: number
+    accountType: number
     accessToken: number
-    account_id: number
-    account_name: number
+    accountId: number
+    accountName: number
+    expiresAt: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
-  export type FacebookAuthMinAggregateInputType = {
+  export type LinkedAccountMinAggregateInputType = {
     id?: true
     userId?: true
+    accountType?: true
     accessToken?: true
-    account_id?: true
-    account_name?: true
+    accountId?: true
+    accountName?: true
+    expiresAt?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type FacebookAuthMaxAggregateInputType = {
+  export type LinkedAccountMaxAggregateInputType = {
     id?: true
     userId?: true
+    accountType?: true
     accessToken?: true
-    account_id?: true
-    account_name?: true
+    accountId?: true
+    accountName?: true
+    expiresAt?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type FacebookAuthCountAggregateInputType = {
+  export type LinkedAccountCountAggregateInputType = {
     id?: true
     userId?: true
+    accountType?: true
     accessToken?: true
-    account_id?: true
-    account_name?: true
+    accountId?: true
+    accountName?: true
+    expiresAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
   }
 
-  export type FacebookAuthAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which FacebookAuth to aggregate.
+     * Filter which LinkedAccount to aggregate.
      */
-    where?: FacebookAuthWhereInput
+    where?: LinkedAccountWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of FacebookAuths to fetch.
+     * Determine the order of LinkedAccounts to fetch.
      */
-    orderBy?: FacebookAuthOrderByWithRelationInput | FacebookAuthOrderByWithRelationInput[]
+    orderBy?: LinkedAccountOrderByWithRelationInput | LinkedAccountOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: FacebookAuthWhereUniqueInput
+    cursor?: LinkedAccountWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` FacebookAuths from the position of the cursor.
+     * Take `±n` LinkedAccounts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` FacebookAuths.
+     * Skip the first `n` LinkedAccounts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned FacebookAuths
+     * Count returned LinkedAccounts
     **/
-    _count?: true | FacebookAuthCountAggregateInputType
+    _count?: true | LinkedAccountCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: FacebookAuthMinAggregateInputType
+    _min?: LinkedAccountMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: FacebookAuthMaxAggregateInputType
+    _max?: LinkedAccountMaxAggregateInputType
   }
 
-  export type GetFacebookAuthAggregateType<T extends FacebookAuthAggregateArgs> = {
-        [P in keyof T & keyof AggregateFacebookAuth]: P extends '_count' | 'count'
+  export type GetLinkedAccountAggregateType<T extends LinkedAccountAggregateArgs> = {
+        [P in keyof T & keyof AggregateLinkedAccount]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateFacebookAuth[P]>
-      : GetScalarType<T[P], AggregateFacebookAuth[P]>
+        : GetScalarType<T[P], AggregateLinkedAccount[P]>
+      : GetScalarType<T[P], AggregateLinkedAccount[P]>
   }
 
 
 
 
-  export type FacebookAuthGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FacebookAuthWhereInput
-    orderBy?: FacebookAuthOrderByWithAggregationInput | FacebookAuthOrderByWithAggregationInput[]
-    by: FacebookAuthScalarFieldEnum[] | FacebookAuthScalarFieldEnum
-    having?: FacebookAuthScalarWhereWithAggregatesInput
+  export type LinkedAccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LinkedAccountWhereInput
+    orderBy?: LinkedAccountOrderByWithAggregationInput | LinkedAccountOrderByWithAggregationInput[]
+    by: LinkedAccountScalarFieldEnum[] | LinkedAccountScalarFieldEnum
+    having?: LinkedAccountScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: FacebookAuthCountAggregateInputType | true
-    _min?: FacebookAuthMinAggregateInputType
-    _max?: FacebookAuthMaxAggregateInputType
+    _count?: LinkedAccountCountAggregateInputType | true
+    _min?: LinkedAccountMinAggregateInputType
+    _max?: LinkedAccountMaxAggregateInputType
   }
 
-  export type FacebookAuthGroupByOutputType = {
+  export type LinkedAccountGroupByOutputType = {
     id: string
     userId: string
+    accountType: string
     accessToken: string
-    account_id: string | null
-    account_name: string | null
+    accountId: string
+    accountName: string
+    expiresAt: Date
     createdAt: Date
     updatedAt: Date
-    _count: FacebookAuthCountAggregateOutputType | null
-    _min: FacebookAuthMinAggregateOutputType | null
-    _max: FacebookAuthMaxAggregateOutputType | null
+    _count: LinkedAccountCountAggregateOutputType | null
+    _min: LinkedAccountMinAggregateOutputType | null
+    _max: LinkedAccountMaxAggregateOutputType | null
   }
 
-  type GetFacebookAuthGroupByPayload<T extends FacebookAuthGroupByArgs> = Prisma.PrismaPromise<
+  type GetLinkedAccountGroupByPayload<T extends LinkedAccountGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<FacebookAuthGroupByOutputType, T['by']> &
+      PickEnumerable<LinkedAccountGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof FacebookAuthGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof LinkedAccountGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], FacebookAuthGroupByOutputType[P]>
-            : GetScalarType<T[P], FacebookAuthGroupByOutputType[P]>
+              : GetScalarType<T[P], LinkedAccountGroupByOutputType[P]>
+            : GetScalarType<T[P], LinkedAccountGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type FacebookAuthSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type LinkedAccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    accountType?: boolean
     accessToken?: boolean
-    account_id?: boolean
-    account_name?: boolean
+    accountId?: boolean
+    accountName?: boolean
+    expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-  }, ExtArgs["result"]["facebookAuth"]>
+  }, ExtArgs["result"]["linkedAccount"]>
 
-  export type FacebookAuthSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type LinkedAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    accountType?: boolean
     accessToken?: boolean
-    account_id?: boolean
-    account_name?: boolean
+    accountId?: boolean
+    accountName?: boolean
+    expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-  }, ExtArgs["result"]["facebookAuth"]>
+  }, ExtArgs["result"]["linkedAccount"]>
 
-  export type FacebookAuthSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type LinkedAccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    accountType?: boolean
     accessToken?: boolean
-    account_id?: boolean
-    account_name?: boolean
+    accountId?: boolean
+    accountName?: boolean
+    expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-  }, ExtArgs["result"]["facebookAuth"]>
+  }, ExtArgs["result"]["linkedAccount"]>
 
-  export type FacebookAuthSelectScalar = {
+  export type LinkedAccountSelectScalar = {
     id?: boolean
     userId?: boolean
+    accountType?: boolean
     accessToken?: boolean
-    account_id?: boolean
-    account_name?: boolean
+    accountId?: boolean
+    accountName?: boolean
+    expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FacebookAuthOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "accessToken" | "account_id" | "account_name" | "createdAt" | "updatedAt", ExtArgs["result"]["facebookAuth"]>
+  export type LinkedAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "accountType" | "accessToken" | "accountId" | "accountName" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["linkedAccount"]>
 
-  export type $FacebookAuthPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "FacebookAuth"
+  export type $LinkedAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LinkedAccount"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
+      accountType: string
       accessToken: string
-      account_id: string | null
-      account_name: string | null
+      accountId: string
+      accountName: string
+      expiresAt: Date
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["facebookAuth"]>
+    }, ExtArgs["result"]["linkedAccount"]>
     composites: {}
   }
 
-  type FacebookAuthGetPayload<S extends boolean | null | undefined | FacebookAuthDefaultArgs> = $Result.GetResult<Prisma.$FacebookAuthPayload, S>
+  type LinkedAccountGetPayload<S extends boolean | null | undefined | LinkedAccountDefaultArgs> = $Result.GetResult<Prisma.$LinkedAccountPayload, S>
 
-  type FacebookAuthCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FacebookAuthFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: FacebookAuthCountAggregateInputType | true
+  type LinkedAccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LinkedAccountFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LinkedAccountCountAggregateInputType | true
     }
 
-  export interface FacebookAuthDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FacebookAuth'], meta: { name: 'FacebookAuth' } }
+  export interface LinkedAccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LinkedAccount'], meta: { name: 'LinkedAccount' } }
     /**
-     * Find zero or one FacebookAuth that matches the filter.
-     * @param {FacebookAuthFindUniqueArgs} args - Arguments to find a FacebookAuth
+     * Find zero or one LinkedAccount that matches the filter.
+     * @param {LinkedAccountFindUniqueArgs} args - Arguments to find a LinkedAccount
      * @example
-     * // Get one FacebookAuth
-     * const facebookAuth = await prisma.facebookAuth.findUnique({
+     * // Get one LinkedAccount
+     * const linkedAccount = await prisma.linkedAccount.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends FacebookAuthFindUniqueArgs>(args: SelectSubset<T, FacebookAuthFindUniqueArgs<ExtArgs>>): Prisma__FacebookAuthClient<$Result.GetResult<Prisma.$FacebookAuthPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends LinkedAccountFindUniqueArgs>(args: SelectSubset<T, LinkedAccountFindUniqueArgs<ExtArgs>>): Prisma__LinkedAccountClient<$Result.GetResult<Prisma.$LinkedAccountPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one FacebookAuth that matches the filter or throw an error with `error.code='P2025'`
+     * Find one LinkedAccount that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {FacebookAuthFindUniqueOrThrowArgs} args - Arguments to find a FacebookAuth
+     * @param {LinkedAccountFindUniqueOrThrowArgs} args - Arguments to find a LinkedAccount
      * @example
-     * // Get one FacebookAuth
-     * const facebookAuth = await prisma.facebookAuth.findUniqueOrThrow({
+     * // Get one LinkedAccount
+     * const linkedAccount = await prisma.linkedAccount.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends FacebookAuthFindUniqueOrThrowArgs>(args: SelectSubset<T, FacebookAuthFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FacebookAuthClient<$Result.GetResult<Prisma.$FacebookAuthPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends LinkedAccountFindUniqueOrThrowArgs>(args: SelectSubset<T, LinkedAccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LinkedAccountClient<$Result.GetResult<Prisma.$LinkedAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first FacebookAuth that matches the filter.
+     * Find the first LinkedAccount that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAuthFindFirstArgs} args - Arguments to find a FacebookAuth
+     * @param {LinkedAccountFindFirstArgs} args - Arguments to find a LinkedAccount
      * @example
-     * // Get one FacebookAuth
-     * const facebookAuth = await prisma.facebookAuth.findFirst({
+     * // Get one LinkedAccount
+     * const linkedAccount = await prisma.linkedAccount.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends FacebookAuthFindFirstArgs>(args?: SelectSubset<T, FacebookAuthFindFirstArgs<ExtArgs>>): Prisma__FacebookAuthClient<$Result.GetResult<Prisma.$FacebookAuthPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends LinkedAccountFindFirstArgs>(args?: SelectSubset<T, LinkedAccountFindFirstArgs<ExtArgs>>): Prisma__LinkedAccountClient<$Result.GetResult<Prisma.$LinkedAccountPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first FacebookAuth that matches the filter or
+     * Find the first LinkedAccount that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAuthFindFirstOrThrowArgs} args - Arguments to find a FacebookAuth
+     * @param {LinkedAccountFindFirstOrThrowArgs} args - Arguments to find a LinkedAccount
      * @example
-     * // Get one FacebookAuth
-     * const facebookAuth = await prisma.facebookAuth.findFirstOrThrow({
+     * // Get one LinkedAccount
+     * const linkedAccount = await prisma.linkedAccount.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends FacebookAuthFindFirstOrThrowArgs>(args?: SelectSubset<T, FacebookAuthFindFirstOrThrowArgs<ExtArgs>>): Prisma__FacebookAuthClient<$Result.GetResult<Prisma.$FacebookAuthPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends LinkedAccountFindFirstOrThrowArgs>(args?: SelectSubset<T, LinkedAccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__LinkedAccountClient<$Result.GetResult<Prisma.$LinkedAccountPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more FacebookAuths that matches the filter.
+     * Find zero or more LinkedAccounts that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAuthFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {LinkedAccountFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all FacebookAuths
-     * const facebookAuths = await prisma.facebookAuth.findMany()
+     * // Get all LinkedAccounts
+     * const linkedAccounts = await prisma.linkedAccount.findMany()
      * 
-     * // Get first 10 FacebookAuths
-     * const facebookAuths = await prisma.facebookAuth.findMany({ take: 10 })
+     * // Get first 10 LinkedAccounts
+     * const linkedAccounts = await prisma.linkedAccount.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const facebookAuthWithIdOnly = await prisma.facebookAuth.findMany({ select: { id: true } })
+     * const linkedAccountWithIdOnly = await prisma.linkedAccount.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends FacebookAuthFindManyArgs>(args?: SelectSubset<T, FacebookAuthFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacebookAuthPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends LinkedAccountFindManyArgs>(args?: SelectSubset<T, LinkedAccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinkedAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a FacebookAuth.
-     * @param {FacebookAuthCreateArgs} args - Arguments to create a FacebookAuth.
+     * Create a LinkedAccount.
+     * @param {LinkedAccountCreateArgs} args - Arguments to create a LinkedAccount.
      * @example
-     * // Create one FacebookAuth
-     * const FacebookAuth = await prisma.facebookAuth.create({
+     * // Create one LinkedAccount
+     * const LinkedAccount = await prisma.linkedAccount.create({
      *   data: {
-     *     // ... data to create a FacebookAuth
+     *     // ... data to create a LinkedAccount
      *   }
      * })
      * 
      */
-    create<T extends FacebookAuthCreateArgs>(args: SelectSubset<T, FacebookAuthCreateArgs<ExtArgs>>): Prisma__FacebookAuthClient<$Result.GetResult<Prisma.$FacebookAuthPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends LinkedAccountCreateArgs>(args: SelectSubset<T, LinkedAccountCreateArgs<ExtArgs>>): Prisma__LinkedAccountClient<$Result.GetResult<Prisma.$LinkedAccountPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many FacebookAuths.
-     * @param {FacebookAuthCreateManyArgs} args - Arguments to create many FacebookAuths.
+     * Create many LinkedAccounts.
+     * @param {LinkedAccountCreateManyArgs} args - Arguments to create many LinkedAccounts.
      * @example
-     * // Create many FacebookAuths
-     * const facebookAuth = await prisma.facebookAuth.createMany({
+     * // Create many LinkedAccounts
+     * const linkedAccount = await prisma.linkedAccount.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends FacebookAuthCreateManyArgs>(args?: SelectSubset<T, FacebookAuthCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends LinkedAccountCreateManyArgs>(args?: SelectSubset<T, LinkedAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many FacebookAuths and returns the data saved in the database.
-     * @param {FacebookAuthCreateManyAndReturnArgs} args - Arguments to create many FacebookAuths.
+     * Create many LinkedAccounts and returns the data saved in the database.
+     * @param {LinkedAccountCreateManyAndReturnArgs} args - Arguments to create many LinkedAccounts.
      * @example
-     * // Create many FacebookAuths
-     * const facebookAuth = await prisma.facebookAuth.createManyAndReturn({
+     * // Create many LinkedAccounts
+     * const linkedAccount = await prisma.linkedAccount.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many FacebookAuths and only return the `id`
-     * const facebookAuthWithIdOnly = await prisma.facebookAuth.createManyAndReturn({
+     * // Create many LinkedAccounts and only return the `id`
+     * const linkedAccountWithIdOnly = await prisma.linkedAccount.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -2345,28 +2369,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends FacebookAuthCreateManyAndReturnArgs>(args?: SelectSubset<T, FacebookAuthCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacebookAuthPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends LinkedAccountCreateManyAndReturnArgs>(args?: SelectSubset<T, LinkedAccountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinkedAccountPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a FacebookAuth.
-     * @param {FacebookAuthDeleteArgs} args - Arguments to delete one FacebookAuth.
+     * Delete a LinkedAccount.
+     * @param {LinkedAccountDeleteArgs} args - Arguments to delete one LinkedAccount.
      * @example
-     * // Delete one FacebookAuth
-     * const FacebookAuth = await prisma.facebookAuth.delete({
+     * // Delete one LinkedAccount
+     * const LinkedAccount = await prisma.linkedAccount.delete({
      *   where: {
-     *     // ... filter to delete one FacebookAuth
+     *     // ... filter to delete one LinkedAccount
      *   }
      * })
      * 
      */
-    delete<T extends FacebookAuthDeleteArgs>(args: SelectSubset<T, FacebookAuthDeleteArgs<ExtArgs>>): Prisma__FacebookAuthClient<$Result.GetResult<Prisma.$FacebookAuthPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends LinkedAccountDeleteArgs>(args: SelectSubset<T, LinkedAccountDeleteArgs<ExtArgs>>): Prisma__LinkedAccountClient<$Result.GetResult<Prisma.$LinkedAccountPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one FacebookAuth.
-     * @param {FacebookAuthUpdateArgs} args - Arguments to update one FacebookAuth.
+     * Update one LinkedAccount.
+     * @param {LinkedAccountUpdateArgs} args - Arguments to update one LinkedAccount.
      * @example
-     * // Update one FacebookAuth
-     * const facebookAuth = await prisma.facebookAuth.update({
+     * // Update one LinkedAccount
+     * const linkedAccount = await prisma.linkedAccount.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2376,30 +2400,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends FacebookAuthUpdateArgs>(args: SelectSubset<T, FacebookAuthUpdateArgs<ExtArgs>>): Prisma__FacebookAuthClient<$Result.GetResult<Prisma.$FacebookAuthPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends LinkedAccountUpdateArgs>(args: SelectSubset<T, LinkedAccountUpdateArgs<ExtArgs>>): Prisma__LinkedAccountClient<$Result.GetResult<Prisma.$LinkedAccountPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more FacebookAuths.
-     * @param {FacebookAuthDeleteManyArgs} args - Arguments to filter FacebookAuths to delete.
+     * Delete zero or more LinkedAccounts.
+     * @param {LinkedAccountDeleteManyArgs} args - Arguments to filter LinkedAccounts to delete.
      * @example
-     * // Delete a few FacebookAuths
-     * const { count } = await prisma.facebookAuth.deleteMany({
+     * // Delete a few LinkedAccounts
+     * const { count } = await prisma.linkedAccount.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends FacebookAuthDeleteManyArgs>(args?: SelectSubset<T, FacebookAuthDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends LinkedAccountDeleteManyArgs>(args?: SelectSubset<T, LinkedAccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more FacebookAuths.
+     * Update zero or more LinkedAccounts.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAuthUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {LinkedAccountUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many FacebookAuths
-     * const facebookAuth = await prisma.facebookAuth.updateMany({
+     * // Update many LinkedAccounts
+     * const linkedAccount = await prisma.linkedAccount.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2409,14 +2433,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends FacebookAuthUpdateManyArgs>(args: SelectSubset<T, FacebookAuthUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends LinkedAccountUpdateManyArgs>(args: SelectSubset<T, LinkedAccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more FacebookAuths and returns the data updated in the database.
-     * @param {FacebookAuthUpdateManyAndReturnArgs} args - Arguments to update many FacebookAuths.
+     * Update zero or more LinkedAccounts and returns the data updated in the database.
+     * @param {LinkedAccountUpdateManyAndReturnArgs} args - Arguments to update many LinkedAccounts.
      * @example
-     * // Update many FacebookAuths
-     * const facebookAuth = await prisma.facebookAuth.updateManyAndReturn({
+     * // Update many LinkedAccounts
+     * const linkedAccount = await prisma.linkedAccount.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2425,8 +2449,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more FacebookAuths and only return the `id`
-     * const facebookAuthWithIdOnly = await prisma.facebookAuth.updateManyAndReturn({
+     * // Update zero or more LinkedAccounts and only return the `id`
+     * const linkedAccountWithIdOnly = await prisma.linkedAccount.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -2439,56 +2463,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends FacebookAuthUpdateManyAndReturnArgs>(args: SelectSubset<T, FacebookAuthUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacebookAuthPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends LinkedAccountUpdateManyAndReturnArgs>(args: SelectSubset<T, LinkedAccountUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinkedAccountPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one FacebookAuth.
-     * @param {FacebookAuthUpsertArgs} args - Arguments to update or create a FacebookAuth.
+     * Create or update one LinkedAccount.
+     * @param {LinkedAccountUpsertArgs} args - Arguments to update or create a LinkedAccount.
      * @example
-     * // Update or create a FacebookAuth
-     * const facebookAuth = await prisma.facebookAuth.upsert({
+     * // Update or create a LinkedAccount
+     * const linkedAccount = await prisma.linkedAccount.upsert({
      *   create: {
-     *     // ... data to create a FacebookAuth
+     *     // ... data to create a LinkedAccount
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the FacebookAuth we want to update
+     *     // ... the filter for the LinkedAccount we want to update
      *   }
      * })
      */
-    upsert<T extends FacebookAuthUpsertArgs>(args: SelectSubset<T, FacebookAuthUpsertArgs<ExtArgs>>): Prisma__FacebookAuthClient<$Result.GetResult<Prisma.$FacebookAuthPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends LinkedAccountUpsertArgs>(args: SelectSubset<T, LinkedAccountUpsertArgs<ExtArgs>>): Prisma__LinkedAccountClient<$Result.GetResult<Prisma.$LinkedAccountPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of FacebookAuths.
+     * Count the number of LinkedAccounts.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAuthCountArgs} args - Arguments to filter FacebookAuths to count.
+     * @param {LinkedAccountCountArgs} args - Arguments to filter LinkedAccounts to count.
      * @example
-     * // Count the number of FacebookAuths
-     * const count = await prisma.facebookAuth.count({
+     * // Count the number of LinkedAccounts
+     * const count = await prisma.linkedAccount.count({
      *   where: {
-     *     // ... the filter for the FacebookAuths we want to count
+     *     // ... the filter for the LinkedAccounts we want to count
      *   }
      * })
     **/
-    count<T extends FacebookAuthCountArgs>(
-      args?: Subset<T, FacebookAuthCountArgs>,
+    count<T extends LinkedAccountCountArgs>(
+      args?: Subset<T, LinkedAccountCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], FacebookAuthCountAggregateOutputType>
+          : GetScalarType<T['select'], LinkedAccountCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a FacebookAuth.
+     * Allows you to perform aggregations operations on a LinkedAccount.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAuthAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {LinkedAccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -2508,13 +2532,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends FacebookAuthAggregateArgs>(args: Subset<T, FacebookAuthAggregateArgs>): Prisma.PrismaPromise<GetFacebookAuthAggregateType<T>>
+    aggregate<T extends LinkedAccountAggregateArgs>(args: Subset<T, LinkedAccountAggregateArgs>): Prisma.PrismaPromise<GetLinkedAccountAggregateType<T>>
 
     /**
-     * Group by FacebookAuth.
+     * Group by LinkedAccount.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FacebookAuthGroupByArgs} args - Group by arguments.
+     * @param {LinkedAccountGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -2529,14 +2553,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends FacebookAuthGroupByArgs,
+      T extends LinkedAccountGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: FacebookAuthGroupByArgs['orderBy'] }
-        : { orderBy?: FacebookAuthGroupByArgs['orderBy'] },
+        ? { orderBy: LinkedAccountGroupByArgs['orderBy'] }
+        : { orderBy?: LinkedAccountGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -2585,20 +2609,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, FacebookAuthGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFacebookAuthGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, LinkedAccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLinkedAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the FacebookAuth model
+   * Fields of the LinkedAccount model
    */
-  readonly fields: FacebookAuthFieldRefs;
+  readonly fields: LinkedAccountFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for FacebookAuth.
+   * The delegate class that acts as a "Promise-like" for LinkedAccount.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__FacebookAuthClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__LinkedAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2626,379 +2650,381 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the FacebookAuth model
+   * Fields of the LinkedAccount model
    */
-  interface FacebookAuthFieldRefs {
-    readonly id: FieldRef<"FacebookAuth", 'String'>
-    readonly userId: FieldRef<"FacebookAuth", 'String'>
-    readonly accessToken: FieldRef<"FacebookAuth", 'String'>
-    readonly account_id: FieldRef<"FacebookAuth", 'String'>
-    readonly account_name: FieldRef<"FacebookAuth", 'String'>
-    readonly createdAt: FieldRef<"FacebookAuth", 'DateTime'>
-    readonly updatedAt: FieldRef<"FacebookAuth", 'DateTime'>
+  interface LinkedAccountFieldRefs {
+    readonly id: FieldRef<"LinkedAccount", 'String'>
+    readonly userId: FieldRef<"LinkedAccount", 'String'>
+    readonly accountType: FieldRef<"LinkedAccount", 'String'>
+    readonly accessToken: FieldRef<"LinkedAccount", 'String'>
+    readonly accountId: FieldRef<"LinkedAccount", 'String'>
+    readonly accountName: FieldRef<"LinkedAccount", 'String'>
+    readonly expiresAt: FieldRef<"LinkedAccount", 'DateTime'>
+    readonly createdAt: FieldRef<"LinkedAccount", 'DateTime'>
+    readonly updatedAt: FieldRef<"LinkedAccount", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * FacebookAuth findUnique
+   * LinkedAccount findUnique
    */
-  export type FacebookAuthFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacebookAuth
+     * Select specific fields to fetch from the LinkedAccount
      */
-    select?: FacebookAuthSelect<ExtArgs> | null
+    select?: LinkedAccountSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FacebookAuth
+     * Omit specific fields from the LinkedAccount
      */
-    omit?: FacebookAuthOmit<ExtArgs> | null
+    omit?: LinkedAccountOmit<ExtArgs> | null
     /**
-     * Filter, which FacebookAuth to fetch.
+     * Filter, which LinkedAccount to fetch.
      */
-    where: FacebookAuthWhereUniqueInput
+    where: LinkedAccountWhereUniqueInput
   }
 
   /**
-   * FacebookAuth findUniqueOrThrow
+   * LinkedAccount findUniqueOrThrow
    */
-  export type FacebookAuthFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacebookAuth
+     * Select specific fields to fetch from the LinkedAccount
      */
-    select?: FacebookAuthSelect<ExtArgs> | null
+    select?: LinkedAccountSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FacebookAuth
+     * Omit specific fields from the LinkedAccount
      */
-    omit?: FacebookAuthOmit<ExtArgs> | null
+    omit?: LinkedAccountOmit<ExtArgs> | null
     /**
-     * Filter, which FacebookAuth to fetch.
+     * Filter, which LinkedAccount to fetch.
      */
-    where: FacebookAuthWhereUniqueInput
+    where: LinkedAccountWhereUniqueInput
   }
 
   /**
-   * FacebookAuth findFirst
+   * LinkedAccount findFirst
    */
-  export type FacebookAuthFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacebookAuth
+     * Select specific fields to fetch from the LinkedAccount
      */
-    select?: FacebookAuthSelect<ExtArgs> | null
+    select?: LinkedAccountSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FacebookAuth
+     * Omit specific fields from the LinkedAccount
      */
-    omit?: FacebookAuthOmit<ExtArgs> | null
+    omit?: LinkedAccountOmit<ExtArgs> | null
     /**
-     * Filter, which FacebookAuth to fetch.
+     * Filter, which LinkedAccount to fetch.
      */
-    where?: FacebookAuthWhereInput
+    where?: LinkedAccountWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of FacebookAuths to fetch.
+     * Determine the order of LinkedAccounts to fetch.
      */
-    orderBy?: FacebookAuthOrderByWithRelationInput | FacebookAuthOrderByWithRelationInput[]
+    orderBy?: LinkedAccountOrderByWithRelationInput | LinkedAccountOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for FacebookAuths.
+     * Sets the position for searching for LinkedAccounts.
      */
-    cursor?: FacebookAuthWhereUniqueInput
+    cursor?: LinkedAccountWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` FacebookAuths from the position of the cursor.
+     * Take `±n` LinkedAccounts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` FacebookAuths.
+     * Skip the first `n` LinkedAccounts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of FacebookAuths.
+     * Filter by unique combinations of LinkedAccounts.
      */
-    distinct?: FacebookAuthScalarFieldEnum | FacebookAuthScalarFieldEnum[]
+    distinct?: LinkedAccountScalarFieldEnum | LinkedAccountScalarFieldEnum[]
   }
 
   /**
-   * FacebookAuth findFirstOrThrow
+   * LinkedAccount findFirstOrThrow
    */
-  export type FacebookAuthFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacebookAuth
+     * Select specific fields to fetch from the LinkedAccount
      */
-    select?: FacebookAuthSelect<ExtArgs> | null
+    select?: LinkedAccountSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FacebookAuth
+     * Omit specific fields from the LinkedAccount
      */
-    omit?: FacebookAuthOmit<ExtArgs> | null
+    omit?: LinkedAccountOmit<ExtArgs> | null
     /**
-     * Filter, which FacebookAuth to fetch.
+     * Filter, which LinkedAccount to fetch.
      */
-    where?: FacebookAuthWhereInput
+    where?: LinkedAccountWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of FacebookAuths to fetch.
+     * Determine the order of LinkedAccounts to fetch.
      */
-    orderBy?: FacebookAuthOrderByWithRelationInput | FacebookAuthOrderByWithRelationInput[]
+    orderBy?: LinkedAccountOrderByWithRelationInput | LinkedAccountOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for FacebookAuths.
+     * Sets the position for searching for LinkedAccounts.
      */
-    cursor?: FacebookAuthWhereUniqueInput
+    cursor?: LinkedAccountWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` FacebookAuths from the position of the cursor.
+     * Take `±n` LinkedAccounts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` FacebookAuths.
+     * Skip the first `n` LinkedAccounts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of FacebookAuths.
+     * Filter by unique combinations of LinkedAccounts.
      */
-    distinct?: FacebookAuthScalarFieldEnum | FacebookAuthScalarFieldEnum[]
+    distinct?: LinkedAccountScalarFieldEnum | LinkedAccountScalarFieldEnum[]
   }
 
   /**
-   * FacebookAuth findMany
+   * LinkedAccount findMany
    */
-  export type FacebookAuthFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacebookAuth
+     * Select specific fields to fetch from the LinkedAccount
      */
-    select?: FacebookAuthSelect<ExtArgs> | null
+    select?: LinkedAccountSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FacebookAuth
+     * Omit specific fields from the LinkedAccount
      */
-    omit?: FacebookAuthOmit<ExtArgs> | null
+    omit?: LinkedAccountOmit<ExtArgs> | null
     /**
-     * Filter, which FacebookAuths to fetch.
+     * Filter, which LinkedAccounts to fetch.
      */
-    where?: FacebookAuthWhereInput
+    where?: LinkedAccountWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of FacebookAuths to fetch.
+     * Determine the order of LinkedAccounts to fetch.
      */
-    orderBy?: FacebookAuthOrderByWithRelationInput | FacebookAuthOrderByWithRelationInput[]
+    orderBy?: LinkedAccountOrderByWithRelationInput | LinkedAccountOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing FacebookAuths.
+     * Sets the position for listing LinkedAccounts.
      */
-    cursor?: FacebookAuthWhereUniqueInput
+    cursor?: LinkedAccountWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` FacebookAuths from the position of the cursor.
+     * Take `±n` LinkedAccounts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` FacebookAuths.
+     * Skip the first `n` LinkedAccounts.
      */
     skip?: number
-    distinct?: FacebookAuthScalarFieldEnum | FacebookAuthScalarFieldEnum[]
+    distinct?: LinkedAccountScalarFieldEnum | LinkedAccountScalarFieldEnum[]
   }
 
   /**
-   * FacebookAuth create
+   * LinkedAccount create
    */
-  export type FacebookAuthCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacebookAuth
+     * Select specific fields to fetch from the LinkedAccount
      */
-    select?: FacebookAuthSelect<ExtArgs> | null
+    select?: LinkedAccountSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FacebookAuth
+     * Omit specific fields from the LinkedAccount
      */
-    omit?: FacebookAuthOmit<ExtArgs> | null
+    omit?: LinkedAccountOmit<ExtArgs> | null
     /**
-     * The data needed to create a FacebookAuth.
+     * The data needed to create a LinkedAccount.
      */
-    data: XOR<FacebookAuthCreateInput, FacebookAuthUncheckedCreateInput>
+    data: XOR<LinkedAccountCreateInput, LinkedAccountUncheckedCreateInput>
   }
 
   /**
-   * FacebookAuth createMany
+   * LinkedAccount createMany
    */
-  export type FacebookAuthCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many FacebookAuths.
+     * The data used to create many LinkedAccounts.
      */
-    data: FacebookAuthCreateManyInput | FacebookAuthCreateManyInput[]
+    data: LinkedAccountCreateManyInput | LinkedAccountCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * FacebookAuth createManyAndReturn
+   * LinkedAccount createManyAndReturn
    */
-  export type FacebookAuthCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacebookAuth
+     * Select specific fields to fetch from the LinkedAccount
      */
-    select?: FacebookAuthSelectCreateManyAndReturn<ExtArgs> | null
+    select?: LinkedAccountSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the FacebookAuth
+     * Omit specific fields from the LinkedAccount
      */
-    omit?: FacebookAuthOmit<ExtArgs> | null
+    omit?: LinkedAccountOmit<ExtArgs> | null
     /**
-     * The data used to create many FacebookAuths.
+     * The data used to create many LinkedAccounts.
      */
-    data: FacebookAuthCreateManyInput | FacebookAuthCreateManyInput[]
+    data: LinkedAccountCreateManyInput | LinkedAccountCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * FacebookAuth update
+   * LinkedAccount update
    */
-  export type FacebookAuthUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacebookAuth
+     * Select specific fields to fetch from the LinkedAccount
      */
-    select?: FacebookAuthSelect<ExtArgs> | null
+    select?: LinkedAccountSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FacebookAuth
+     * Omit specific fields from the LinkedAccount
      */
-    omit?: FacebookAuthOmit<ExtArgs> | null
+    omit?: LinkedAccountOmit<ExtArgs> | null
     /**
-     * The data needed to update a FacebookAuth.
+     * The data needed to update a LinkedAccount.
      */
-    data: XOR<FacebookAuthUpdateInput, FacebookAuthUncheckedUpdateInput>
+    data: XOR<LinkedAccountUpdateInput, LinkedAccountUncheckedUpdateInput>
     /**
-     * Choose, which FacebookAuth to update.
+     * Choose, which LinkedAccount to update.
      */
-    where: FacebookAuthWhereUniqueInput
+    where: LinkedAccountWhereUniqueInput
   }
 
   /**
-   * FacebookAuth updateMany
+   * LinkedAccount updateMany
    */
-  export type FacebookAuthUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update FacebookAuths.
+     * The data used to update LinkedAccounts.
      */
-    data: XOR<FacebookAuthUpdateManyMutationInput, FacebookAuthUncheckedUpdateManyInput>
+    data: XOR<LinkedAccountUpdateManyMutationInput, LinkedAccountUncheckedUpdateManyInput>
     /**
-     * Filter which FacebookAuths to update
+     * Filter which LinkedAccounts to update
      */
-    where?: FacebookAuthWhereInput
+    where?: LinkedAccountWhereInput
     /**
-     * Limit how many FacebookAuths to update.
+     * Limit how many LinkedAccounts to update.
      */
     limit?: number
   }
 
   /**
-   * FacebookAuth updateManyAndReturn
+   * LinkedAccount updateManyAndReturn
    */
-  export type FacebookAuthUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacebookAuth
+     * Select specific fields to fetch from the LinkedAccount
      */
-    select?: FacebookAuthSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: LinkedAccountSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the FacebookAuth
+     * Omit specific fields from the LinkedAccount
      */
-    omit?: FacebookAuthOmit<ExtArgs> | null
+    omit?: LinkedAccountOmit<ExtArgs> | null
     /**
-     * The data used to update FacebookAuths.
+     * The data used to update LinkedAccounts.
      */
-    data: XOR<FacebookAuthUpdateManyMutationInput, FacebookAuthUncheckedUpdateManyInput>
+    data: XOR<LinkedAccountUpdateManyMutationInput, LinkedAccountUncheckedUpdateManyInput>
     /**
-     * Filter which FacebookAuths to update
+     * Filter which LinkedAccounts to update
      */
-    where?: FacebookAuthWhereInput
+    where?: LinkedAccountWhereInput
     /**
-     * Limit how many FacebookAuths to update.
+     * Limit how many LinkedAccounts to update.
      */
     limit?: number
   }
 
   /**
-   * FacebookAuth upsert
+   * LinkedAccount upsert
    */
-  export type FacebookAuthUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacebookAuth
+     * Select specific fields to fetch from the LinkedAccount
      */
-    select?: FacebookAuthSelect<ExtArgs> | null
+    select?: LinkedAccountSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FacebookAuth
+     * Omit specific fields from the LinkedAccount
      */
-    omit?: FacebookAuthOmit<ExtArgs> | null
+    omit?: LinkedAccountOmit<ExtArgs> | null
     /**
-     * The filter to search for the FacebookAuth to update in case it exists.
+     * The filter to search for the LinkedAccount to update in case it exists.
      */
-    where: FacebookAuthWhereUniqueInput
+    where: LinkedAccountWhereUniqueInput
     /**
-     * In case the FacebookAuth found by the `where` argument doesn't exist, create a new FacebookAuth with this data.
+     * In case the LinkedAccount found by the `where` argument doesn't exist, create a new LinkedAccount with this data.
      */
-    create: XOR<FacebookAuthCreateInput, FacebookAuthUncheckedCreateInput>
+    create: XOR<LinkedAccountCreateInput, LinkedAccountUncheckedCreateInput>
     /**
-     * In case the FacebookAuth was found with the provided `where` argument, update it with this data.
+     * In case the LinkedAccount was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<FacebookAuthUpdateInput, FacebookAuthUncheckedUpdateInput>
+    update: XOR<LinkedAccountUpdateInput, LinkedAccountUncheckedUpdateInput>
   }
 
   /**
-   * FacebookAuth delete
+   * LinkedAccount delete
    */
-  export type FacebookAuthDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacebookAuth
+     * Select specific fields to fetch from the LinkedAccount
      */
-    select?: FacebookAuthSelect<ExtArgs> | null
+    select?: LinkedAccountSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FacebookAuth
+     * Omit specific fields from the LinkedAccount
      */
-    omit?: FacebookAuthOmit<ExtArgs> | null
+    omit?: LinkedAccountOmit<ExtArgs> | null
     /**
-     * Filter which FacebookAuth to delete.
+     * Filter which LinkedAccount to delete.
      */
-    where: FacebookAuthWhereUniqueInput
+    where: LinkedAccountWhereUniqueInput
   }
 
   /**
-   * FacebookAuth deleteMany
+   * LinkedAccount deleteMany
    */
-  export type FacebookAuthDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which FacebookAuths to delete
+     * Filter which LinkedAccounts to delete
      */
-    where?: FacebookAuthWhereInput
+    where?: LinkedAccountWhereInput
     /**
-     * Limit how many FacebookAuths to delete.
+     * Limit how many LinkedAccounts to delete.
      */
     limit?: number
   }
 
   /**
-   * FacebookAuth without action
+   * LinkedAccount without action
    */
-  export type FacebookAuthDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LinkedAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacebookAuth
+     * Select specific fields to fetch from the LinkedAccount
      */
-    select?: FacebookAuthSelect<ExtArgs> | null
+    select?: LinkedAccountSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FacebookAuth
+     * Omit specific fields from the LinkedAccount
      */
-    omit?: FacebookAuthOmit<ExtArgs> | null
+    omit?: LinkedAccountOmit<ExtArgs> | null
   }
 
 
@@ -3029,17 +3055,19 @@ export namespace Prisma {
   export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
 
 
-  export const FacebookAuthScalarFieldEnum: {
+  export const LinkedAccountScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
+    accountType: 'accountType',
     accessToken: 'accessToken',
-    account_id: 'account_id',
-    account_name: 'account_name',
+    accountId: 'accountId',
+    accountName: 'accountName',
+    expiresAt: 'expiresAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
-  export type FacebookAuthScalarFieldEnum = (typeof FacebookAuthScalarFieldEnum)[keyof typeof FacebookAuthScalarFieldEnum]
+  export type LinkedAccountScalarFieldEnum = (typeof LinkedAccountScalarFieldEnum)[keyof typeof LinkedAccountScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3056,14 +3084,6 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -3185,66 +3205,76 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
   }
 
-  export type FacebookAuthWhereInput = {
-    AND?: FacebookAuthWhereInput | FacebookAuthWhereInput[]
-    OR?: FacebookAuthWhereInput[]
-    NOT?: FacebookAuthWhereInput | FacebookAuthWhereInput[]
-    id?: StringFilter<"FacebookAuth"> | string
-    userId?: StringFilter<"FacebookAuth"> | string
-    accessToken?: StringFilter<"FacebookAuth"> | string
-    account_id?: StringNullableFilter<"FacebookAuth"> | string | null
-    account_name?: StringNullableFilter<"FacebookAuth"> | string | null
-    createdAt?: DateTimeFilter<"FacebookAuth"> | Date | string
-    updatedAt?: DateTimeFilter<"FacebookAuth"> | Date | string
+  export type LinkedAccountWhereInput = {
+    AND?: LinkedAccountWhereInput | LinkedAccountWhereInput[]
+    OR?: LinkedAccountWhereInput[]
+    NOT?: LinkedAccountWhereInput | LinkedAccountWhereInput[]
+    id?: StringFilter<"LinkedAccount"> | string
+    userId?: StringFilter<"LinkedAccount"> | string
+    accountType?: StringFilter<"LinkedAccount"> | string
+    accessToken?: StringFilter<"LinkedAccount"> | string
+    accountId?: StringFilter<"LinkedAccount"> | string
+    accountName?: StringFilter<"LinkedAccount"> | string
+    expiresAt?: DateTimeFilter<"LinkedAccount"> | Date | string
+    createdAt?: DateTimeFilter<"LinkedAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"LinkedAccount"> | Date | string
   }
 
-  export type FacebookAuthOrderByWithRelationInput = {
+  export type LinkedAccountOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
+    accountType?: SortOrder
     accessToken?: SortOrder
-    account_id?: SortOrderInput | SortOrder
-    account_name?: SortOrderInput | SortOrder
+    accountId?: SortOrder
+    accountName?: SortOrder
+    expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type FacebookAuthWhereUniqueInput = Prisma.AtLeast<{
+  export type LinkedAccountWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     userId?: string
-    AND?: FacebookAuthWhereInput | FacebookAuthWhereInput[]
-    OR?: FacebookAuthWhereInput[]
-    NOT?: FacebookAuthWhereInput | FacebookAuthWhereInput[]
-    accessToken?: StringFilter<"FacebookAuth"> | string
-    account_id?: StringNullableFilter<"FacebookAuth"> | string | null
-    account_name?: StringNullableFilter<"FacebookAuth"> | string | null
-    createdAt?: DateTimeFilter<"FacebookAuth"> | Date | string
-    updatedAt?: DateTimeFilter<"FacebookAuth"> | Date | string
+    AND?: LinkedAccountWhereInput | LinkedAccountWhereInput[]
+    OR?: LinkedAccountWhereInput[]
+    NOT?: LinkedAccountWhereInput | LinkedAccountWhereInput[]
+    accountType?: StringFilter<"LinkedAccount"> | string
+    accessToken?: StringFilter<"LinkedAccount"> | string
+    accountId?: StringFilter<"LinkedAccount"> | string
+    accountName?: StringFilter<"LinkedAccount"> | string
+    expiresAt?: DateTimeFilter<"LinkedAccount"> | Date | string
+    createdAt?: DateTimeFilter<"LinkedAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"LinkedAccount"> | Date | string
   }, "id" | "userId">
 
-  export type FacebookAuthOrderByWithAggregationInput = {
+  export type LinkedAccountOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
+    accountType?: SortOrder
     accessToken?: SortOrder
-    account_id?: SortOrderInput | SortOrder
-    account_name?: SortOrderInput | SortOrder
+    accountId?: SortOrder
+    accountName?: SortOrder
+    expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: FacebookAuthCountOrderByAggregateInput
-    _max?: FacebookAuthMaxOrderByAggregateInput
-    _min?: FacebookAuthMinOrderByAggregateInput
+    _count?: LinkedAccountCountOrderByAggregateInput
+    _max?: LinkedAccountMaxOrderByAggregateInput
+    _min?: LinkedAccountMinOrderByAggregateInput
   }
 
-  export type FacebookAuthScalarWhereWithAggregatesInput = {
-    AND?: FacebookAuthScalarWhereWithAggregatesInput | FacebookAuthScalarWhereWithAggregatesInput[]
-    OR?: FacebookAuthScalarWhereWithAggregatesInput[]
-    NOT?: FacebookAuthScalarWhereWithAggregatesInput | FacebookAuthScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"FacebookAuth"> | string
-    userId?: StringWithAggregatesFilter<"FacebookAuth"> | string
-    accessToken?: StringWithAggregatesFilter<"FacebookAuth"> | string
-    account_id?: StringNullableWithAggregatesFilter<"FacebookAuth"> | string | null
-    account_name?: StringNullableWithAggregatesFilter<"FacebookAuth"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"FacebookAuth"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"FacebookAuth"> | Date | string
+  export type LinkedAccountScalarWhereWithAggregatesInput = {
+    AND?: LinkedAccountScalarWhereWithAggregatesInput | LinkedAccountScalarWhereWithAggregatesInput[]
+    OR?: LinkedAccountScalarWhereWithAggregatesInput[]
+    NOT?: LinkedAccountScalarWhereWithAggregatesInput | LinkedAccountScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LinkedAccount"> | string
+    userId?: StringWithAggregatesFilter<"LinkedAccount"> | string
+    accountType?: StringWithAggregatesFilter<"LinkedAccount"> | string
+    accessToken?: StringWithAggregatesFilter<"LinkedAccount"> | string
+    accountId?: StringWithAggregatesFilter<"LinkedAccount"> | string
+    accountName?: StringWithAggregatesFilter<"LinkedAccount"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"LinkedAccount"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"LinkedAccount"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"LinkedAccount"> | Date | string
   }
 
   export type MessageCreateInput = {
@@ -3317,72 +3347,86 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type FacebookAuthCreateInput = {
+  export type LinkedAccountCreateInput = {
     id?: string
     userId: string
+    accountType: string
     accessToken: string
-    account_id?: string | null
-    account_name?: string | null
+    accountId: string
+    accountName: string
+    expiresAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type FacebookAuthUncheckedCreateInput = {
+  export type LinkedAccountUncheckedCreateInput = {
     id?: string
     userId: string
+    accountType: string
     accessToken: string
-    account_id?: string | null
-    account_name?: string | null
+    accountId: string
+    accountName: string
+    expiresAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type FacebookAuthUpdateInput = {
+  export type LinkedAccountUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    accountType?: StringFieldUpdateOperationsInput | string
     accessToken?: StringFieldUpdateOperationsInput | string
-    account_id?: NullableStringFieldUpdateOperationsInput | string | null
-    account_name?: NullableStringFieldUpdateOperationsInput | string | null
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type FacebookAuthUncheckedUpdateInput = {
+  export type LinkedAccountUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    accountType?: StringFieldUpdateOperationsInput | string
     accessToken?: StringFieldUpdateOperationsInput | string
-    account_id?: NullableStringFieldUpdateOperationsInput | string | null
-    account_name?: NullableStringFieldUpdateOperationsInput | string | null
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type FacebookAuthCreateManyInput = {
+  export type LinkedAccountCreateManyInput = {
     id?: string
     userId: string
+    accountType: string
     accessToken: string
-    account_id?: string | null
-    account_name?: string | null
+    accountId: string
+    accountName: string
+    expiresAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type FacebookAuthUpdateManyMutationInput = {
+  export type LinkedAccountUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    accountType?: StringFieldUpdateOperationsInput | string
     accessToken?: StringFieldUpdateOperationsInput | string
-    account_id?: NullableStringFieldUpdateOperationsInput | string | null
-    account_name?: NullableStringFieldUpdateOperationsInput | string | null
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type FacebookAuthUncheckedUpdateManyInput = {
+  export type LinkedAccountUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    accountType?: StringFieldUpdateOperationsInput | string
     accessToken?: StringFieldUpdateOperationsInput | string
-    account_id?: NullableStringFieldUpdateOperationsInput | string | null
-    account_name?: NullableStringFieldUpdateOperationsInput | string | null
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3488,72 +3532,40 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
-  export type FacebookAuthCountOrderByAggregateInput = {
+  export type LinkedAccountCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    accountType?: SortOrder
     accessToken?: SortOrder
-    account_id?: SortOrder
-    account_name?: SortOrder
+    accountId?: SortOrder
+    accountName?: SortOrder
+    expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type FacebookAuthMaxOrderByAggregateInput = {
+  export type LinkedAccountMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    accountType?: SortOrder
     accessToken?: SortOrder
-    account_id?: SortOrder
-    account_name?: SortOrder
+    accountId?: SortOrder
+    accountName?: SortOrder
+    expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type FacebookAuthMinOrderByAggregateInput = {
+  export type LinkedAccountMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    accountType?: SortOrder
     accessToken?: SortOrder
-    account_id?: SortOrder
-    account_name?: SortOrder
+    accountId?: SortOrder
+    accountName?: SortOrder
+    expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3566,10 +3578,6 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3650,48 +3658,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
 
