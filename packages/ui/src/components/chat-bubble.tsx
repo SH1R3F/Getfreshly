@@ -79,7 +79,7 @@ export function ChatBubble({
               </React.Fragment>
             ))
           ) : (
-            <div className="[&_*:first-child]:mt-0 [&_*:last-child]:mb-0">
+            <div className="[&_*:first-child]:mt-0 [&_*:last-child]:mb-0 leading-normal">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={markdownComponents}
