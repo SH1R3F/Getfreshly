@@ -3,6 +3,7 @@ import { BreadcrumbsConsumer } from '@/consumers/breadcrumbsConsumer';
 import { Breadcrumb } from '@/types/breadcrumbs';
 import { prisma } from '@repo/database';
 import { UserService } from '@/services/user.service';
+import { LinkedAccount } from '@/types/linkedAccounts';
 
 const breadCrumbs: Breadcrumb[] = [
   {
@@ -18,7 +19,7 @@ const breadCrumbs: Breadcrumb[] = [
 export default async function LinkedAccountsPage() {
   const userId = await UserService.requireAuth();
 
-  const linkedAccounts = await prisma.linkedAccount.findMany({
+  const linkedAccounts = (await prisma.linkedAccount.findMany({
     select: {
       id: true,
       userId: true,
@@ -36,7 +37,7 @@ export default async function LinkedAccountsPage() {
     where: {
       userId,
     },
-  });
+  })) as LinkedAccount[];
 
   return (
     <div className="pb-6">

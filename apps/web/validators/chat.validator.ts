@@ -5,6 +5,8 @@ export const chatMessageSchema = z.object({
     .string()
     .min(1, 'Message cannot be empty')
     .max(10000, 'Message too long'),
+  adAccountId: z.string().optional(),
+  accessToken: z.string().optional(),
 });
 
 export class ChatValidator {

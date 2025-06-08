@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import { currentUser } from '@clerk/nextjs/server';
 import { prisma } from '@repo/database';
 import { AccountInfo } from '@/types/linkedAccounts';
-import { FacebookTokenService } from '@/services/connectors/facebook-token.service';
-import { FacebookDataService } from '@/services/connectors/facebook-data.service';
+import { FacebookTokenService } from '@/services/server/connectors/facebook-token.service';
+import { FacebookDataService } from '@/services/server/connectors/facebook-data.service';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -30,8 +30,10 @@ export async function GET(request: Request) {
     // Store the access token and account info in the database
     const linkedAccount = await prisma.linkedAccount.upsert({
       where: {
-        userId: user.id,
-        accountId: accountInfo.id,
+        userId_accountId: {
+          userId: user.id,
+          accountId: accountInfo.id,
+        },
       },
       create: {
         userId: user.id,
@@ -55,7 +57,7 @@ export async function GET(request: Request) {
       });
 
       await prisma.adAccount.createMany({
-        data: adAccounts.map((adAccount: any) => ({
+        data: adAccounts.map((adAccount: { id: string; name: string }) => ({
           userId: user.id,
           linkedAccountId: linkedAccount.id,
           accountId: adAccount.id,
@@ -70,9 +72,7 @@ export async function GET(request: Request) {
   } catch (error) {
     console.error('Facebook OAuth error:', error);
     return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_APP_URL}/chat?error=${encodeURIComponent(
-        (error as Error).message || 'Failed to authenticate with Facebook',
-      )}`,
+      `${process.env.NEXT_PUBLIC_APP_URL}/settings/linked-accounts?error=1`,
     );
   }
 }

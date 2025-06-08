@@ -4529,10 +4529,11 @@ export namespace Prisma {
 
   export type LinkedAccountWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    userId?: string
+    userId_accountId?: LinkedAccountUserIdAccountIdCompoundUniqueInput
     AND?: LinkedAccountWhereInput | LinkedAccountWhereInput[]
     OR?: LinkedAccountWhereInput[]
     NOT?: LinkedAccountWhereInput | LinkedAccountWhereInput[]
+    userId?: StringFilter<"LinkedAccount"> | string
     accountType?: StringFilter<"LinkedAccount"> | string
     accessToken?: StringFilter<"LinkedAccount"> | string
     accountId?: StringFilter<"LinkedAccount"> | string
@@ -4541,7 +4542,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LinkedAccount"> | Date | string
     updatedAt?: DateTimeFilter<"LinkedAccount"> | Date | string
     adAccounts?: AdAccountListRelationFilter
-  }, "id" | "userId">
+  }, "id" | "userId_accountId">
 
   export type LinkedAccountOrderByWithAggregationInput = {
     id?: SortOrder
@@ -4974,6 +4975,11 @@ export namespace Prisma {
 
   export type AdAccountOrderByRelationAggregateInput = {
     _count?: SortOrder
+  }
+
+  export type LinkedAccountUserIdAccountIdCompoundUniqueInput = {
+    userId: string
+    accountId: string
   }
 
   export type LinkedAccountCountOrderByAggregateInput = {

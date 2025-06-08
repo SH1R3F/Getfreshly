@@ -1,17 +1,18 @@
 import { UserService } from '@/services/user.service';
 import { ApiErrorHandler } from '@/utils/error-handler';
 import { ApiUtils } from '@/utils/api.utils';
-import { MessageService } from '@/services/message.service';
+import { MessageService } from '@/services/server/message.service';
 import { ChatValidator } from '@/validators/chat.validator';
-import { ChatService } from '@/services/chat.service';
-import { StreamingService } from '@/services/streaming.service';
+import { ChatService } from '@/services/server/chat.service';
+import { StreamingService } from '@/services/server/streaming.service';
 import { type ChatCompletionMessageParam } from 'openai/resources/index.mjs';
 
 export async function POST(request: Request) {
   try {
     const userId = await UserService.requireAuth();
-    const { message } = ChatValidator.validateMessage(await request.json());
-    const accessToken = await UserService.getFacebookAccessToken(userId);
+    const { message, adAccountId, accessToken } = ChatValidator.validateMessage(
+      await request.json(),
+    );
 
     const chatHistory = await MessageService.getUserChatHistory(userId);
     const messages = [
@@ -28,6 +29,7 @@ export async function POST(request: Request) {
       messages,
       userId,
       accessToken,
+      adAccountId,
     ).finally(() => streamingService.close());
 
     return new Response(stream.readable, {

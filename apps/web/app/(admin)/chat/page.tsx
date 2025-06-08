@@ -3,7 +3,8 @@ import { BreadcrumbsConsumer } from '@/consumers/breadcrumbsConsumer';
 import { Breadcrumb } from '@/types/breadcrumbs';
 import { UserService } from '@/services/user.service';
 import { redirect } from 'next/navigation';
-import { FacebookAccount } from '@/types/chat';
+import { prisma } from '@repo/database';
+import { LinkedAccount } from '@/types/linkedAccounts';
 
 const breadCrumbs: Breadcrumb[] = [
   {
@@ -19,14 +20,26 @@ export default async function Page() {
     redirect('/sign-in');
   }
 
-  const accountInfo = (await UserService.getAccountInfo(
-    user.id,
-  )) as FacebookAccount;
+  const linkedAccounts = (await prisma.linkedAccount.findMany({
+    where: {
+      userId: user.id,
+    },
+    select: {
+      accountName: true,
+      accessToken: true,
+      adAccounts: {
+        select: {
+          accountId: true,
+          accountName: true,
+        },
+      },
+    },
+  })) as LinkedAccount[];
 
   return (
     <div className="pb-6 h-[calc(100vh-161px)]">
       <BreadcrumbsConsumer breadcrumbs={breadCrumbs} />
-      <ChatContainer currentUser={user} accountInfo={accountInfo} />
+      <ChatContainer currentUser={user} linkedAccounts={linkedAccounts} />
     </div>
   );
 }

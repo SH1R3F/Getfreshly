@@ -28,10 +28,11 @@ export class ChatService {
     messages: ChatCompletionMessageParam[],
     userId: string,
     accessToken?: string,
+    adAccountId?: string,
   ): Promise<void> {
     try {
       let fullResponse = '';
-      const openAIChatService = new OpenAIChatService(accessToken);
+      const openAIChatService = new OpenAIChatService(accessToken, adAccountId);
 
       for await (const chunk of openAIChatService.streamChat(messages)) {
         fullResponse += chunk;

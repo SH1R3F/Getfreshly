@@ -1,3 +1,5 @@
+import { LinkedAccount } from './linkedAccounts';
+
 export type MessageRole = 'user' | 'assistant';
 
 export type Message = {
@@ -20,23 +22,28 @@ export interface CurrentUser {
   image?: string;
 }
 
-export interface FacebookAccount {
-  account_id: string;
-  account_name: string;
-}
-
 export interface StreamChunkData {
   chunk: string;
 }
 
 export interface ChatInputProps {
-  onSendMessage: (message: string) => Promise<void>;
-  accountInfo: FacebookAccount;
+  onSendMessage: (
+    message: string,
+    selectedAccount?: SelectedAccount | null,
+  ) => Promise<void>;
+  linkedAccounts: LinkedAccount[];
 }
 
-export interface ModelSelectorProps {
+export interface AccountSelectorProps {
   isDisabled?: boolean;
-  accountInfo: FacebookAccount;
+  linkedAccounts: LinkedAccount[];
+  onAccountSelect?: (account: SelectedAccount | null) => void;
+}
+
+export interface SelectedAccount {
+  accountId: string;
+  accountName: string;
+  accessToken: string;
 }
 
 export interface CreateMessageData {

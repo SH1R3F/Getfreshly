@@ -1,6 +1,5 @@
 import { AppUser } from '@/types/user';
 import { auth, currentUser } from '@clerk/nextjs/server';
-import { prisma } from '@repo/database';
 
 export class UserService {
   static async requireAuth() {
@@ -23,29 +22,5 @@ export class UserService {
       name: clerkUser.firstName ?? undefined,
       image: clerkUser.imageUrl ?? undefined,
     };
-  }
-
-  static async getAccountInfo(
-    userId: string,
-  ): Promise<Record<string, string> | {}> {
-    // const facebookAuth = await prisma.facebookAuth.findFirst({
-    //   where: { userId },
-    //   select: { account_id: true, account_name: true },
-    // });
-
-    // return facebookAuth || {};
-    return {};
-  }
-
-  static async getFacebookAccessToken(
-    userId: string,
-  ): Promise<string | undefined> {
-    // const facebookAuth = await prisma.facebookAuth.findUnique({
-    //   where: { userId },
-    //   select: { accessToken: true },
-    // });
-
-    // return facebookAuth?.accessToken ?? undefined;
-    return undefined;
   }
 }

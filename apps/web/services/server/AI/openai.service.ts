@@ -9,8 +9,9 @@ import { facebookToolsExecution } from './facebook-tools.execution';
 export class OpenAIChatService {
   private client: OpenAI;
   private tools: Record<string, (args: any) => any>;
+  private instructions: string = '';
 
-  constructor(accessToken?: string) {
+  constructor(accessToken?: string, adAccountId?: string) {
     const apiKey = process.env.OPENAI_API_KEY;
 
     if (!apiKey) {
@@ -21,6 +22,7 @@ export class OpenAIChatService {
 
     this.client = new OpenAI({ apiKey, timeout: 30000, maxRetries: 2 });
     this.tools = facebookToolsExecution(accessToken);
+    this.instructions = `You're a marketer expert. Help user perform the best marketing actions, you'll provide a very specific plan for the user based on information you'll get through tools. Use the following act_id as ad account id: ${adAccountId} if user didn't provide another one in the message. If you got an error that access token is not provided ask user to make sure they selected an account or try to re-link them`;
   }
 
   async *streamChat(
@@ -29,7 +31,13 @@ export class OpenAIChatService {
     try {
       const stream = await this.client.chat.completions.create({
         model: 'gpt-4o-mini',
-        messages,
+        messages: [
+          {
+            role: 'developer',
+            content: this.instructions,
+          },
+          ...messages,
+        ],
         tools: facebookToolDefinition as ChatCompletionTool[],
         stream: true,
         temperature: 0.7,

@@ -3,6 +3,7 @@ export interface LinkedAccount {
   userId: string;
   accountId: string;
   accountName: string;
+  accessToken: string;
   expiresAt: Date;
   adAccounts?: AdAccount[];
 }

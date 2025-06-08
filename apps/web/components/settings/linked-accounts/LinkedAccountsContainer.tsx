@@ -1,16 +1,28 @@
 'use client';
 
+import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { toast } from 'sonner';
 import { Tabs, TabsContent } from '@repo/ui/components/tabs';
 import { AccountsList } from './AccountsList';
 import { LinkedAccount } from '@/types/linkedAccounts';
 import Link from 'next/link';
-import { getFacebookOAuthUrl } from '@/services/connectors/facebook-token.service';
+import { getFacebookOAuthUrl } from '@/services/server/connectors/facebook-token.service';
 
 export function LinkedAccountsContainer({
   linkedAccounts,
 }: {
   linkedAccounts: LinkedAccount[];
 }) {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const error = searchParams.get('error');
+    if (error === '1') {
+      toast.error('Failed to authenticate with Facebook. Please try again.');
+    }
+  }, [searchParams]);
+
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-start justify-between">

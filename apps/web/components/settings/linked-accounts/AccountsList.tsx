@@ -185,7 +185,7 @@ export function AccountsList({ accounts }: { accounts: LinkedAccount[] }) {
                             Ad Account
                           </Badge>
                         </TableCell>
-                        <TableCell className="text-right"></TableCell>
+                        <TableCell className="text-right" />
                       </TableRow>
                     ))}
                 </React.Fragment>
