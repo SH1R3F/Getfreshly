@@ -28,10 +28,10 @@ export function Messages({ messages, currentUser }: MessagesProps) {
       {messages.map((message) => (
         <ChatBubble
           key={message.id}
-          variant={message.variant}
+          variant={message.role}
           message={message.content}
-          userName={message.variant === 'user' ? currentUser.name : undefined}
-          userImage={message.variant === 'user' ? currentUser.image : undefined}
+          userName={message.role === 'user' ? currentUser.name : undefined}
+          userImage={message.role === 'user' ? currentUser.image : undefined}
         />
       ))}
       <div ref={messagesEndRef} />

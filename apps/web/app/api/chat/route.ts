@@ -1,94 +1,36 @@
-import { currentUser } from '@clerk/nextjs/server';
-import { prisma } from '@repo/database';
-import chatWithClaude from '@/services/claude';
-import type { MessageParam } from '@anthropic-ai/sdk/resources/messages.mjs';
+import { UserService } from '@/services/user.service';
+import { ApiErrorHandler } from '@/utils/error-handler';
+import { ApiUtils } from '@/utils/api.utils';
+import { MessageService } from '@/services/server/message.service';
+import { ChatValidator } from '@/validators/chat.validator';
+import { ChatService } from '@/services/server/chat.service';
+import { StreamingService } from '@/services/server/streaming.service';
+import { type ChatCompletionMessageParam } from 'openai/resources/index.mjs';
 
 export async function POST(request: Request) {
   try {
-    const user = await currentUser();
-    if (!user) {
-      return new Response('Unauthorized', { status: 401 });
-    }
+    const userId = await UserService.requireAuth();
+    const { message, adAccountId, accessToken } = ChatValidator.validateMessage(
+      await request.json(),
+    );
 
-    const { message } = await request.json();
+    const chatHistory = await MessageService.getUserChatHistory(userId);
+    const messages = [
+      ...chatHistory,
+      { role: 'user', content: message },
+    ] as ChatCompletionMessageParam[];
 
-    // Save the user's message
-    await prisma.message.create({
-      data: {
-        content: message,
-        userId: user.id,
-        variant: 'user',
-      },
-    });
+    // Set up streaming
+    const { stream, writer } = StreamingService.createStream();
+    const streamingService = new StreamingService(writer);
 
-    const chatHistory = (
-      await prisma.message.findMany({
-        where: {
-          userId: user.id,
-          content: { not: '' }, // Filter at DB level
-        },
-        orderBy: { createdAt: 'asc' },
-        select: {
-          variant: true,
-          content: true,
-        },
-      })
-    ).map((msg) => ({
-      role: msg.variant,
-      content: msg.content,
-    })) as MessageParam[];
-
-    // Create a new message for the assistant's response
-    const assistantMessage = await prisma.message.create({
-      data: {
-        content: '',
-        userId: user.id,
-        variant: 'assistant',
-        isLoading: true,
-      },
-    });
-
-    // Create a new TransformStream for streaming the response
-    const stream = new TransformStream();
-    const writer = stream.writable.getWriter();
-    const encoder = new TextEncoder();
-
-    // Start streaming Claude's response in the background
-    (async () => {
-      try {
-        let fullResponse = '';
-        // eslint-disable-next-line no-restricted-syntax
-        for await (const chunk of chatWithClaude(chatHistory)) {
-          fullResponse += chunk;
-          // eslint-disable-next-line no-await-in-loop
-          await writer.write(
-            encoder.encode(
-              `data: ${JSON.stringify({ chunk, messageId: assistantMessage.id })}\n\n`,
-            ),
-          );
-        }
-
-        // Update the assistant message with the complete response
-        await prisma.message.update({
-          where: { id: assistantMessage.id },
-          data: {
-            content: fullResponse,
-            isLoading: false,
-          },
-        });
-
-        await writer.write(encoder.encode('data: [DONE]\n\n'));
-      } catch (error) {
-        console.error('Error in streaming response:', error);
-        await writer.write(
-          encoder.encode(
-            `data: ${JSON.stringify({ error: 'Error processing response' })}\n\n`,
-          ),
-        );
-      } finally {
-        await writer.close();
-      }
-    })();
+    ChatService.streamChatResponse(
+      streamingService,
+      messages,
+      userId,
+      accessToken,
+      adAccountId,
+    ).finally(() => streamingService.close());
 
     return new Response(stream.readable, {
       headers: {
@@ -98,34 +40,17 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
-    console.error('Error in chat API:', error);
-    return new Response('Internal Server Error', { status: 500 });
+    return ApiErrorHandler.handle(error);
   }
 }
 
 export async function GET() {
   try {
-    const user = await currentUser();
-    if (!user) {
-      return new Response('Unauthorized', { status: 401 });
-    }
+    const userId = await UserService.requireAuth();
+    const messages = await MessageService.getUserMessages(userId);
 
-    // Fetch messages for the current user
-    const messages = await prisma.message.findMany({
-      where: {
-        userId: user.id,
-      },
-      orderBy: {
-        createdAt: 'asc',
-      },
-    });
-
-    return Response.json({
-      success: true,
-      messages,
-    });
+    return ApiUtils.createResponse({ messages });
   } catch (error) {
-    console.error('Error fetching messages:', error);
-    return new Response('Internal Server Error', { status: 500 });
+    return ApiErrorHandler.handle(error);
   }
 }
