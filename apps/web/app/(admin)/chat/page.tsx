@@ -1,7 +1,7 @@
 import ChatContainer from '@/components/chat/ChatContainer';
 import { BreadcrumbsConsumer } from '@/consumers/breadcrumbsConsumer';
 import { Breadcrumb } from '@/types/breadcrumbs';
-import { UserService } from '@/services/server/user.service';
+import { UserService } from '@/services/user.service';
 import { redirect } from 'next/navigation';
 import { FacebookAccount } from '@/types/chat';
 
@@ -24,7 +24,7 @@ export default async function Page() {
   )) as FacebookAccount;
 
   return (
-    <div className="pb-6 h-[calc(100vh-156px)]">
+    <div className="pb-6 h-[calc(100vh-161px)]">
       <BreadcrumbsConsumer breadcrumbs={breadCrumbs} />
       <ChatContainer currentUser={user} accountInfo={accountInfo} />
     </div>

@@ -142,6 +142,16 @@ exports.Prisma.LinkedAccountScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AdAccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  linkedAccountId: 'linkedAccountId',
+  accountId: 'accountId',
+  accountName: 'accountName',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -155,7 +165,8 @@ exports.Prisma.QueryMode = {
 
 exports.Prisma.ModelName = {
   Message: 'Message',
-  LinkedAccount: 'LinkedAccount'
+  LinkedAccount: 'LinkedAccount',
+  AdAccount: 'AdAccount'
 };
 
 /**

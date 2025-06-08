@@ -1,7 +1,9 @@
-import { getAccountInfo } from '@/services/meta';
 import { NextResponse } from 'next/server';
 import { currentUser } from '@clerk/nextjs/server';
 import { prisma } from '@repo/database';
+import { AccountInfo } from '@/types/linkedAccounts';
+import { FacebookTokenService } from '@/services/connectors/facebook-token.service';
+import { FacebookDataService } from '@/services/connectors/facebook-data.service';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -17,47 +19,54 @@ export async function GET(request: Request) {
   }
 
   try {
-    const appId = process.env.NEXT_PUBLIC_FACEBOOK_APP_ID;
-    const appSecret = process.env.FACEBOOK_APP_SECRET;
-    const redirectUri = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/facebook/callback`;
-
-    // Exchange code for access token
-    const tokenResponse = await fetch(
-      `https://graph.facebook.com/v22.0/oauth/access_token?client_id=${appId}&redirect_uri=${encodeURIComponent(
-        redirectUri,
-      )}&client_secret=${appSecret}&code=${code}`,
-    );
-
-    const tokenData = await tokenResponse.json();
-
-    if (!tokenResponse.ok) {
-      throw new Error(tokenData.error?.message || 'Failed to get access token');
-    }
-
-    const accessToken = tokenData.access_token;
+    const { accessToken, expiresIn } =
+      await FacebookTokenService.exchangeCodeForToken(code);
 
     // Fetch ad accounts information
-    const accountInfo = await getAccountInfo(accessToken);
+    const accountInfo: AccountInfo =
+      await FacebookDataService.getAccountInfo(accessToken);
+    const adAccounts = await FacebookDataService.getAdAccounts(accessToken);
 
     // Store the access token and account info in the database
-    await prisma.facebookAuth.upsert({
+    const linkedAccount = await prisma.linkedAccount.upsert({
       where: {
         userId: user.id,
+        accountId: accountInfo.id,
       },
       create: {
         userId: user.id,
+        accountType: 'facebook',
         accessToken,
-        account_id: accountInfo.id,
-        account_name: accountInfo.name,
+        accountId: accountInfo.id,
+        accountName: accountInfo.name,
+        expiresAt: new Date(Date.now() + expiresIn * 1000),
       },
       update: {
         accessToken,
-        account_id: accountInfo.id,
-        account_name: accountInfo.name,
+        expiresAt: new Date(Date.now() + expiresIn * 1000),
       },
     });
 
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/chat`);
+    if (adAccounts && adAccounts.length > 0) {
+      await prisma.adAccount.deleteMany({
+        where: {
+          linkedAccountId: linkedAccount.id,
+        },
+      });
+
+      await prisma.adAccount.createMany({
+        data: adAccounts.map((adAccount: any) => ({
+          userId: user.id,
+          linkedAccountId: linkedAccount.id,
+          accountId: adAccount.id,
+          accountName: adAccount.name,
+        })),
+      });
+    }
+
+    return NextResponse.redirect(
+      `${process.env.NEXT_PUBLIC_APP_URL}/settings/linked-accounts`,
+    );
   } catch (error) {
     console.error('Facebook OAuth error:', error);
     return NextResponse.redirect(

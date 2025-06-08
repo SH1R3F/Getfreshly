@@ -11,7 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@repo/ui/components/dropdown-menu';
-import getFacebookOAuthUrl from '@/services/meta';
 import { toast } from 'sonner';
 import { ChatInputProps, ModelSelectorProps } from '@/types/chat';
 
@@ -43,7 +42,7 @@ export function ModelSelector({ isDisabled, accountInfo }: ModelSelectorProps) {
         asChild
         disabled={isDisabled}
       >
-        <a href={getFacebookOAuthUrl()}>Connect Facebook</a>
+        <a href="#">Connect Facebook</a>
       </Button>
     );
   }

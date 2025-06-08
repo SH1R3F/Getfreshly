@@ -1,10 +1,10 @@
-import { UserService } from '@/services/server/user.service';
+import { UserService } from '@/services/user.service';
 import { ApiErrorHandler } from '@/utils/error-handler';
 import { ApiUtils } from '@/utils/api.utils';
-import { MessageService } from '@/services/server/message.service';
+import { MessageService } from '@/services/message.service';
 import { ChatValidator } from '@/validators/chat.validator';
-import { ChatService } from '@/services/server/chat.service';
-import { StreamingService } from '@/services/server/streaming.service';
+import { ChatService } from '@/services/chat.service';
+import { StreamingService } from '@/services/streaming.service';
 import { type ChatCompletionMessageParam } from 'openai/resources/index.mjs';
 
 export async function POST(request: Request) {

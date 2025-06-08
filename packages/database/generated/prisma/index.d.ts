@@ -23,6 +23,11 @@ export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
  * 
  */
 export type LinkedAccount = $Result.DefaultSelection<Prisma.$LinkedAccountPayload>
+/**
+ * Model AdAccount
+ * 
+ */
+export type AdAccount = $Result.DefaultSelection<Prisma.$AdAccountPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -168,6 +173,16 @@ export class PrismaClient<
     * ```
     */
   get linkedAccount(): Prisma.LinkedAccountDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.adAccount`: Exposes CRUD operations for the **AdAccount** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AdAccounts
+    * const adAccounts = await prisma.adAccount.findMany()
+    * ```
+    */
+  get adAccount(): Prisma.AdAccountDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -609,7 +624,8 @@ export namespace Prisma {
 
   export const ModelName: {
     Message: 'Message',
-    LinkedAccount: 'LinkedAccount'
+    LinkedAccount: 'LinkedAccount',
+    AdAccount: 'AdAccount'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,7 +644,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "message" | "linkedAccount"
+      modelProps: "message" | "linkedAccount" | "adAccount"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -780,6 +796,80 @@ export namespace Prisma {
           }
         }
       }
+      AdAccount: {
+        payload: Prisma.$AdAccountPayload<ExtArgs>
+        fields: Prisma.AdAccountFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AdAccountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdAccountPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AdAccountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdAccountPayload>
+          }
+          findFirst: {
+            args: Prisma.AdAccountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdAccountPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AdAccountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdAccountPayload>
+          }
+          findMany: {
+            args: Prisma.AdAccountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdAccountPayload>[]
+          }
+          create: {
+            args: Prisma.AdAccountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdAccountPayload>
+          }
+          createMany: {
+            args: Prisma.AdAccountCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AdAccountCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdAccountPayload>[]
+          }
+          delete: {
+            args: Prisma.AdAccountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdAccountPayload>
+          }
+          update: {
+            args: Prisma.AdAccountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdAccountPayload>
+          }
+          deleteMany: {
+            args: Prisma.AdAccountDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AdAccountUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AdAccountUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdAccountPayload>[]
+          }
+          upsert: {
+            args: Prisma.AdAccountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdAccountPayload>
+          }
+          aggregate: {
+            args: Prisma.AdAccountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAdAccount>
+          }
+          groupBy: {
+            args: Prisma.AdAccountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AdAccountGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AdAccountCountArgs<ExtArgs>
+            result: $Utils.Optional<AdAccountCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -866,6 +956,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     message?: MessageOmit
     linkedAccount?: LinkedAccountOmit
+    adAccount?: AdAccountOmit
   }
 
   /* Types for Logging */
@@ -954,6 +1045,36 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type LinkedAccountCountOutputType
+   */
+
+  export type LinkedAccountCountOutputType = {
+    adAccounts: number
+  }
+
+  export type LinkedAccountCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    adAccounts?: boolean | LinkedAccountCountOutputTypeCountAdAccountsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LinkedAccountCountOutputType without action
+   */
+  export type LinkedAccountCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinkedAccountCountOutputType
+     */
+    select?: LinkedAccountCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LinkedAccountCountOutputType without action
+   */
+  export type LinkedAccountCountOutputTypeCountAdAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdAccountWhereInput
+  }
 
 
   /**
@@ -2177,6 +2298,8 @@ export namespace Prisma {
     expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    adAccounts?: boolean | LinkedAccount$adAccountsArgs<ExtArgs>
+    _count?: boolean | LinkedAccountCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["linkedAccount"]>
 
   export type LinkedAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2216,10 +2339,18 @@ export namespace Prisma {
   }
 
   export type LinkedAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "accountType" | "accessToken" | "accountId" | "accountName" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["linkedAccount"]>
+  export type LinkedAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    adAccounts?: boolean | LinkedAccount$adAccountsArgs<ExtArgs>
+    _count?: boolean | LinkedAccountCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type LinkedAccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type LinkedAccountIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $LinkedAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "LinkedAccount"
-    objects: {}
+    objects: {
+      adAccounts: Prisma.$AdAccountPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
@@ -2624,6 +2755,7 @@ export namespace Prisma {
    */
   export interface Prisma__LinkedAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    adAccounts<T extends LinkedAccount$adAccountsArgs<ExtArgs> = {}>(args?: Subset<T, LinkedAccount$adAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2679,6 +2811,10 @@ export namespace Prisma {
      */
     omit?: LinkedAccountOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkedAccountInclude<ExtArgs> | null
+    /**
      * Filter, which LinkedAccount to fetch.
      */
     where: LinkedAccountWhereUniqueInput
@@ -2697,6 +2833,10 @@ export namespace Prisma {
      */
     omit?: LinkedAccountOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkedAccountInclude<ExtArgs> | null
+    /**
      * Filter, which LinkedAccount to fetch.
      */
     where: LinkedAccountWhereUniqueInput
@@ -2714,6 +2854,10 @@ export namespace Prisma {
      * Omit specific fields from the LinkedAccount
      */
     omit?: LinkedAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkedAccountInclude<ExtArgs> | null
     /**
      * Filter, which LinkedAccount to fetch.
      */
@@ -2763,6 +2907,10 @@ export namespace Prisma {
      */
     omit?: LinkedAccountOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkedAccountInclude<ExtArgs> | null
+    /**
      * Filter, which LinkedAccount to fetch.
      */
     where?: LinkedAccountWhereInput
@@ -2811,6 +2959,10 @@ export namespace Prisma {
      */
     omit?: LinkedAccountOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkedAccountInclude<ExtArgs> | null
+    /**
      * Filter, which LinkedAccounts to fetch.
      */
     where?: LinkedAccountWhereInput
@@ -2853,6 +3005,10 @@ export namespace Prisma {
      * Omit specific fields from the LinkedAccount
      */
     omit?: LinkedAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkedAccountInclude<ExtArgs> | null
     /**
      * The data needed to create a LinkedAccount.
      */
@@ -2901,6 +3057,10 @@ export namespace Prisma {
      * Omit specific fields from the LinkedAccount
      */
     omit?: LinkedAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkedAccountInclude<ExtArgs> | null
     /**
      * The data needed to update a LinkedAccount.
      */
@@ -2968,6 +3128,10 @@ export namespace Prisma {
      */
     omit?: LinkedAccountOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkedAccountInclude<ExtArgs> | null
+    /**
      * The filter to search for the LinkedAccount to update in case it exists.
      */
     where: LinkedAccountWhereUniqueInput
@@ -2994,6 +3158,10 @@ export namespace Prisma {
      */
     omit?: LinkedAccountOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkedAccountInclude<ExtArgs> | null
+    /**
      * Filter which LinkedAccount to delete.
      */
     where: LinkedAccountWhereUniqueInput
@@ -3014,6 +3182,30 @@ export namespace Prisma {
   }
 
   /**
+   * LinkedAccount.adAccounts
+   */
+  export type LinkedAccount$adAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountInclude<ExtArgs> | null
+    where?: AdAccountWhereInput
+    orderBy?: AdAccountOrderByWithRelationInput | AdAccountOrderByWithRelationInput[]
+    cursor?: AdAccountWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdAccountScalarFieldEnum | AdAccountScalarFieldEnum[]
+  }
+
+  /**
    * LinkedAccount without action
    */
   export type LinkedAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3025,6 +3217,1094 @@ export namespace Prisma {
      * Omit specific fields from the LinkedAccount
      */
     omit?: LinkedAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinkedAccountInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AdAccount
+   */
+
+  export type AggregateAdAccount = {
+    _count: AdAccountCountAggregateOutputType | null
+    _min: AdAccountMinAggregateOutputType | null
+    _max: AdAccountMaxAggregateOutputType | null
+  }
+
+  export type AdAccountMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    linkedAccountId: string | null
+    accountId: string | null
+    accountName: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AdAccountMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    linkedAccountId: string | null
+    accountId: string | null
+    accountName: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AdAccountCountAggregateOutputType = {
+    id: number
+    userId: number
+    linkedAccountId: number
+    accountId: number
+    accountName: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AdAccountMinAggregateInputType = {
+    id?: true
+    userId?: true
+    linkedAccountId?: true
+    accountId?: true
+    accountName?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AdAccountMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    linkedAccountId?: true
+    accountId?: true
+    accountName?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AdAccountCountAggregateInputType = {
+    id?: true
+    userId?: true
+    linkedAccountId?: true
+    accountId?: true
+    accountName?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AdAccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AdAccount to aggregate.
+     */
+    where?: AdAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdAccounts to fetch.
+     */
+    orderBy?: AdAccountOrderByWithRelationInput | AdAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AdAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AdAccounts
+    **/
+    _count?: true | AdAccountCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AdAccountMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AdAccountMaxAggregateInputType
+  }
+
+  export type GetAdAccountAggregateType<T extends AdAccountAggregateArgs> = {
+        [P in keyof T & keyof AggregateAdAccount]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAdAccount[P]>
+      : GetScalarType<T[P], AggregateAdAccount[P]>
+  }
+
+
+
+
+  export type AdAccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdAccountWhereInput
+    orderBy?: AdAccountOrderByWithAggregationInput | AdAccountOrderByWithAggregationInput[]
+    by: AdAccountScalarFieldEnum[] | AdAccountScalarFieldEnum
+    having?: AdAccountScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AdAccountCountAggregateInputType | true
+    _min?: AdAccountMinAggregateInputType
+    _max?: AdAccountMaxAggregateInputType
+  }
+
+  export type AdAccountGroupByOutputType = {
+    id: string
+    userId: string
+    linkedAccountId: string
+    accountId: string
+    accountName: string
+    createdAt: Date
+    updatedAt: Date
+    _count: AdAccountCountAggregateOutputType | null
+    _min: AdAccountMinAggregateOutputType | null
+    _max: AdAccountMaxAggregateOutputType | null
+  }
+
+  type GetAdAccountGroupByPayload<T extends AdAccountGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AdAccountGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AdAccountGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AdAccountGroupByOutputType[P]>
+            : GetScalarType<T[P], AdAccountGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AdAccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    linkedAccountId?: boolean
+    accountId?: boolean
+    accountName?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    linkedAccount?: boolean | LinkedAccountDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["adAccount"]>
+
+  export type AdAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    linkedAccountId?: boolean
+    accountId?: boolean
+    accountName?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    linkedAccount?: boolean | LinkedAccountDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["adAccount"]>
+
+  export type AdAccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    linkedAccountId?: boolean
+    accountId?: boolean
+    accountName?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    linkedAccount?: boolean | LinkedAccountDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["adAccount"]>
+
+  export type AdAccountSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    linkedAccountId?: boolean
+    accountId?: boolean
+    accountName?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AdAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "linkedAccountId" | "accountId" | "accountName" | "createdAt" | "updatedAt", ExtArgs["result"]["adAccount"]>
+  export type AdAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    linkedAccount?: boolean | LinkedAccountDefaultArgs<ExtArgs>
+  }
+  export type AdAccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    linkedAccount?: boolean | LinkedAccountDefaultArgs<ExtArgs>
+  }
+  export type AdAccountIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    linkedAccount?: boolean | LinkedAccountDefaultArgs<ExtArgs>
+  }
+
+  export type $AdAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AdAccount"
+    objects: {
+      linkedAccount: Prisma.$LinkedAccountPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      linkedAccountId: string
+      accountId: string
+      accountName: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["adAccount"]>
+    composites: {}
+  }
+
+  type AdAccountGetPayload<S extends boolean | null | undefined | AdAccountDefaultArgs> = $Result.GetResult<Prisma.$AdAccountPayload, S>
+
+  type AdAccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AdAccountFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AdAccountCountAggregateInputType | true
+    }
+
+  export interface AdAccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AdAccount'], meta: { name: 'AdAccount' } }
+    /**
+     * Find zero or one AdAccount that matches the filter.
+     * @param {AdAccountFindUniqueArgs} args - Arguments to find a AdAccount
+     * @example
+     * // Get one AdAccount
+     * const adAccount = await prisma.adAccount.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AdAccountFindUniqueArgs>(args: SelectSubset<T, AdAccountFindUniqueArgs<ExtArgs>>): Prisma__AdAccountClient<$Result.GetResult<Prisma.$AdAccountPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AdAccount that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AdAccountFindUniqueOrThrowArgs} args - Arguments to find a AdAccount
+     * @example
+     * // Get one AdAccount
+     * const adAccount = await prisma.adAccount.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AdAccountFindUniqueOrThrowArgs>(args: SelectSubset<T, AdAccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AdAccountClient<$Result.GetResult<Prisma.$AdAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AdAccount that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdAccountFindFirstArgs} args - Arguments to find a AdAccount
+     * @example
+     * // Get one AdAccount
+     * const adAccount = await prisma.adAccount.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AdAccountFindFirstArgs>(args?: SelectSubset<T, AdAccountFindFirstArgs<ExtArgs>>): Prisma__AdAccountClient<$Result.GetResult<Prisma.$AdAccountPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AdAccount that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdAccountFindFirstOrThrowArgs} args - Arguments to find a AdAccount
+     * @example
+     * // Get one AdAccount
+     * const adAccount = await prisma.adAccount.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AdAccountFindFirstOrThrowArgs>(args?: SelectSubset<T, AdAccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__AdAccountClient<$Result.GetResult<Prisma.$AdAccountPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AdAccounts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdAccountFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AdAccounts
+     * const adAccounts = await prisma.adAccount.findMany()
+     * 
+     * // Get first 10 AdAccounts
+     * const adAccounts = await prisma.adAccount.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const adAccountWithIdOnly = await prisma.adAccount.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AdAccountFindManyArgs>(args?: SelectSubset<T, AdAccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AdAccount.
+     * @param {AdAccountCreateArgs} args - Arguments to create a AdAccount.
+     * @example
+     * // Create one AdAccount
+     * const AdAccount = await prisma.adAccount.create({
+     *   data: {
+     *     // ... data to create a AdAccount
+     *   }
+     * })
+     * 
+     */
+    create<T extends AdAccountCreateArgs>(args: SelectSubset<T, AdAccountCreateArgs<ExtArgs>>): Prisma__AdAccountClient<$Result.GetResult<Prisma.$AdAccountPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AdAccounts.
+     * @param {AdAccountCreateManyArgs} args - Arguments to create many AdAccounts.
+     * @example
+     * // Create many AdAccounts
+     * const adAccount = await prisma.adAccount.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AdAccountCreateManyArgs>(args?: SelectSubset<T, AdAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AdAccounts and returns the data saved in the database.
+     * @param {AdAccountCreateManyAndReturnArgs} args - Arguments to create many AdAccounts.
+     * @example
+     * // Create many AdAccounts
+     * const adAccount = await prisma.adAccount.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AdAccounts and only return the `id`
+     * const adAccountWithIdOnly = await prisma.adAccount.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AdAccountCreateManyAndReturnArgs>(args?: SelectSubset<T, AdAccountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdAccountPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AdAccount.
+     * @param {AdAccountDeleteArgs} args - Arguments to delete one AdAccount.
+     * @example
+     * // Delete one AdAccount
+     * const AdAccount = await prisma.adAccount.delete({
+     *   where: {
+     *     // ... filter to delete one AdAccount
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AdAccountDeleteArgs>(args: SelectSubset<T, AdAccountDeleteArgs<ExtArgs>>): Prisma__AdAccountClient<$Result.GetResult<Prisma.$AdAccountPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AdAccount.
+     * @param {AdAccountUpdateArgs} args - Arguments to update one AdAccount.
+     * @example
+     * // Update one AdAccount
+     * const adAccount = await prisma.adAccount.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AdAccountUpdateArgs>(args: SelectSubset<T, AdAccountUpdateArgs<ExtArgs>>): Prisma__AdAccountClient<$Result.GetResult<Prisma.$AdAccountPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AdAccounts.
+     * @param {AdAccountDeleteManyArgs} args - Arguments to filter AdAccounts to delete.
+     * @example
+     * // Delete a few AdAccounts
+     * const { count } = await prisma.adAccount.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AdAccountDeleteManyArgs>(args?: SelectSubset<T, AdAccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AdAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdAccountUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AdAccounts
+     * const adAccount = await prisma.adAccount.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AdAccountUpdateManyArgs>(args: SelectSubset<T, AdAccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AdAccounts and returns the data updated in the database.
+     * @param {AdAccountUpdateManyAndReturnArgs} args - Arguments to update many AdAccounts.
+     * @example
+     * // Update many AdAccounts
+     * const adAccount = await prisma.adAccount.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AdAccounts and only return the `id`
+     * const adAccountWithIdOnly = await prisma.adAccount.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AdAccountUpdateManyAndReturnArgs>(args: SelectSubset<T, AdAccountUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdAccountPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AdAccount.
+     * @param {AdAccountUpsertArgs} args - Arguments to update or create a AdAccount.
+     * @example
+     * // Update or create a AdAccount
+     * const adAccount = await prisma.adAccount.upsert({
+     *   create: {
+     *     // ... data to create a AdAccount
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AdAccount we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AdAccountUpsertArgs>(args: SelectSubset<T, AdAccountUpsertArgs<ExtArgs>>): Prisma__AdAccountClient<$Result.GetResult<Prisma.$AdAccountPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AdAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdAccountCountArgs} args - Arguments to filter AdAccounts to count.
+     * @example
+     * // Count the number of AdAccounts
+     * const count = await prisma.adAccount.count({
+     *   where: {
+     *     // ... the filter for the AdAccounts we want to count
+     *   }
+     * })
+    **/
+    count<T extends AdAccountCountArgs>(
+      args?: Subset<T, AdAccountCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AdAccountCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AdAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdAccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AdAccountAggregateArgs>(args: Subset<T, AdAccountAggregateArgs>): Prisma.PrismaPromise<GetAdAccountAggregateType<T>>
+
+    /**
+     * Group by AdAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdAccountGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AdAccountGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AdAccountGroupByArgs['orderBy'] }
+        : { orderBy?: AdAccountGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AdAccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAdAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AdAccount model
+   */
+  readonly fields: AdAccountFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AdAccount.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AdAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    linkedAccount<T extends LinkedAccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LinkedAccountDefaultArgs<ExtArgs>>): Prisma__LinkedAccountClient<$Result.GetResult<Prisma.$LinkedAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AdAccount model
+   */
+  interface AdAccountFieldRefs {
+    readonly id: FieldRef<"AdAccount", 'String'>
+    readonly userId: FieldRef<"AdAccount", 'String'>
+    readonly linkedAccountId: FieldRef<"AdAccount", 'String'>
+    readonly accountId: FieldRef<"AdAccount", 'String'>
+    readonly accountName: FieldRef<"AdAccount", 'String'>
+    readonly createdAt: FieldRef<"AdAccount", 'DateTime'>
+    readonly updatedAt: FieldRef<"AdAccount", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AdAccount findUnique
+   */
+  export type AdAccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which AdAccount to fetch.
+     */
+    where: AdAccountWhereUniqueInput
+  }
+
+  /**
+   * AdAccount findUniqueOrThrow
+   */
+  export type AdAccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which AdAccount to fetch.
+     */
+    where: AdAccountWhereUniqueInput
+  }
+
+  /**
+   * AdAccount findFirst
+   */
+  export type AdAccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which AdAccount to fetch.
+     */
+    where?: AdAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdAccounts to fetch.
+     */
+    orderBy?: AdAccountOrderByWithRelationInput | AdAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AdAccounts.
+     */
+    cursor?: AdAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AdAccounts.
+     */
+    distinct?: AdAccountScalarFieldEnum | AdAccountScalarFieldEnum[]
+  }
+
+  /**
+   * AdAccount findFirstOrThrow
+   */
+  export type AdAccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which AdAccount to fetch.
+     */
+    where?: AdAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdAccounts to fetch.
+     */
+    orderBy?: AdAccountOrderByWithRelationInput | AdAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AdAccounts.
+     */
+    cursor?: AdAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AdAccounts.
+     */
+    distinct?: AdAccountScalarFieldEnum | AdAccountScalarFieldEnum[]
+  }
+
+  /**
+   * AdAccount findMany
+   */
+  export type AdAccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which AdAccounts to fetch.
+     */
+    where?: AdAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdAccounts to fetch.
+     */
+    orderBy?: AdAccountOrderByWithRelationInput | AdAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AdAccounts.
+     */
+    cursor?: AdAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdAccounts.
+     */
+    skip?: number
+    distinct?: AdAccountScalarFieldEnum | AdAccountScalarFieldEnum[]
+  }
+
+  /**
+   * AdAccount create
+   */
+  export type AdAccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AdAccount.
+     */
+    data: XOR<AdAccountCreateInput, AdAccountUncheckedCreateInput>
+  }
+
+  /**
+   * AdAccount createMany
+   */
+  export type AdAccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AdAccounts.
+     */
+    data: AdAccountCreateManyInput | AdAccountCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AdAccount createManyAndReturn
+   */
+  export type AdAccountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * The data used to create many AdAccounts.
+     */
+    data: AdAccountCreateManyInput | AdAccountCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AdAccount update
+   */
+  export type AdAccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AdAccount.
+     */
+    data: XOR<AdAccountUpdateInput, AdAccountUncheckedUpdateInput>
+    /**
+     * Choose, which AdAccount to update.
+     */
+    where: AdAccountWhereUniqueInput
+  }
+
+  /**
+   * AdAccount updateMany
+   */
+  export type AdAccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AdAccounts.
+     */
+    data: XOR<AdAccountUpdateManyMutationInput, AdAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which AdAccounts to update
+     */
+    where?: AdAccountWhereInput
+    /**
+     * Limit how many AdAccounts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AdAccount updateManyAndReturn
+   */
+  export type AdAccountUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * The data used to update AdAccounts.
+     */
+    data: XOR<AdAccountUpdateManyMutationInput, AdAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which AdAccounts to update
+     */
+    where?: AdAccountWhereInput
+    /**
+     * Limit how many AdAccounts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AdAccount upsert
+   */
+  export type AdAccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AdAccount to update in case it exists.
+     */
+    where: AdAccountWhereUniqueInput
+    /**
+     * In case the AdAccount found by the `where` argument doesn't exist, create a new AdAccount with this data.
+     */
+    create: XOR<AdAccountCreateInput, AdAccountUncheckedCreateInput>
+    /**
+     * In case the AdAccount was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AdAccountUpdateInput, AdAccountUncheckedUpdateInput>
+  }
+
+  /**
+   * AdAccount delete
+   */
+  export type AdAccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountInclude<ExtArgs> | null
+    /**
+     * Filter which AdAccount to delete.
+     */
+    where: AdAccountWhereUniqueInput
+  }
+
+  /**
+   * AdAccount deleteMany
+   */
+  export type AdAccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AdAccounts to delete
+     */
+    where?: AdAccountWhereInput
+    /**
+     * Limit how many AdAccounts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AdAccount without action
+   */
+  export type AdAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdAccount
+     */
+    select?: AdAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdAccount
+     */
+    omit?: AdAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdAccountInclude<ExtArgs> | null
   }
 
 
@@ -3068,6 +4348,19 @@ export namespace Prisma {
   };
 
   export type LinkedAccountScalarFieldEnum = (typeof LinkedAccountScalarFieldEnum)[keyof typeof LinkedAccountScalarFieldEnum]
+
+
+  export const AdAccountScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    linkedAccountId: 'linkedAccountId',
+    accountId: 'accountId',
+    accountName: 'accountName',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AdAccountScalarFieldEnum = (typeof AdAccountScalarFieldEnum)[keyof typeof AdAccountScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3218,6 +4511,7 @@ export namespace Prisma {
     expiresAt?: DateTimeFilter<"LinkedAccount"> | Date | string
     createdAt?: DateTimeFilter<"LinkedAccount"> | Date | string
     updatedAt?: DateTimeFilter<"LinkedAccount"> | Date | string
+    adAccounts?: AdAccountListRelationFilter
   }
 
   export type LinkedAccountOrderByWithRelationInput = {
@@ -3230,6 +4524,7 @@ export namespace Prisma {
     expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    adAccounts?: AdAccountOrderByRelationAggregateInput
   }
 
   export type LinkedAccountWhereUniqueInput = Prisma.AtLeast<{
@@ -3245,6 +4540,7 @@ export namespace Prisma {
     expiresAt?: DateTimeFilter<"LinkedAccount"> | Date | string
     createdAt?: DateTimeFilter<"LinkedAccount"> | Date | string
     updatedAt?: DateTimeFilter<"LinkedAccount"> | Date | string
+    adAccounts?: AdAccountListRelationFilter
   }, "id" | "userId">
 
   export type LinkedAccountOrderByWithAggregationInput = {
@@ -3275,6 +4571,71 @@ export namespace Prisma {
     expiresAt?: DateTimeWithAggregatesFilter<"LinkedAccount"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"LinkedAccount"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"LinkedAccount"> | Date | string
+  }
+
+  export type AdAccountWhereInput = {
+    AND?: AdAccountWhereInput | AdAccountWhereInput[]
+    OR?: AdAccountWhereInput[]
+    NOT?: AdAccountWhereInput | AdAccountWhereInput[]
+    id?: StringFilter<"AdAccount"> | string
+    userId?: StringFilter<"AdAccount"> | string
+    linkedAccountId?: StringFilter<"AdAccount"> | string
+    accountId?: StringFilter<"AdAccount"> | string
+    accountName?: StringFilter<"AdAccount"> | string
+    createdAt?: DateTimeFilter<"AdAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"AdAccount"> | Date | string
+    linkedAccount?: XOR<LinkedAccountScalarRelationFilter, LinkedAccountWhereInput>
+  }
+
+  export type AdAccountOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    linkedAccountId?: SortOrder
+    accountId?: SortOrder
+    accountName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    linkedAccount?: LinkedAccountOrderByWithRelationInput
+  }
+
+  export type AdAccountWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AdAccountWhereInput | AdAccountWhereInput[]
+    OR?: AdAccountWhereInput[]
+    NOT?: AdAccountWhereInput | AdAccountWhereInput[]
+    userId?: StringFilter<"AdAccount"> | string
+    linkedAccountId?: StringFilter<"AdAccount"> | string
+    accountId?: StringFilter<"AdAccount"> | string
+    accountName?: StringFilter<"AdAccount"> | string
+    createdAt?: DateTimeFilter<"AdAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"AdAccount"> | Date | string
+    linkedAccount?: XOR<LinkedAccountScalarRelationFilter, LinkedAccountWhereInput>
+  }, "id">
+
+  export type AdAccountOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    linkedAccountId?: SortOrder
+    accountId?: SortOrder
+    accountName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AdAccountCountOrderByAggregateInput
+    _max?: AdAccountMaxOrderByAggregateInput
+    _min?: AdAccountMinOrderByAggregateInput
+  }
+
+  export type AdAccountScalarWhereWithAggregatesInput = {
+    AND?: AdAccountScalarWhereWithAggregatesInput | AdAccountScalarWhereWithAggregatesInput[]
+    OR?: AdAccountScalarWhereWithAggregatesInput[]
+    NOT?: AdAccountScalarWhereWithAggregatesInput | AdAccountScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AdAccount"> | string
+    userId?: StringWithAggregatesFilter<"AdAccount"> | string
+    linkedAccountId?: StringWithAggregatesFilter<"AdAccount"> | string
+    accountId?: StringWithAggregatesFilter<"AdAccount"> | string
+    accountName?: StringWithAggregatesFilter<"AdAccount"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"AdAccount"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AdAccount"> | Date | string
   }
 
   export type MessageCreateInput = {
@@ -3357,6 +4718,7 @@ export namespace Prisma {
     expiresAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    adAccounts?: AdAccountCreateNestedManyWithoutLinkedAccountInput
   }
 
   export type LinkedAccountUncheckedCreateInput = {
@@ -3369,6 +4731,7 @@ export namespace Prisma {
     expiresAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    adAccounts?: AdAccountUncheckedCreateNestedManyWithoutLinkedAccountInput
   }
 
   export type LinkedAccountUpdateInput = {
@@ -3381,6 +4744,7 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adAccounts?: AdAccountUpdateManyWithoutLinkedAccountNestedInput
   }
 
   export type LinkedAccountUncheckedUpdateInput = {
@@ -3393,6 +4757,7 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adAccounts?: AdAccountUncheckedUpdateManyWithoutLinkedAccountNestedInput
   }
 
   export type LinkedAccountCreateManyInput = {
@@ -3427,6 +4792,75 @@ export namespace Prisma {
     accountId?: StringFieldUpdateOperationsInput | string
     accountName?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdAccountCreateInput = {
+    id?: string
+    userId: string
+    accountId: string
+    accountName: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    linkedAccount: LinkedAccountCreateNestedOneWithoutAdAccountsInput
+  }
+
+  export type AdAccountUncheckedCreateInput = {
+    id?: string
+    userId: string
+    linkedAccountId: string
+    accountId: string
+    accountName: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AdAccountUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    linkedAccount?: LinkedAccountUpdateOneRequiredWithoutAdAccountsNestedInput
+  }
+
+  export type AdAccountUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    linkedAccountId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdAccountCreateManyInput = {
+    id?: string
+    userId: string
+    linkedAccountId: string
+    accountId: string
+    accountName: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AdAccountUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdAccountUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    linkedAccountId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3532,6 +4966,16 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type AdAccountListRelationFilter = {
+    every?: AdAccountWhereInput
+    some?: AdAccountWhereInput
+    none?: AdAccountWhereInput
+  }
+
+  export type AdAccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type LinkedAccountCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -3568,6 +5012,41 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type LinkedAccountScalarRelationFilter = {
+    is?: LinkedAccountWhereInput
+    isNot?: LinkedAccountWhereInput
+  }
+
+  export type AdAccountCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    linkedAccountId?: SortOrder
+    accountId?: SortOrder
+    accountName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AdAccountMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    linkedAccountId?: SortOrder
+    accountId?: SortOrder
+    accountName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AdAccountMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    linkedAccountId?: SortOrder
+    accountId?: SortOrder
+    accountName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -3578,6 +5057,62 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type AdAccountCreateNestedManyWithoutLinkedAccountInput = {
+    create?: XOR<AdAccountCreateWithoutLinkedAccountInput, AdAccountUncheckedCreateWithoutLinkedAccountInput> | AdAccountCreateWithoutLinkedAccountInput[] | AdAccountUncheckedCreateWithoutLinkedAccountInput[]
+    connectOrCreate?: AdAccountCreateOrConnectWithoutLinkedAccountInput | AdAccountCreateOrConnectWithoutLinkedAccountInput[]
+    createMany?: AdAccountCreateManyLinkedAccountInputEnvelope
+    connect?: AdAccountWhereUniqueInput | AdAccountWhereUniqueInput[]
+  }
+
+  export type AdAccountUncheckedCreateNestedManyWithoutLinkedAccountInput = {
+    create?: XOR<AdAccountCreateWithoutLinkedAccountInput, AdAccountUncheckedCreateWithoutLinkedAccountInput> | AdAccountCreateWithoutLinkedAccountInput[] | AdAccountUncheckedCreateWithoutLinkedAccountInput[]
+    connectOrCreate?: AdAccountCreateOrConnectWithoutLinkedAccountInput | AdAccountCreateOrConnectWithoutLinkedAccountInput[]
+    createMany?: AdAccountCreateManyLinkedAccountInputEnvelope
+    connect?: AdAccountWhereUniqueInput | AdAccountWhereUniqueInput[]
+  }
+
+  export type AdAccountUpdateManyWithoutLinkedAccountNestedInput = {
+    create?: XOR<AdAccountCreateWithoutLinkedAccountInput, AdAccountUncheckedCreateWithoutLinkedAccountInput> | AdAccountCreateWithoutLinkedAccountInput[] | AdAccountUncheckedCreateWithoutLinkedAccountInput[]
+    connectOrCreate?: AdAccountCreateOrConnectWithoutLinkedAccountInput | AdAccountCreateOrConnectWithoutLinkedAccountInput[]
+    upsert?: AdAccountUpsertWithWhereUniqueWithoutLinkedAccountInput | AdAccountUpsertWithWhereUniqueWithoutLinkedAccountInput[]
+    createMany?: AdAccountCreateManyLinkedAccountInputEnvelope
+    set?: AdAccountWhereUniqueInput | AdAccountWhereUniqueInput[]
+    disconnect?: AdAccountWhereUniqueInput | AdAccountWhereUniqueInput[]
+    delete?: AdAccountWhereUniqueInput | AdAccountWhereUniqueInput[]
+    connect?: AdAccountWhereUniqueInput | AdAccountWhereUniqueInput[]
+    update?: AdAccountUpdateWithWhereUniqueWithoutLinkedAccountInput | AdAccountUpdateWithWhereUniqueWithoutLinkedAccountInput[]
+    updateMany?: AdAccountUpdateManyWithWhereWithoutLinkedAccountInput | AdAccountUpdateManyWithWhereWithoutLinkedAccountInput[]
+    deleteMany?: AdAccountScalarWhereInput | AdAccountScalarWhereInput[]
+  }
+
+  export type AdAccountUncheckedUpdateManyWithoutLinkedAccountNestedInput = {
+    create?: XOR<AdAccountCreateWithoutLinkedAccountInput, AdAccountUncheckedCreateWithoutLinkedAccountInput> | AdAccountCreateWithoutLinkedAccountInput[] | AdAccountUncheckedCreateWithoutLinkedAccountInput[]
+    connectOrCreate?: AdAccountCreateOrConnectWithoutLinkedAccountInput | AdAccountCreateOrConnectWithoutLinkedAccountInput[]
+    upsert?: AdAccountUpsertWithWhereUniqueWithoutLinkedAccountInput | AdAccountUpsertWithWhereUniqueWithoutLinkedAccountInput[]
+    createMany?: AdAccountCreateManyLinkedAccountInputEnvelope
+    set?: AdAccountWhereUniqueInput | AdAccountWhereUniqueInput[]
+    disconnect?: AdAccountWhereUniqueInput | AdAccountWhereUniqueInput[]
+    delete?: AdAccountWhereUniqueInput | AdAccountWhereUniqueInput[]
+    connect?: AdAccountWhereUniqueInput | AdAccountWhereUniqueInput[]
+    update?: AdAccountUpdateWithWhereUniqueWithoutLinkedAccountInput | AdAccountUpdateWithWhereUniqueWithoutLinkedAccountInput[]
+    updateMany?: AdAccountUpdateManyWithWhereWithoutLinkedAccountInput | AdAccountUpdateManyWithWhereWithoutLinkedAccountInput[]
+    deleteMany?: AdAccountScalarWhereInput | AdAccountScalarWhereInput[]
+  }
+
+  export type LinkedAccountCreateNestedOneWithoutAdAccountsInput = {
+    create?: XOR<LinkedAccountCreateWithoutAdAccountsInput, LinkedAccountUncheckedCreateWithoutAdAccountsInput>
+    connectOrCreate?: LinkedAccountCreateOrConnectWithoutAdAccountsInput
+    connect?: LinkedAccountWhereUniqueInput
+  }
+
+  export type LinkedAccountUpdateOneRequiredWithoutAdAccountsNestedInput = {
+    create?: XOR<LinkedAccountCreateWithoutAdAccountsInput, LinkedAccountUncheckedCreateWithoutAdAccountsInput>
+    connectOrCreate?: LinkedAccountCreateOrConnectWithoutAdAccountsInput
+    upsert?: LinkedAccountUpsertWithoutAdAccountsInput
+    connect?: LinkedAccountWhereUniqueInput
+    update?: XOR<XOR<LinkedAccountUpdateToOneWithWhereWithoutAdAccountsInput, LinkedAccountUpdateWithoutAdAccountsInput>, LinkedAccountUncheckedUpdateWithoutAdAccountsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3658,6 +5193,163 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type AdAccountCreateWithoutLinkedAccountInput = {
+    id?: string
+    userId: string
+    accountId: string
+    accountName: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AdAccountUncheckedCreateWithoutLinkedAccountInput = {
+    id?: string
+    userId: string
+    accountId: string
+    accountName: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AdAccountCreateOrConnectWithoutLinkedAccountInput = {
+    where: AdAccountWhereUniqueInput
+    create: XOR<AdAccountCreateWithoutLinkedAccountInput, AdAccountUncheckedCreateWithoutLinkedAccountInput>
+  }
+
+  export type AdAccountCreateManyLinkedAccountInputEnvelope = {
+    data: AdAccountCreateManyLinkedAccountInput | AdAccountCreateManyLinkedAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AdAccountUpsertWithWhereUniqueWithoutLinkedAccountInput = {
+    where: AdAccountWhereUniqueInput
+    update: XOR<AdAccountUpdateWithoutLinkedAccountInput, AdAccountUncheckedUpdateWithoutLinkedAccountInput>
+    create: XOR<AdAccountCreateWithoutLinkedAccountInput, AdAccountUncheckedCreateWithoutLinkedAccountInput>
+  }
+
+  export type AdAccountUpdateWithWhereUniqueWithoutLinkedAccountInput = {
+    where: AdAccountWhereUniqueInput
+    data: XOR<AdAccountUpdateWithoutLinkedAccountInput, AdAccountUncheckedUpdateWithoutLinkedAccountInput>
+  }
+
+  export type AdAccountUpdateManyWithWhereWithoutLinkedAccountInput = {
+    where: AdAccountScalarWhereInput
+    data: XOR<AdAccountUpdateManyMutationInput, AdAccountUncheckedUpdateManyWithoutLinkedAccountInput>
+  }
+
+  export type AdAccountScalarWhereInput = {
+    AND?: AdAccountScalarWhereInput | AdAccountScalarWhereInput[]
+    OR?: AdAccountScalarWhereInput[]
+    NOT?: AdAccountScalarWhereInput | AdAccountScalarWhereInput[]
+    id?: StringFilter<"AdAccount"> | string
+    userId?: StringFilter<"AdAccount"> | string
+    linkedAccountId?: StringFilter<"AdAccount"> | string
+    accountId?: StringFilter<"AdAccount"> | string
+    accountName?: StringFilter<"AdAccount"> | string
+    createdAt?: DateTimeFilter<"AdAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"AdAccount"> | Date | string
+  }
+
+  export type LinkedAccountCreateWithoutAdAccountsInput = {
+    id?: string
+    userId: string
+    accountType: string
+    accessToken: string
+    accountId: string
+    accountName: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LinkedAccountUncheckedCreateWithoutAdAccountsInput = {
+    id?: string
+    userId: string
+    accountType: string
+    accessToken: string
+    accountId: string
+    accountName: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LinkedAccountCreateOrConnectWithoutAdAccountsInput = {
+    where: LinkedAccountWhereUniqueInput
+    create: XOR<LinkedAccountCreateWithoutAdAccountsInput, LinkedAccountUncheckedCreateWithoutAdAccountsInput>
+  }
+
+  export type LinkedAccountUpsertWithoutAdAccountsInput = {
+    update: XOR<LinkedAccountUpdateWithoutAdAccountsInput, LinkedAccountUncheckedUpdateWithoutAdAccountsInput>
+    create: XOR<LinkedAccountCreateWithoutAdAccountsInput, LinkedAccountUncheckedCreateWithoutAdAccountsInput>
+    where?: LinkedAccountWhereInput
+  }
+
+  export type LinkedAccountUpdateToOneWithWhereWithoutAdAccountsInput = {
+    where?: LinkedAccountWhereInput
+    data: XOR<LinkedAccountUpdateWithoutAdAccountsInput, LinkedAccountUncheckedUpdateWithoutAdAccountsInput>
+  }
+
+  export type LinkedAccountUpdateWithoutAdAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    accountType?: StringFieldUpdateOperationsInput | string
+    accessToken?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LinkedAccountUncheckedUpdateWithoutAdAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    accountType?: StringFieldUpdateOperationsInput | string
+    accessToken?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdAccountCreateManyLinkedAccountInput = {
+    id?: string
+    userId: string
+    accountId: string
+    accountName: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AdAccountUpdateWithoutLinkedAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdAccountUncheckedUpdateWithoutLinkedAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdAccountUncheckedUpdateManyWithoutLinkedAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    accountName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

@@ -6,7 +6,7 @@ import { ChatInput } from './ChatInput';
 import { LoadingSpinner } from './LoadingSpinner';
 import { MessagesList } from './MessagesList';
 import { useMessages } from '@/hooks/useMessages';
-import { ChatService } from '@/services/client/chat.service';
+import { ChatService } from '@/services/chat.service';
 import { MessageFactory } from '@/factories/message.factory';
 import { CurrentUser, FacebookAccount } from '@/types/chat';
 

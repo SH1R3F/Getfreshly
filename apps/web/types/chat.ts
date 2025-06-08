@@ -38,3 +38,10 @@ export interface ModelSelectorProps {
   isDisabled?: boolean;
   accountInfo: FacebookAccount;
 }
+
+export interface CreateMessageData {
+  content: string;
+  userId: string;
+  role: 'user' | 'assistant';
+  isLoading?: boolean;
+}

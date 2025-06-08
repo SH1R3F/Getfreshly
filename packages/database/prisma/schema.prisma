@@ -27,15 +27,29 @@ model Message {
 }
 
 model LinkedAccount {
-  id          String   @id @default(cuid())
-  userId      String   @unique
+  id          String      @id @default(cuid())
+  userId      String      @unique
   accountType String
   accessToken String
   accountId   String
   accountName String
+  adAccounts  AdAccount[]
   expiresAt   DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
   @@index([userId, accountType])
+}
+
+model AdAccount {
+  id              String        @id @default(cuid())
+  userId          String
+  linkedAccountId String
+  linkedAccount   LinkedAccount @relation(fields: [linkedAccountId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  accountId       String
+  accountName     String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([linkedAccountId])
 }
