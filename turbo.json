@@ -1,6 +1,7 @@
 {
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
+  "globalEnv": ["DATABASE_URL"],
   "tasks": {
     "build": {
       "dependsOn": ["^build", "^db:generate", "^db:deploy"],
@@ -20,17 +21,25 @@
       "persistent": true
     },
     "db:generate": {
-      "cache": false,
-      "env": ["DATABASE_URL"]
+      "cache": false
     },
     "db:migrate": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "cache": false,
+      "persistent": true
+    },
+    "db:reset": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "cache": false,
       "persistent": true,
-      "env": ["DATABASE_URL"]
+      "interactive": true
+    },
+    "db:studio": {
+      "cache": false,
+      "persistent": true
     },
     "db:deploy": {
-      "cache": false,
-      "env": ["DATABASE_URL"]
+      "cache": false
     }
   }
 }
