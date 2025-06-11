@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@repo/ui/components/button';
 import { Card, CardContent } from '@repo/ui/components/card';
-import { Settings } from 'lucide-react';
+import { Settings, RefreshCw } from 'lucide-react';
 import MetricCustomizationDialog from './MetricCustomizationDialog';
 
 export interface Metric {
@@ -157,7 +157,18 @@ export default function PerformanceDashboard() {
   return (
     <div className="space-y-4 p-4">
       {/* Header with Customize Button */}
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-2">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            /* TODO: Add refresh functionality */
+          }}
+          className="gap-2"
+        >
+          <RefreshCw className="h-4 w-4" />
+          Refresh
+        </Button>
         <Button
           variant="outline"
           size="sm"
