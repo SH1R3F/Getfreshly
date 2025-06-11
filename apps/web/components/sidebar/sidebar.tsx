@@ -19,13 +19,16 @@ import { usePathname } from 'next/navigation';
 const data = {
   navMain: [
     {
-      title: 'Getting Started',
+      title: 'Performance',
       url: '#',
       items: [
         {
+          title: 'Dashboard',
+          url: '/dashboard',
+        },
+        {
           title: 'Chat',
           url: '/chat',
-          isActive: true,
         },
       ],
     },
@@ -36,7 +39,6 @@ const data = {
         {
           title: 'Linked Accounts',
           url: '/settings/linked-accounts',
-          isActive: false,
         },
       ],
     },
