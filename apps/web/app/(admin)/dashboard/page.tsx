@@ -1,4 +1,3 @@
-import ChatContainer from '@/components/chat/ChatContainer';
 import { BreadcrumbsConsumer } from '@/consumers/breadcrumbsConsumer';
 import { Breadcrumb } from '@/types/breadcrumbs';
 import { UserService } from '@/services/user.service';
@@ -14,15 +13,11 @@ const breadCrumbs: Breadcrumb[] = [
 ];
 
 export default async function Page() {
-  const user = await UserService.getCurrentUser();
-
-  if (!user) {
-    throw new Error('User not found');
-  }
+  const userId = await UserService.requireAuth();
 
   const linkedAccounts = (await prisma.linkedAccount.findMany({
     where: {
-      userId: user.id,
+      userId,
     },
     select: {
       accountName: true,

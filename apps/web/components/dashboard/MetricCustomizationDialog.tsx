@@ -82,7 +82,7 @@ export default function MetricCustomizationDialog({
       // Adjust for the fact that we're moving an item that's currently in the list
       const draggedIndex = visibleMetrics.findIndex((m) => m.id === draggedId);
       if (draggedIndex !== -1 && draggedIndex < newIndex) {
-        newIndex = newIndex - 1;
+        newIndex -= 1;
       }
 
       onReorder(draggedId, newIndex);
