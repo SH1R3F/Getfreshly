@@ -4,13 +4,13 @@ import { Message } from '@/types/chat';
 import { ChatService } from '@/services/client/chat.service';
 import { MessageFactory } from '@/factories/message.factory';
 
-export function useMessages() {
+export function useMessages(chatId: string) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchMessages = async () => {
     try {
-      const data = await ChatService.fetchMessages();
+      const data = await ChatService.fetchMessages(chatId);
       setMessages(data.messages);
     } catch (error) {
       toast.error('Error fetching messages');
@@ -34,6 +34,7 @@ export function useMessages() {
       if (messageIndex === -1) {
         const newMessage = MessageFactory.createAssistantMessage(
           messageId,
+          chatId,
           textChunk,
         );
         return [...prev, newMessage];
@@ -58,6 +59,7 @@ export function useMessages() {
         // Create new assistant message if last message is not from assistant
         const newMessage = MessageFactory.createAssistantMessage(
           crypto.randomUUID(),
+          chatId,
           textChunk,
         );
         return [...prev, newMessage];

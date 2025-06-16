@@ -7,10 +7,7 @@ import ReduxProvider from '@/redux/redux-provider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider
-      signInForceRedirectUrl="/chat"
-      signUpForceRedirectUrl="/chat"
-    >
+    <ClerkProvider signInForceRedirectUrl="/new" signUpForceRedirectUrl="/new">
       <ReduxProvider>
         <NextThemesProvider
           attribute="class"

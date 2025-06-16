@@ -1,8 +1,8 @@
 import { Message, StreamChunkData, SelectedAccount } from '@/types/chat';
 
 export class ChatService {
-  static async fetchMessages(): Promise<{ messages: Message[] }> {
-    const response = await fetch('/api/chat');
+  static async fetchMessages(chatId: string): Promise<{ messages: Message[] }> {
+    const response = await fetch(`/api/chats/${chatId}`);
     const data = await response.json();
 
     if (!response.ok) {
@@ -12,16 +12,22 @@ export class ChatService {
     return data;
   }
 
+  //looook here
   static async sendMessage(
+    chatId: string,
     content: string,
     onChunk: (chunk: string) => void,
     selectedAccount?: SelectedAccount | null,
   ): Promise<void> {
     const requestBody: {
+      chatId: string;
       message: string;
       adAccountId?: string;
       accessToken?: string;
-    } = { message: content };
+    } = {
+      message: content,
+      chatId: chatId,
+    };
 
     // Include selected account data if available
     if (selectedAccount) {
@@ -29,7 +35,7 @@ export class ChatService {
       requestBody.accessToken = selectedAccount.accessToken;
     }
 
-    const response = await fetch('/api/chat', {
+    const response = await fetch(`/api/chats/${chatId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

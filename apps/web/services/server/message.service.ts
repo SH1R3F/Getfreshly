@@ -11,10 +11,12 @@ export class MessageService {
 
   static async getUserChatHistory(
     userId: string,
+    chatId: string,
   ): Promise<ChatCompletionMessageParam[]> {
     const messages = await prisma.message.findMany({
       where: {
         userId,
+        chatId,
         content: { not: '' },
       },
       orderBy: { createdAt: 'asc' },
@@ -27,9 +29,9 @@ export class MessageService {
     return messages as ChatCompletionMessageParam[];
   }
 
-  static async getUserMessages(userId: string) {
+  static async getUserMessages(userId: string, chatId: string) {
     return await prisma.message.findMany({
-      where: { userId },
+      where: { userId, chatId },
       orderBy: { createdAt: 'asc' },
     });
   }
@@ -47,11 +49,13 @@ export class MessageService {
   static async storeMessages(
     userId: string,
     messages: ChatCompletionMessageParam[],
+    chatId: string,
   ) {
     for (const message of messages) {
       await this.createMessage({
         ...message,
         userId,
+        chatId,
       } as CreateMessageData);
     }
   }
