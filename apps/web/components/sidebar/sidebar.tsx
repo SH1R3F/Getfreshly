@@ -20,6 +20,31 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   recentChatsContent: ReactNode;
 }
 
+const data = {
+  navMain: [
+    {
+      title: 'Performance',
+      url: '#',
+      items: [
+        {
+          title: 'Dashboard',
+          url: '/dashboard',
+        },
+      ],
+    },
+    {
+      title: 'Settings',
+      url: '#',
+      items: [
+        {
+          title: 'Linked Accounts',
+          url: '/settings/linked-accounts',
+        },
+      ],
+    },
+  ],
+};
+
 export function AppSidebar({ recentChatsContent, ...props }: AppSidebarProps) {
   const pathname = usePathname();
 
@@ -41,22 +66,23 @@ export function AppSidebar({ recentChatsContent, ...props }: AppSidebarProps) {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>Settings</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === '/settings/linked-accounts'}
-                >
-                  <Link href="/settings/linked-accounts">Linked Accounts</Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {/* We create a SidebarGroup for each parent. */}
+        {data.navMain.map((item) => (
+          <SidebarGroup key={item.title}>
+            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {item.items.map((itm) => (
+                  <SidebarMenuItem key={itm.title}>
+                    <SidebarMenuButton asChild isActive={pathname === itm.url}>
+                      <Link href={itm.url}>{itm.title}</Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
