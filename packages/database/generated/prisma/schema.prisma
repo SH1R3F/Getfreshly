@@ -29,8 +29,8 @@ model Message {
   id        String   @id @default(cuid())
   content   String
   userId    String
-  chatId    String
-  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  chatId    String?
+  chat      Chat?    @relation(fields: [chatId], references: [id], onDelete: Cascade)
   role      String   @default("user")
   isLoading Boolean  @default(false)
   createdAt DateTime @default(now())

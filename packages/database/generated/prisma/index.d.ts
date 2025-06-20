@@ -2428,7 +2428,7 @@ export namespace Prisma {
     id: string
     content: string
     userId: string
-    chatId: string
+    chatId: string | null
     role: string
     isLoading: boolean
     createdAt: Date
@@ -2461,7 +2461,7 @@ export namespace Prisma {
     isLoading?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    chat?: boolean | ChatDefaultArgs<ExtArgs>
+    chat?: boolean | Message$chatArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
   export type MessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2473,7 +2473,7 @@ export namespace Prisma {
     isLoading?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    chat?: boolean | ChatDefaultArgs<ExtArgs>
+    chat?: boolean | Message$chatArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
   export type MessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2485,7 +2485,7 @@ export namespace Prisma {
     isLoading?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    chat?: boolean | ChatDefaultArgs<ExtArgs>
+    chat?: boolean | Message$chatArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
   export type MessageSelectScalar = {
@@ -2501,25 +2501,25 @@ export namespace Prisma {
 
   export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "userId" | "chatId" | "role" | "isLoading" | "createdAt" | "updatedAt", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    chat?: boolean | ChatDefaultArgs<ExtArgs>
+    chat?: boolean | Message$chatArgs<ExtArgs>
   }
   export type MessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    chat?: boolean | ChatDefaultArgs<ExtArgs>
+    chat?: boolean | Message$chatArgs<ExtArgs>
   }
   export type MessageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    chat?: boolean | ChatDefaultArgs<ExtArgs>
+    chat?: boolean | Message$chatArgs<ExtArgs>
   }
 
   export type $MessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Message"
     objects: {
-      chat: Prisma.$ChatPayload<ExtArgs>
+      chat: Prisma.$ChatPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       content: string
       userId: string
-      chatId: string
+      chatId: string | null
       role: string
       isLoading: boolean
       createdAt: Date
@@ -2918,7 +2918,7 @@ export namespace Prisma {
    */
   export interface Prisma__MessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    chat<T extends ChatDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChatDefaultArgs<ExtArgs>>): Prisma__ChatClient<$Result.GetResult<Prisma.$ChatPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    chat<T extends Message$chatArgs<ExtArgs> = {}>(args?: Subset<T, Message$chatArgs<ExtArgs>>): Prisma__ChatClient<$Result.GetResult<Prisma.$ChatPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3349,6 +3349,25 @@ export namespace Prisma {
      * Limit how many Messages to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Message.chat
+   */
+  export type Message$chatArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Chat
+     */
+    select?: ChatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Chat
+     */
+    omit?: ChatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatInclude<ExtArgs> | null
+    where?: ChatWhereInput
   }
 
   /**
@@ -5659,6 +5678,14 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   /**
    * Field references
    */
@@ -5778,19 +5805,19 @@ export namespace Prisma {
     id?: StringFilter<"Message"> | string
     content?: StringFilter<"Message"> | string
     userId?: StringFilter<"Message"> | string
-    chatId?: StringFilter<"Message"> | string
+    chatId?: StringNullableFilter<"Message"> | string | null
     role?: StringFilter<"Message"> | string
     isLoading?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
-    chat?: XOR<ChatScalarRelationFilter, ChatWhereInput>
+    chat?: XOR<ChatNullableScalarRelationFilter, ChatWhereInput> | null
   }
 
   export type MessageOrderByWithRelationInput = {
     id?: SortOrder
     content?: SortOrder
     userId?: SortOrder
-    chatId?: SortOrder
+    chatId?: SortOrderInput | SortOrder
     role?: SortOrder
     isLoading?: SortOrder
     createdAt?: SortOrder
@@ -5805,19 +5832,19 @@ export namespace Prisma {
     NOT?: MessageWhereInput | MessageWhereInput[]
     content?: StringFilter<"Message"> | string
     userId?: StringFilter<"Message"> | string
-    chatId?: StringFilter<"Message"> | string
+    chatId?: StringNullableFilter<"Message"> | string | null
     role?: StringFilter<"Message"> | string
     isLoading?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
-    chat?: XOR<ChatScalarRelationFilter, ChatWhereInput>
+    chat?: XOR<ChatNullableScalarRelationFilter, ChatWhereInput> | null
   }, "id">
 
   export type MessageOrderByWithAggregationInput = {
     id?: SortOrder
     content?: SortOrder
     userId?: SortOrder
-    chatId?: SortOrder
+    chatId?: SortOrderInput | SortOrder
     role?: SortOrder
     isLoading?: SortOrder
     createdAt?: SortOrder
@@ -5834,7 +5861,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Message"> | string
     content?: StringWithAggregatesFilter<"Message"> | string
     userId?: StringWithAggregatesFilter<"Message"> | string
-    chatId?: StringWithAggregatesFilter<"Message"> | string
+    chatId?: StringNullableWithAggregatesFilter<"Message"> | string | null
     role?: StringWithAggregatesFilter<"Message"> | string
     isLoading?: BoolWithAggregatesFilter<"Message"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
@@ -6050,14 +6077,14 @@ export namespace Prisma {
     isLoading?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    chat: ChatCreateNestedOneWithoutMessagesInput
+    chat?: ChatCreateNestedOneWithoutMessagesInput
   }
 
   export type MessageUncheckedCreateInput = {
     id?: string
     content: string
     userId: string
-    chatId: string
+    chatId?: string | null
     role?: string
     isLoading?: boolean
     createdAt?: Date | string
@@ -6072,14 +6099,14 @@ export namespace Prisma {
     isLoading?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
+    chat?: ChatUpdateOneWithoutMessagesNestedInput
   }
 
   export type MessageUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    chatId?: StringFieldUpdateOperationsInput | string
+    chatId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
     isLoading?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6090,7 +6117,7 @@ export namespace Prisma {
     id?: string
     content: string
     userId: string
-    chatId: string
+    chatId?: string | null
     role?: string
     isLoading?: boolean
     createdAt?: Date | string
@@ -6111,7 +6138,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    chatId?: StringFieldUpdateOperationsInput | string
+    chatId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
     isLoading?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6367,14 +6394,34 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type ChatScalarRelationFilter = {
-    is?: ChatWhereInput
-    isNot?: ChatWhereInput
+  export type ChatNullableScalarRelationFilter = {
+    is?: ChatWhereInput | null
+    isNot?: ChatWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type MessageCountOrderByAggregateInput = {
@@ -6408,6 +6455,24 @@ export namespace Prisma {
     isLoading?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -6564,12 +6629,18 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type ChatUpdateOneRequiredWithoutMessagesNestedInput = {
+  export type ChatUpdateOneWithoutMessagesNestedInput = {
     create?: XOR<ChatCreateWithoutMessagesInput, ChatUncheckedCreateWithoutMessagesInput>
     connectOrCreate?: ChatCreateOrConnectWithoutMessagesInput
     upsert?: ChatUpsertWithoutMessagesInput
+    disconnect?: ChatWhereInput | boolean
+    delete?: ChatWhereInput | boolean
     connect?: ChatWhereUniqueInput
     update?: XOR<XOR<ChatUpdateToOneWithWhereWithoutMessagesInput, ChatUpdateWithoutMessagesInput>, ChatUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type AdAccountCreateNestedManyWithoutLinkedAccountInput = {
@@ -6695,9 +6766,51 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -6761,7 +6874,7 @@ export namespace Prisma {
     id?: StringFilter<"Message"> | string
     content?: StringFilter<"Message"> | string
     userId?: StringFilter<"Message"> | string
-    chatId?: StringFilter<"Message"> | string
+    chatId?: StringNullableFilter<"Message"> | string | null
     role?: StringFilter<"Message"> | string
     isLoading?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
