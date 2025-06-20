@@ -14,8 +14,12 @@ import {
 } from '@repo/ui/components/sidebar';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ReactNode } from 'react';
 
-// This is sample data.
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  recentChatsContent: ReactNode;
+}
+
 const data = {
   navMain: [
     {
@@ -25,10 +29,6 @@ const data = {
         {
           title: 'Dashboard',
           url: '/dashboard',
-        },
-        {
-          title: 'Chat',
-          url: '/chat',
         },
       ],
     },
@@ -45,16 +45,27 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ recentChatsContent, ...props }: AppSidebarProps) {
   const pathname = usePathname();
-  // TODO : This is only a temp solution to get the active path, fix this later
-  const activePath = `/${pathname.split('/')[3]}`;
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <Sidebar {...props}>
       <SidebarHeader />
       <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Chats</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname === '/new'}>
+                  <Link href="/new">+ New Chat</Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              {recentChatsContent}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
         {/* We create a SidebarGroup for each parent. */}
         {data.navMain.map((item) => (
           <SidebarGroup key={item.title}>

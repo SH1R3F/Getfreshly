@@ -14,7 +14,7 @@ export function UserIcon() {
             <UserButton.Link
               label="Chat"
               labelIcon={<LayoutDashboard size="16" className="stroke-2" />}
-              href="/chat"
+              href="/new"
             />
           </UserButton.MenuItems>
         </UserButton>

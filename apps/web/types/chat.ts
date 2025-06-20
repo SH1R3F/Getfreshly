@@ -3,6 +3,7 @@ import { LinkedAccount } from './linkedAccounts';
 export type MessageRole = 'user' | 'assistant';
 
 export type Message = {
+  chatId: string;
   id: string;
   content: string;
   role: MessageRole;
@@ -49,6 +50,7 @@ export interface SelectedAccount {
 export interface CreateMessageData {
   content: string;
   userId: string;
+  chatId: string;
   role: 'user' | 'assistant';
   isLoading?: boolean;
 }

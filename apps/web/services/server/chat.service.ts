@@ -4,9 +4,14 @@ import { MessageService } from './message.service';
 import { StreamingService } from './streaming.service';
 
 export class ChatService {
-  static async processUserMessage(userId: string, messageContent: string) {
+  static async processUserMessage(
+    userId: string,
+    messageContent: string,
+    chatId: string,
+  ) {
     // Save user message
     await MessageService.createMessage({
+      chatId,
       content: messageContent,
       userId,
       role: 'user',
@@ -14,6 +19,7 @@ export class ChatService {
 
     // Create assistant message placeholder
     const assistantMessage = await MessageService.createMessage({
+      chatId,
       content: '',
       userId,
       role: 'assistant',
@@ -29,6 +35,7 @@ export class ChatService {
     userId: string,
     accessToken?: string,
     adAccountId?: string,
+    chatId?: string,
   ): Promise<void> {
     try {
       let fullResponse = '';
@@ -45,7 +52,9 @@ export class ChatService {
         { role: 'assistant', content: fullResponse },
       ] as ChatCompletionMessageParam[];
 
-      await MessageService.storeMessages(userId, newMessages);
+      if (chatId) {
+        await MessageService.storeMessages(userId, newMessages, chatId);
+      }
       await streamingService.writeDone();
     } catch (error) {
       console.error('Error in streaming response:', error);
